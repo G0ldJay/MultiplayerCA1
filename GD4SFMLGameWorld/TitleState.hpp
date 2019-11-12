@@ -17,6 +17,9 @@ private:
 	sf::Sprite mBackgroundSprite;
 	sf::Text mText;
 
+	sf::Vector2u mTextureSize;
+	sf::Vector2u mWindowSize;
+
 	bool mShowText;
 	sf::Time mTextEffectTime;
 };

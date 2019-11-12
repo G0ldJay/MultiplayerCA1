@@ -5,6 +5,9 @@
 #include "GameState.hpp"
 #include "PauseState.hpp"
 
+#include<SFML/Graphics.hpp>
+#include<SFML/Window.hpp>
+
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Application::Application()
@@ -19,8 +22,8 @@ Application::Application()
 {
 	mWindow.setKeyRepeatEnabled(false);
 
-	mFonts.load(FontID::Main, "Media/Sansation.ttf");
-	mTextures.load(TextureID::TitleScreen, "Media/Textures/TitleScreen.png");
+	mFonts.load(FontID::Main, "Media/Andes.ttf");
+	mTextures.load(TextureID::TitleScreen, "Media/Textures/1.png");
 	mStatisticText.setFont(mFonts.get(FontID::Main));
 	mStatisticText.setPosition(5.f, 5.f);
 	mStatisticText.setCharacterSize(20);

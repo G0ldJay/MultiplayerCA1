@@ -4,9 +4,9 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
-	:mWindow(sf::VideoMode(640, 480), "SFML Hello World With Structure"), mWorld(mWindow), mPlayer(), mFont(), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0)
+	:mWindow(sf::VideoMode(640, 480), "Our Awesome Game"), mWorld(mWindow), mPlayer(), mFont(), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0)
 {
-	mFont.loadFromFile("Media/Sansation.ttf");
+	mFont.loadFromFile("Media/Andes.ttf");
 	mStatisticsText.setFont(mFont);
 	mStatisticsText.setPosition(5.f, 5.f);
 	mStatisticsText.setCharacterSize(20);

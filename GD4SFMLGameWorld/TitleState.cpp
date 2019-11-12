@@ -7,7 +7,15 @@
 TitleState::TitleState(StateStack& stack, Context context) 
 	:State(stack, context), mText(), mShowText(true), mTextEffectTime(sf::Time::Zero)
 {
+	mTextureSize = context.textures->get(TextureID::TitleScreen).getSize();
+	mWindowSize = context.window->getSize();
+
+	float ScaleX = (float)mWindowSize.x / mTextureSize.x;
+	float ScaleY = (float)mWindowSize.y / mTextureSize.y;
+
 	mBackgroundSprite.setTexture(context.textures->get(TextureID::TitleScreen));
+	mBackgroundSprite.setScale(ScaleX, ScaleY);
+
 	mText.setFont(context.fonts->get(FontID::Main));
 	mText.setString("Press any key start");
 	centreOrigin(mText);
