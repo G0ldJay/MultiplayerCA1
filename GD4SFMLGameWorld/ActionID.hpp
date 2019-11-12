@@ -5,6 +5,5 @@ enum class ActionID
 	MoveRight,
 	MoveUp,
 	MoveDown,
-	ActionCount,
-	TEST_ME_Daddy
+	ActionCount
 };
