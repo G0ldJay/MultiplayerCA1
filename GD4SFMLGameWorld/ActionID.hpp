@@ -5,5 +5,6 @@ enum class ActionID
 	MoveRight,
 	MoveUp,
 	MoveDown,
-	ActionCount
+	ActionCount,
+	If_You_Read_That_John_Im_Sorry
 };
