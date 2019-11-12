@@ -6,5 +6,5 @@ enum class ActionID
 	MoveUp,
 	MoveDown,
 	ActionCount,
-	If_You_Read_That_John_Im_Sorry
+	an_actual_dummy_change
 };
