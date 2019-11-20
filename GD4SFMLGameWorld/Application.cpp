@@ -4,6 +4,7 @@
 #include "MenuState.hpp"
 #include "GameState.hpp"
 #include "PauseState.hpp"
+#include"SettingsState.hpp"
 
 #include<SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
@@ -24,6 +25,10 @@ Application::Application()
 
 	mFonts.load(FontID::Main, "Media/Andes.ttf");
 	mTextures.load(TextureID::TitleScreen, "Media/Textures/1.png");
+	mTextures.load(TextureID::MainMenu, "Media/Textures/2.png");
+	mTextures.load(TextureID::ButtonNormal, "Media/Textures/ButtonNormal.png");
+	mTextures.load(TextureID::ButtonPressed, "Media/Textures/ButtonPressed.png");
+	mTextures.load(TextureID::ButtonSelected, "Media/Textures/ButtonSelected.png");
 	mStatisticText.setFont(mFonts.get(FontID::Main));
 	mStatisticText.setPosition(5.f, 5.f);
 	mStatisticText.setCharacterSize(20);
@@ -107,4 +112,5 @@ void Application::registerStates()
 	mStateStack.registerState<MenuState>(StateID::Menu);
 	mStateStack.registerState<GameState>(StateID::Game);
 	mStateStack.registerState<PauseState>(StateID::Pause);
+	mStateStack.registerState<SettingsState>(StateID::Settings);
 }

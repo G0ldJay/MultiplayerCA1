@@ -4,5 +4,9 @@ enum class TextureID
 	Eagle,
 	Raptor,
 	Desert,
-	TitleScreen
+	TitleScreen,
+	MainMenu,
+	ButtonNormal,
+	ButtonSelected,
+	ButtonPressed
 };
