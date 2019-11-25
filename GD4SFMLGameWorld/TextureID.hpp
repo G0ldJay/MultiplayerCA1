@@ -8,5 +8,6 @@ enum class TextureID
 	MainMenu,
 	ButtonNormal,
 	ButtonSelected,
-	ButtonPressed
+	ButtonPressed,
+	TankSelectionBackground
 };

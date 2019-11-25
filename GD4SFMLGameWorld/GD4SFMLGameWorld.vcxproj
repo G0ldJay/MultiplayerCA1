@@ -164,6 +164,7 @@
     <ClInclude Include="StateID.hpp" />
     <ClInclude Include="StateStack.hpp" />
     <ClInclude Include="StateStackActionID.hpp" />
+    <ClInclude Include="TankSelectionState.hpp" />
     <ClInclude Include="Utility.hpp" />
     <ClInclude Include="TextureID.hpp" />
     <ClInclude Include="TitleState.hpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="SpriteNode.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
+    <ClCompile Include="TankSelectionState.cpp" />
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="World.cpp" />

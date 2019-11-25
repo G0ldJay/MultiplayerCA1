@@ -5,6 +5,7 @@
 #include "GameState.hpp"
 #include "PauseState.hpp"
 #include"SettingsState.hpp"
+#include "TankSelectionState.hpp"
 
 #include<SFML/Graphics.hpp>
 #include<SFML/Window.hpp>
@@ -29,6 +30,7 @@ Application::Application()
 	mTextures.load(TextureID::ButtonNormal, "Media/Textures/ButtonNormal.png");
 	mTextures.load(TextureID::ButtonPressed, "Media/Textures/ButtonPressed.png");
 	mTextures.load(TextureID::ButtonSelected, "Media/Textures/ButtonSelected.png");
+	mTextures.load(TextureID::TankSelectionBackground, "Media/Textures/TankSelectionBackground.png");
 	mStatisticText.setFont(mFonts.get(FontID::Main));
 	mStatisticText.setPosition(5.f, 5.f);
 	mStatisticText.setCharacterSize(20);
@@ -113,4 +115,5 @@ void Application::registerStates()
 	mStateStack.registerState<GameState>(StateID::Game);
 	mStateStack.registerState<PauseState>(StateID::Pause);
 	mStateStack.registerState<SettingsState>(StateID::Settings);
+	mStateStack.registerState<TankSelectionState>(StateID::TankSelection);
 }

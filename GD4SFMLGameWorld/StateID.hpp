@@ -6,5 +6,6 @@ enum class StateID
 	Menu,
 	Game, 
 	Pause,
-	Settings
+	Settings,
+	TankSelection
 };
