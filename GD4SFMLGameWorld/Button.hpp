@@ -1,26 +1,33 @@
 #pragma once
-#include"Component.hpp"
-#include"ResourceHolder.hpp"
-#include"ResourceIdentifiers.hpp"
+#include "Component.hpp"
+#include "ResourceHolder.hpp"
+#include "ResourceIdentifiers.hpp"
+#include "Utility.hpp"
+#include "ButtonID.hpp"
+#include "State.hpp"
 
-#include<SFML/Graphics/Sprite.hpp>
-#include<SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
-#include<vector>
-#include<string>
-#include<memory>
-#include<functional>
+#include <vector>
+#include <string>
+#include <memory>
+#include <functional>
 
-namespace GUI {
-	class Button :public Component {
+class SoundPlayer;
+
+namespace GUI
+{
+	class Button : public Component
+	{
 	public:
-		typedef std::shared_ptr<Button> Ptr;
+		typedef std::shared_ptr <Button> Ptr;
 		typedef std::function<void()> Callback;
 
 	public:
-		Button(const FontHolder& fonts, const TextureHolder& textures);
+		Button(State::Context context);
 
-		void setCallback(Callback callBack);
+		void setCallback(Callback callback);
 		void setText(const std::string& text);
 		void setToggle(bool flag);
 
@@ -35,14 +42,14 @@ namespace GUI {
 
 	private:
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void changeTexture(ButtonID buttonType);
 
 	private:
-		Callback mCallBack;
-		const sf::Texture& mNormalTexture;
-		const sf::Texture& mSelectedTexture;
-		const sf::Texture& mPressedTexture;
+		Callback mCallback;
 		sf::Sprite mSprite;
 		sf::Text mText;
 		bool mIsToggle;
+		SoundPlayer& mSounds;
 	};
 }
+

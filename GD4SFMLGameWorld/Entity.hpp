@@ -1,12 +1,12 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "SceneNode.hpp"
+#include "CommandQueue.hpp"
 
 class Entity : public SceneNode
 {
 public:
 	Entity(int hitpoints);
-
 	void setVelocity(sf::Vector2f velocity);
 	void setVelocity(float vx, float vy);
 	void accelerate(sf::Vector2f velocity);
@@ -17,10 +17,10 @@ public:
 	void repair(int points);
 	void damage(int points);
 	void destroy();
-	virtual bool idDestroyed();
+	virtual bool isDestroyed() const;
 
-private:
-	virtual void updateCurrent(sf::Time dt);
+protected:
+	virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
 
 private:
 	sf::Vector2f mVelocity;

@@ -7,34 +7,22 @@
 #include <SFML/Graphics/View.hpp>
 
 MenuState::MenuState(StateStack& stack, Context context)
-	: State(stack, context), mGUIContainer()
+	: State(stack, context)
+	, mGUIContainer()
 {
-
-	mTextureSize = context.textures->get(TextureID::MainMenu).getSize();
-	mWindowSize = context.window->getSize();
-
-	float ScaleX = (float)mWindowSize.x / mTextureSize.x;
-	float ScaleY = (float)mWindowSize.y / mTextureSize.y;
-
-	mBackgroundSprite.setTexture(context.textures->get(TextureID::MainMenu));
-	mBackgroundSprite.setScale(ScaleX, ScaleY);
-
-	sf::Texture& texture = context.textures->get(TextureID::MainMenu);
-
+	sf::Texture& texture = context.textures->get(TextureID::TitleScreen);
 	mBackgroundSprite.setTexture(texture);
 
-	auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-
+	auto playButton = std::make_shared<GUI::Button>(context);
 	playButton->setPosition(100, 250);
 	playButton->setText("Play");
-	playButton->setCallback([this]() 
+	playButton->setCallback([this]()
 	{
 		requestStackPop();
-		requestStackPush(StateID::TankSelection);
+		requestStackPush(StateID::Game);
 	});
 
-	auto settingsButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-
+	auto settingsButton = std::make_shared<GUI::Button>(context);
 	settingsButton->setPosition(100, 300);
 	settingsButton->setText("Settings");
 	settingsButton->setCallback([this]()
@@ -42,11 +30,10 @@ MenuState::MenuState(StateStack& stack, Context context)
 		requestStackPush(StateID::Settings);
 	});
 
-	auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-
+	auto exitButton = std::make_shared<GUI::Button>(context);
 	exitButton->setPosition(100, 350);
 	exitButton->setText("Exit");
-	exitButton->setCallback([this]() 
+	exitButton->setCallback([this]()
 	{
 		requestStackClear();
 	});
@@ -54,6 +41,8 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mGUIContainer.pack(playButton);
 	mGUIContainer.pack(settingsButton);
 	mGUIContainer.pack(exitButton);
+
+	context.music->play(MusicID::MenuTheme);
 }
 
 void MenuState::draw()
@@ -75,3 +64,4 @@ bool MenuState::handleEvent(const sf::Event& event)
 	mGUIContainer.handleEvent(event);
 	return false;
 }
+

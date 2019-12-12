@@ -1,20 +1,23 @@
 #pragma once
-#include"Component.hpp"
-#include"ResourceIdentifiers.hpp"
-#include"ResourceHolder.hpp"
+#include "Component.hpp"
+#include "ResourceIdentifiers.hpp"
+#include "ResourceHolder.hpp"
 
-#include<SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Text.hpp>
 
-namespace GUI {
+namespace GUI
+{
 	class Label : public Component
 	{
 	public:
 		typedef std::shared_ptr<Label> Ptr;
+
 	public:
 		Label(const std::string& text, const FontHolder& fonts);
 
 		virtual bool isSelectable() const;
 		void setText(const std::string& text);
+
 		virtual void handleEvent(const sf::Event& event);
 
 	private:

@@ -1,19 +1,23 @@
 #include "Button.hpp"
-#include"Utility.hpp"
+#include "State.hpp"
 
-#include<SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
-GUI::Button::Button(const FontHolder& fonts, const TextureHolder& textures):mCallBack(), mNormalTexture(textures.get(TextureID::ButtonNormal)), mSelectedTexture(textures.get(TextureID::ButtonSelected)), mPressedTexture(textures.get(TextureID::ButtonPressed)), mSprite(),mText("",fonts.get(FontID::Main), 16), mIsToggle(false)
+GUI::Button::Button(State::Context context)
+	:mCallback()
+	, mSprite(context.textures->get(TextureID::Buttons))
+	, mText("", context.fonts->get(FontID::Main), 16)
+	, mIsToggle(false)
+	, mSounds(*context.sounds)
 {
-	mSprite.setTexture(mNormalTexture);
-
+	changeTexture(ButtonID::Normal);
 	sf::FloatRect bounds = mSprite.getLocalBounds();
 	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f);
 }
 
-void GUI::Button::setCallback(Callback callBack)
+void GUI::Button::setCallback(Callback callback)
 {
-	mCallBack = std::move(callBack);
+	mCallback = std::move(callback);
 }
 
 void GUI::Button::setText(const std::string& text)
@@ -35,29 +39,32 @@ bool GUI::Button::isSelectable() const
 void GUI::Button::select()
 {
 	Component::select();
-	mSprite.setTexture(mSelectedTexture);
+	changeTexture(ButtonID::Selected);
 }
 
 void GUI::Button::deselect()
 {
 	Component::deselect();
-	mSprite.setTexture(mNormalTexture);
+	changeTexture(ButtonID::Normal);
 }
 
 void GUI::Button::activate()
 {
 	Component::activate();
+	mSounds.play(SoundEffectID::Button);
 
-	//If we toggle then we need to show button as pressed or toggled
-	if (mIsToggle) {
-		mSprite.setTexture(mPressedTexture);
+	//If we toggle then we should show the button as pressed/toggled
+	if (mIsToggle)
+	{
+		changeTexture(ButtonID::Pressed);
+	}
+	if (mCallback)
+	{
+		mCallback();
 	}
 
-	if (mCallBack) {
-		mCallBack();
-	}
-
-	if (!mIsToggle) {
+	if (!mIsToggle)
+	{
 		deactivate();
 	}
 }
@@ -66,11 +73,17 @@ void GUI::Button::deactivate()
 {
 	Component::deactivate();
 
-	if (mIsToggle) {
-		if(isSelected())
-			mSprite.setTexture(mSelectedTexture);
+	if (mIsToggle)
+	{
+		//Reset the texture
+		if (isSelected())
+		{
+			changeTexture(ButtonID::Selected);
+		}
 		else
-			mSprite.setTexture(mNormalTexture);
+		{
+			changeTexture(ButtonID::Normal);
+		}
 	}
 }
 
@@ -83,4 +96,10 @@ void GUI::Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	states.transform *= getTransform();
 	target.draw(mSprite, states);
 	target.draw(mText, states);
+}
+
+void GUI::Button::changeTexture(ButtonID button)
+{
+	sf::IntRect textureRect(0, 50 * static_cast<int>(button), 200, 50);
+	mSprite.setTextureRect(textureRect);
 }

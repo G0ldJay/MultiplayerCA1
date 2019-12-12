@@ -1,21 +1,21 @@
 #pragma once
-#include"State.hpp"
-#include"Container.hpp"
-#include"Button.hpp"
-#include"Player.hpp"
-#include"Label.hpp"
-#include"ActionID.hpp"
-#include"Utility.hpp"
+#include "State.hpp"
+#include "Container.hpp"
+#include "Button.hpp"
+#include "Player.hpp"
+#include "Label.hpp"
+#include "ActionID.hpp"
 
-#include<SFML/Graphics/Sprite.hpp>
-#include<SFML/Graphics/Text.hpp>
-#include<SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
-#include<array>
+#include <array>
 
-class SettingsState :public State {
+class SettingState : public State
+{
 public:
-	SettingsState(StateStack& stack, Context context);
+	SettingState(StateStack& stack, Context context);
 
 	virtual void draw();
 	virtual bool update(sf::Time dt);

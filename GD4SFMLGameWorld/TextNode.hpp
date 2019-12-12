@@ -1,9 +1,10 @@
 #pragma once
-#include"SceneNode.hpp"
-#include"ResourceHolder.hpp"
-#include"ResourceIdentifiers.hpp"
+#include "SceneNode.hpp"
+#include "ResourceHolder.hpp"
+#include "ResourceIdentifiers.hpp"
+#include "Utility.hpp"
 
-#include<SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 class TextNode : public SceneNode
 {

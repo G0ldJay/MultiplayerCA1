@@ -7,5 +7,5 @@ enum class StateID
 	Game, 
 	Pause,
 	Settings,
-	TankSelection
+	GameOver
 };
