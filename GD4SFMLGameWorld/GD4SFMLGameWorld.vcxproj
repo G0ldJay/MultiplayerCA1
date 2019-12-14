@@ -136,6 +136,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActionID.hpp" />
+    <ClInclude Include="Obstacle.hpp" />
+    <ClInclude Include="ObstacleID.hpp" />
     <ClInclude Include="PlayerTwo.hpp" />
     <ClInclude Include="Tank.hpp" />
     <ClInclude Include="Animation.hpp" />
@@ -194,6 +196,7 @@
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="PlayerTwo.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="Animation.cpp" />

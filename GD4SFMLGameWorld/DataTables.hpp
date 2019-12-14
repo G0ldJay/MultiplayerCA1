@@ -41,6 +41,14 @@ struct ProjectileData
 	sf::IntRect textureRect;
 };
 
+struct ObstacleData
+{
+	int hitpoints;
+	int damage;
+	TextureID texture;
+	//sf::IntRect textureRect;
+};
+
 struct PickupData
 {
 	std::function<void(Tank&)> action;

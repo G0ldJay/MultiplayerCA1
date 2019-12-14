@@ -3,10 +3,10 @@
 #include "Projectile.hpp"
 #include "Pickup.hpp"
 #include "TankID.hpp"
-#include "TankID.hpp"
 #include "ProjectileID.hpp"
 #include "PickupID.hpp"
 #include "ParticleID.hpp"
+#include"ObstacleID.hpp"
 
 std::vector<TankData> initializeTankData()
 {
@@ -234,6 +234,25 @@ std::vector<ProjectileData> initializeProjectileData()
 	data[static_cast<int>(ProjectileID::TeslaBullet)].speed = 200.f;
 	data[static_cast<int>(ProjectileID::TeslaBullet)].texture = TextureID::Entities;
 	data[static_cast<int>(ProjectileID::TeslaBullet)].textureRect = sf::IntRect(160, 54, 15, 32);
+
+	return data;
+}
+
+std::vector<ObstacleData> initializeObstacleData()
+{
+	std::vector<ObstacleData> data(static_cast<int>(ObstacleID::TypeCount));
+
+	data[static_cast<int>(ObstacleID::Wall)].damage = 2;
+	data[static_cast<int>(ObstacleID::Wall)].hitpoints = 10000;
+	data[static_cast<int>(ObstacleID::Wall)].texture = TextureID::Wall;
+
+	data[static_cast<int>(ObstacleID::Barrel)].damage = 40;
+	data[static_cast<int>(ObstacleID::Barrel)].hitpoints = 10;
+	data[static_cast<int>(ObstacleID::Barrel)].texture = TextureID::Barrel;
+
+	data[static_cast<int>(ObstacleID::DestructableWall)].damage = 2;
+	data[static_cast<int>(ObstacleID::DestructableWall)].hitpoints = 20;
+	data[static_cast<int>(ObstacleID::DestructableWall)].texture = TextureID::DestructableWall;
 
 	return data;
 }

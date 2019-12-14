@@ -1,6 +1,7 @@
 #include "World.hpp"
 #include "ParticleID.hpp"
 #include "ParticleNode.hpp"
+#include "Obstacle.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -109,6 +110,9 @@ void World::loadTextures()
 {
 	mTextures.load(TextureID::Tanks, "Media/Textures/TankSpriteSheet.png");
 	mTextures.load(TextureID::Entities, "Media/Textures/Entities.png");
+	mTextures.load(TextureID::Barrel, "Media/Textures/Arena/Props/Barell_01.png");
+	mTextures.load(TextureID::Wall, "Media/Textures/Arena/Blocks/Block_C_02.png");
+	mTextures.load(TextureID::DestructableWall, "Media/Textures/Arena/Blocks/Block_B_02.png");
 	mTextures.load(TextureID::Jungle, "Media/Textures/Gamebackground.png");
 	mTextures.load(TextureID::Explosion, "Media/Textures/Explosion.png");
 	mTextures.load(TextureID::Particle, "Media/Textures/Particle.png");
@@ -213,6 +217,10 @@ void World::buildScene()
 
 	std::unique_ptr<ParticleNode> propellantNode(new ParticleNode(ParticleID::Propellant, mTextures));
 	mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(propellantNode));
+
+	std::unique_ptr<Obstacle> barrel(new Obstacle(ObstacleID::Barrel, mTextures));
+	barrel->setPosition(mSpawnPosition);
+	mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(barrel));
 
 	//Add the sound effect node
 	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSounds));
@@ -320,6 +328,10 @@ void World::addEnemies()
 	{
 		return lhs.y < rhs.y;
 	});
+}
+
+void World::addObstacles()
+{
 }
 
 void World::addEnemy(TankID type, float relX, float relY)

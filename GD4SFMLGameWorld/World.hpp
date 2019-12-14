@@ -13,6 +13,7 @@
 #include "BloomEffect.hpp"
 #include "SoundNode.hpp"
 #include "SoundPlayer.hpp"
+#include "Obstacle.hpp"
 
 #include "SFML/System/NonCopyable.hpp"
 #include "SFML/Graphics/View.hpp"
@@ -50,6 +51,8 @@ private:
 
 	void spawnEnemies();
 	void addEnemies();
+	void addObstacles();
+	void addObstacle(ObstacleID type , float posX, float posY);
 	void addEnemy(TankID type, float relX, float relY);
 
 	sf::FloatRect getBattlefieldBounds() const;
@@ -92,6 +95,7 @@ private:
 	Tank* mPlayerTank;
 	Tank* mPlayerTwoTank;
 
+	std::vector<Obstacle> mObstacles;
 	std::vector<SpawnPoint>	mEnemySpawnPoints;
 	std::vector<Tank*> mActiveEnemies;
 

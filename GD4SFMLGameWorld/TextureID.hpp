@@ -8,5 +8,8 @@ enum class TextureID
 	Explosion,
 	Particle,
 	Tanks,
+	Barrel,
+	Wall,
+	DestructableWall,
 	FinishLine
 };
