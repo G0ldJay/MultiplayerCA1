@@ -36,8 +36,9 @@ namespace
 //	return TextureID::Eagle;
 //}
 
-Tank::Tank(TankID type, const TextureHolder& textures, const FontHolder& fonts)
+Tank::Tank(CategoryID entity,TankID type, const TextureHolder& textures, const FontHolder& fonts)
 	: Entity(Table[static_cast<int>(type)].hitpoints)
+	,mEntity(entity)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)
 	, mExplosion(textures.get(TextureID::Explosion))
@@ -88,7 +89,7 @@ Tank::Tank(TankID type, const TextureHolder& textures, const FontHolder& fonts)
 	mHealthDisplay = healthDisplay.get();
 	attachChild(std::move(healthDisplay));
 
-	if (getCategory() == (static_cast<int>(CategoryID::PlayerTank)))
+	if (mEntity == CategoryID::PlayerTank)
 	{
 		std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
 		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 1"));
@@ -99,7 +100,8 @@ Tank::Tank(TankID type, const TextureHolder& textures, const FontHolder& fonts)
 		attachChild(std::move(playerDisplay));
 	}
 
-	if (getCategory() == (static_cast<int>(CategoryID::PlayerTwoTank)))
+	/*if (getCategory() == (static_cast<int>(CategoryID::PlayerTwoTank)))*/
+	if(mEntity == CategoryID::PlayerTwoTank)
 	{
 		std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
 		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 2"));
@@ -181,7 +183,7 @@ bool Tank::isMarkedForRemoval() const
 
 bool Tank::isAllied() const
 {
-	return mType != TankID::Tesla3;
+	return mType == TankID::HMG1;
 }
 
 ProjectileID Tank::getProjectile() const

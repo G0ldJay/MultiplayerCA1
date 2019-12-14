@@ -7,6 +7,7 @@ GameState::GameState(StateStack& stack, Context context)
 	, mPlayerTwo(*context.playerTwo)
 {
 	mPlayer.setMissionStatus(MissionStatusID::MissionRunning);
+	mPlayerTwo.setMissionStatus(MissionStatusID::MissionRunning);
 	context.music->play(MusicID::MissionTheme);
 }
 
