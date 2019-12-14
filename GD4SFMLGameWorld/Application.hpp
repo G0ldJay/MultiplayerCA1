@@ -2,6 +2,7 @@
 #include "ResourceHolder.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "Player.hpp"
+#include "PlayerTwo.hpp"
 #include "StateStack.hpp"
 #include "MusicPlayer.hpp"
 
@@ -30,6 +31,7 @@ private:
 	TextureHolder mTextures;
 	FontHolder mFonts;
 	Player mPlayer;
+	PlayerTwo mPlayerTwo;
 
 	MusicPlayer mMusic;
 	SoundPlayer mSoundPlayer;

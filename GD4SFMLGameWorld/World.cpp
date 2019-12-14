@@ -16,9 +16,11 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mSceneGraph()
 	, mSceneLayers()
 	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, mCamera.getSize().y)
-	, mSpawnPosition(mCamera.getSize().x / 2.f, mWorldBounds.height - mCamera.getSize().y / 2.f)
+	, mSpawnPosition(mCamera.getSize().x *.25f, mCamera.getSize().y / 2.f)
+	, mSpawnPositionPlayerTwo(mCamera.getSize().x * .75f, mCamera.getSize().y / 2.f)
 	, mScrollSpeed(0)
 	, mPlayerTank(nullptr)
+	, mPlayerTwoTank(nullptr)
 	, mEnemySpawnPoints()
 	, mActiveEnemies()
 {
@@ -27,7 +29,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	buildScene();
 
 	// Prepare the view
-	mCamera.setCenter(mSpawnPosition);
+	mCamera.setCenter(mCamera.getSize().x/2.f, mCamera.getSize().y/2.f);
 }
 
 void World::update(sf::Time dt)
@@ -218,6 +220,12 @@ void World::buildScene()
 	mPlayerTank = player.get();
 	mPlayerTank->setPosition(mSpawnPosition);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player));
+
+	// Add player two Tank
+	std::unique_ptr<Tank> player2(new Tank(TankID::Tesla1, mTextures, mFonts));
+	mPlayerTwoTank = player2.get();
+	mPlayerTwoTank->setPosition(mSpawnPositionPlayerTwo);
+	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player2));
 
 	addEnemies();
 }

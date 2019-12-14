@@ -90,9 +90,23 @@ Tank::Tank(TankID type, const TextureHolder& textures, const FontHolder& fonts)
 	if (getCategory() == (static_cast<int>(CategoryID::PlayerTank)))
 	{
 		std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
+		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 1"));
 		missileDisplay->setPosition(0, 70);
+		playerDisplay->setPosition(0, 90);
 		mMissileDisplay = missileDisplay.get();
 		attachChild(std::move(missileDisplay));
+		attachChild(std::move(playerDisplay));
+	}
+
+	if (getCategory() == (static_cast<int>(CategoryID::PlayerTwoTank)))
+	{
+		std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
+		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 2"));
+		missileDisplay->setPosition(0, 70);
+		playerDisplay->setPosition(0, 90);
+		mMissileDisplay = missileDisplay.get();
+		attachChild(std::move(missileDisplay));
+		attachChild(std::move(playerDisplay));
 	}
 
 	updateTexts();

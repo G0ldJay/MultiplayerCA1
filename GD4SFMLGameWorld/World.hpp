@@ -85,8 +85,10 @@ private:
 
 	sf::FloatRect mWorldBounds;
 	sf::Vector2f mSpawnPosition;
+	sf::Vector2f mSpawnPositionPlayerTwo;
 	float mScrollSpeed;
 	Tank* mPlayerTank;
+	Tank* mPlayerTwoTank;
 
 	std::vector<SpawnPoint>	mEnemySpawnPoints;
 	std::vector<Tank*> mActiveEnemies;

@@ -4,6 +4,7 @@ GameState::GameState(StateStack& stack, Context context)
 	:State(stack, context)
 	, mWorld(*context.window, *context.fonts, *context.sounds)
 	, mPlayer(*context.player)
+	, mPlayerTwo(*context.playerTwo)
 {
 	mPlayer.setMissionStatus(MissionStatusID::MissionRunning);
 	context.music->play(MusicID::MissionTheme);
@@ -31,6 +32,7 @@ bool GameState::update(sf::Time dt)
 
 	CommandQueue& commands = mWorld.getCommandQueue();
 	mPlayer.handleRealtimeInput(commands);
+	mPlayerTwo.handleRealtimeInput(commands);
 
 	return true;
 }
@@ -38,6 +40,7 @@ bool GameState::update(sf::Time dt)
 bool GameState::handleEvent(const sf::Event& event)
 {
 	CommandQueue& commands = mWorld.getCommandQueue();
+	mPlayer.handleEvent(event, commands);
 	mPlayer.handleEvent(event, commands);
 
 	//Pause if esc is pressed
