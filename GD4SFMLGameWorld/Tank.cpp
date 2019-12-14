@@ -183,19 +183,50 @@ bool Tank::isMarkedForRemoval() const
 
 bool Tank::isAllied() const
 {
-	return mType == TankID::HMG1;
+	return mType == TankID::GreenLMG1;
 }
 
 ProjectileID Tank::getProjectile() const
 {
-	if (mType == TankID::LMG1 || mType == TankID::LMG2 || mType == TankID::LMG3)
+	switch (mType) {
+	case TankID::GreenLMG1:
+	case TankID::GreenLMG2:
+	case TankID::GreenLMG3:
+	case TankID::RedLMG1:
+	case TankID::RedLMG2:
+	case TankID::RedLMG3:
+		return ProjectileID::LMGBullet;
+	case TankID::GreenHMG1:
+	case TankID::GreenHMG2:
+	case TankID::GreenHMG3:
+	case TankID::RedHMG1:
+	case TankID::RedHMG2:
+	case TankID::RedHMG3:
+		return ProjectileID::HMGBullet;
+	case TankID::GreenGatling1:
+	case TankID::GreenGatling2:
+	case TankID::GreenGatling3:
+	case TankID::RedGatling1:
+	case TankID::RedGatling2:
+	case TankID::RedGatling3:
+		return ProjectileID::GatlingBullet;
+	case TankID::GreenTesla1:
+	case TankID::GreenTesla2:
+	case TankID::GreenTesla3:
+	case TankID::RedTesla1:
+	case TankID::RedTesla2:
+	case TankID::RedTesla3:
+		return ProjectileID::TeslaBullet;
+	}
+		
+	/*if (mType == TankID::GreenLMG1 || mType == TankID::LMG2 || mType == TankID::LMG3)
 		return ProjectileID::LMGBullet;
 	else if (mType == TankID::HMG1 || mType == TankID::HMG2 || mType == TankID::HMG3)
 		return ProjectileID::HMGBullet;
 	else if (mType == TankID::Gatling1 || mType == TankID::Gatling2 || mType == TankID::Gatling3)
 		return ProjectileID::GatlingBullet;
 	else if (mType == TankID::Tesla1 || mType == TankID::Tesla2 || mType == TankID::Tesla3)
-		return ProjectileID::TeslaBullet;
+		return ProjectileID::TeslaBullet;*/
 }
 
 

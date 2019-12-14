@@ -219,13 +219,13 @@ void World::buildScene()
 	mSceneGraph.attachChild(std::move(soundNode));
 
 	// Add player's Tank
-	std::unique_ptr<Tank> player(new Tank(CategoryID::PlayerTank,TankID::HMG1, mTextures, mFonts));
+	std::unique_ptr<Tank> player(new Tank(CategoryID::PlayerTank,TankID::GreenLMG1, mTextures, mFonts));
 	mPlayerTank = player.get();
 	mPlayerTank->setPosition(mSpawnPosition);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player));
 
 	// Add player two Tank
-	std::unique_ptr<Tank> player2(new Tank(CategoryID::PlayerTwoTank,TankID::Tesla1, mTextures, mFonts));
+	std::unique_ptr<Tank> player2(new Tank(CategoryID::PlayerTwoTank,TankID::RedLMG1, mTextures, mFonts));
 	mPlayerTwoTank = player2.get();
 	mPlayerTwoTank->setPosition(mSpawnPositionPlayerTwo);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player2));
@@ -288,32 +288,32 @@ void World::adaptPlayerTwoVelocity()
 void World::addEnemies()
 {
 	// Add enemies to the spawn point container
-	addEnemy(TankID::LMG3, 0.f, 500.f);
-	addEnemy(TankID::LMG3, 0.f, 1000.f);
-	addEnemy(TankID::LMG3, +100.f, 1150.f);
-	addEnemy(TankID::LMG3, -100.f, 1150.f);
-	addEnemy(TankID::LMG3, 70.f, 1500.f);
-	addEnemy(TankID::LMG3, -70.f, 1500.f);
-
-	addEnemy(TankID::LMG3, -70.f, 1710.f);
-	addEnemy(TankID::LMG3, 70.f, 1700.f);
-	addEnemy(TankID::LMG3, 30.f, 1850.f);
-	addEnemy(TankID::LMG3, 300.f, 2200.f);
-	addEnemy(TankID::LMG3, -300.f, 2200.f);
-	addEnemy(TankID::LMG3, 0.f, 2200.f);
-	addEnemy(TankID::LMG3, 0.f, 2500.f);
-	addEnemy(TankID::LMG3, -300.f, 2700.f);
-	addEnemy(TankID::LMG3, -300.f, 2700.f);
-	addEnemy(TankID::LMG3, 0.f, 3000.f);
-	addEnemy(TankID::LMG3, 250.f, 3250.f);
-	addEnemy(TankID::LMG3, -250.f, 3250.f);
-	addEnemy(TankID::LMG3, 0.f, 3500.f);
-	addEnemy(TankID::LMG3, 0.f, 3700.f);
-	addEnemy(TankID::LMG3, 0.f, 3800.f);
-	addEnemy(TankID::LMG3, 0.f, 4000.f);
-	addEnemy(TankID::LMG3, -200.f, 4200.f);
-	addEnemy(TankID::LMG3, 200.f, 4200.f);
-	addEnemy(TankID::LMG3, 0.f, 4400.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 500.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 1000.f);
+	addEnemy(TankID::GreenHMG1, +100.f, 1150.f);
+	addEnemy(TankID::GreenHMG1, -100.f, 1150.f);
+	addEnemy(TankID::GreenHMG1, 70.f, 1500.f);
+	addEnemy(TankID::GreenHMG1, -70.f, 1500.f);
+				
+	addEnemy(TankID::GreenHMG1, -70.f, 1710.f);
+	addEnemy(TankID::GreenHMG1, 70.f, 1700.f);
+	addEnemy(TankID::GreenHMG1, 30.f, 1850.f);
+	addEnemy(TankID::GreenHMG1, 300.f, 2200.f);
+	addEnemy(TankID::GreenHMG1, -300.f, 2200.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 2200.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 2500.f);
+	addEnemy(TankID::GreenHMG1, -300.f, 2700.f);
+	addEnemy(TankID::GreenHMG1, -300.f, 2700.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 3000.f);
+	addEnemy(TankID::GreenHMG1, 250.f, 3250.f);
+	addEnemy(TankID::GreenHMG1, -250.f, 3250.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 3500.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 3700.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 3800.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 4000.f);
+	addEnemy(TankID::GreenHMG1, -200.f, 4200.f);
+	addEnemy(TankID::GreenHMG1, 200.f, 4200.f);
+	addEnemy(TankID::GreenHMG1, 0.f, 4400.f);
 
 	// Sort all enemies according to their y value, such that lower enemies are checked first for spawning
 	std::sort(mEnemySpawnPoints.begin(), mEnemySpawnPoints.end(), [](SpawnPoint lhs, SpawnPoint rhs)

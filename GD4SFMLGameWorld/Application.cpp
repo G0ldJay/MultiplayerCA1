@@ -7,6 +7,7 @@
 #include "PauseState.hpp"
 #include "SettingsState.hpp"
 #include "GameOverState.hpp"
+#include "TankSelectionState.hpp"
 
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
 
@@ -127,4 +128,5 @@ void Application::registerStates()
 	mStateStack.registerState<PauseState>(StateID::Pause);
 	mStateStack.registerState<SettingState>(StateID::Settings);
 	mStateStack.registerState<GameOverState>(StateID::GameOver);
+	mStateStack.registerState<TankSelectionState>(StateID::TankSelection);
 }

@@ -5,5 +5,6 @@ enum class PickupID
 	MissileRefill,
 	FireSpread,
 	FireRate,
-	TypeCount
+	TypeCount,
+
 };
