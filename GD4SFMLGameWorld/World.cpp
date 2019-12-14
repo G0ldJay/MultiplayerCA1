@@ -37,6 +37,7 @@ void World::update(sf::Time dt)
 	// Scroll the world, reset player velocity
 	//mCamera.move(0.f, mScrollSpeed * dt.asSeconds());
 	mPlayerTank->setVelocity(0.f, 0.f);
+	mPlayerTwoTank->setVelocity(0.f, 0.f);
 
 	// Setup commands to destroy entities, and guide missiles
 	destroyEntitiesOutsideView();

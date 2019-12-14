@@ -172,7 +172,7 @@ bool Tank::isMarkedForRemoval() const
 
 bool Tank::isAllied() const
 {
-	return mType != TankID::Tesla3;
+	return mType == TankID::HMG1;
 }
 
 ProjectileID Tank::getProjectile() const
