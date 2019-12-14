@@ -7,14 +7,14 @@ enum class CategoryID
 	SceneAirLayer = 1 << 0,
 	PlayerTank = 1 << 1,
 	AlliedTank = 1 << 2,
-	EnemyTank = 1 << 3,
+	PlayerTwoTank = 1 << 3,
 	Pickup = 1 << 4,
 	AlliedProjectile = 1 << 5,
 	EnemyProjectile = 1 << 6,
 	ParticleSystem = 1 << 7,
 	SoundEffect = 1 << 8,
-	PlayerTwoTank = 1<<9,
+	//PlayerTwoTank = 1<<9,
 
-	Tank = PlayerTank | PlayerTwoTank | AlliedTank | EnemyTank,
+	Tank = PlayerTank | PlayerTwoTank | AlliedTank ,
 	Projectile = AlliedProjectile | EnemyProjectile,
 };

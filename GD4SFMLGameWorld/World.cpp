@@ -143,7 +143,7 @@ void World::handleCollisions()
 
 	for (SceneNode::Pair pair : collisionPairs)
 	{
-		if (matchesCategories(pair, CategoryID::PlayerTank, CategoryID::EnemyTank))
+		if (matchesCategories(pair, CategoryID::PlayerTank, CategoryID::PlayerTwoTank))
 		{
 			auto& player = static_cast<Tank&>(*pair.first);
 			auto& enemy = static_cast<Tank&>(*pair.second);
@@ -336,7 +336,7 @@ void World::spawnEnemies()
 	{
 		SpawnPoint spawn = mEnemySpawnPoints.back();
 
-		std::unique_ptr<Tank> enemy(new Tank(CategoryID::EnemyTank,spawn.type, mTextures, mFonts));
+		std::unique_ptr<Tank> enemy(new Tank(CategoryID::PlayerTwoTank,spawn.type, mTextures, mFonts));
 		enemy->setPosition(spawn.x, spawn.y);
 		enemy->setRotation(180.f);
 
@@ -350,7 +350,7 @@ void World::spawnEnemies()
 void World::destroyEntitiesOutsideView()
 {
 	Command command;
-	command.category = static_cast<int>(CategoryID::Projectile) | static_cast<int>(CategoryID::EnemyTank);
+	command.category = static_cast<int>(CategoryID::Projectile) | static_cast<int>(CategoryID::PlayerTwoTank);
 	command.action = derivedAction<Entity>([this](Entity& e, sf::Time)
 	{
 		if (!getBattlefieldBounds().intersects(e.getBoundingRect()))
@@ -364,7 +364,7 @@ void World::guideMissiles()
 {
 	// Setup command that stores all enemies in mActiveEnemies
 	Command enemyCollector;
-	enemyCollector.category = static_cast<int>(CategoryID::EnemyTank);
+	enemyCollector.category = static_cast<int>(CategoryID::PlayerTwoTank);
 	enemyCollector.action = derivedAction<Tank>([this](Tank& enemy, sf::Time)
 	{
 		if (!enemy.isDestroyed())

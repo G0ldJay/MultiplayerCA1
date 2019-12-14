@@ -106,10 +106,10 @@ MissionStatusID PlayerTwo::getMissionStatus() const
 
 void PlayerTwo::initializeActions()
 {
-	mActionBinding[ActionID::TurnLeft].action = derivedAction<Tank>(TankMover(-1, 0));
-	mActionBinding[ActionID::TurnRight].action = derivedAction<Tank>(TankMover(+1, 0));
-	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>(TankMover(0, -1));
-	mActionBinding[ActionID::MoveDown].action = derivedAction<Tank>(TankMover(0, +1));
+	mActionBinding[ActionID::TurnLeft].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.rotate(-5.f); });
+	mActionBinding[ActionID::TurnRight].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.rotate(5.f); });
+	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * -sin(toRadian(a.getRotation())), 1.5f * cos(toRadian(a.getRotation()))); });
+	mActionBinding[ActionID::MoveDown].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * sin(toRadian(a.getRotation())), 1.5f * -cos(toRadian(a.getRotation()))); });
 	mActionBinding[ActionID::Fire].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.fire(); });
 	mActionBinding[ActionID::LaunchMissile].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.launchMissile(); });
 }

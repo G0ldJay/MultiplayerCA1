@@ -168,7 +168,7 @@ unsigned int Tank::getCategory() const
 	if (isAllied())
 		return static_cast<int>(CategoryID::PlayerTank);
 	else
-		return static_cast<int>(CategoryID::EnemyTank);
+		return static_cast<int>(CategoryID::PlayerTwoTank);
 }
 
 sf::FloatRect Tank::getBoundingRect() const
