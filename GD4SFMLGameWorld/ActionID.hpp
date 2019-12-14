@@ -1,8 +1,8 @@
 #pragma once
 enum class ActionID
 {
-	MoveLeft,
-	MoveRight,
+	TurnLeft,
+	TurnRight,
 	MoveUp,
 	MoveDown,
 	Fire,

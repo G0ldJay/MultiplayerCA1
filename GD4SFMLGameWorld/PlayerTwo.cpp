@@ -26,8 +26,8 @@ struct TankMover
 PlayerTwo::PlayerTwo():mCurrentMissionStatus(MissionStatusID::MissionRunning)
 {
 	// Set initial key bindings
-	mKeyBinding[sf::Keyboard::J] = ActionID::MoveLeft;
-	mKeyBinding[sf::Keyboard::L] = ActionID::MoveRight;
+	mKeyBinding[sf::Keyboard::J] = ActionID::TurnLeft;
+	mKeyBinding[sf::Keyboard::L] = ActionID::TurnRight;
 	mKeyBinding[sf::Keyboard::I] = ActionID::MoveUp;
 	mKeyBinding[sf::Keyboard::K] = ActionID::MoveDown;
 	mKeyBinding[sf::Keyboard::Slash] = ActionID::Fire;
@@ -106,8 +106,8 @@ MissionStatusID PlayerTwo::getMissionStatus() const
 
 void PlayerTwo::initializeActions()
 {
-	mActionBinding[ActionID::MoveLeft].action = derivedAction<Tank>(TankMover(-1, 0));
-	mActionBinding[ActionID::MoveRight].action = derivedAction<Tank>(TankMover(+1, 0));
+	mActionBinding[ActionID::TurnLeft].action = derivedAction<Tank>(TankMover(-1, 0));
+	mActionBinding[ActionID::TurnRight].action = derivedAction<Tank>(TankMover(+1, 0));
 	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>(TankMover(0, -1));
 	mActionBinding[ActionID::MoveDown].action = derivedAction<Tank>(TankMover(0, +1));
 	mActionBinding[ActionID::Fire].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.fire(); });
@@ -118,8 +118,8 @@ bool PlayerTwo::isRealtimeAction(ActionID action)
 {
 	switch (action)
 	{
-	case ActionID::MoveLeft:
-	case ActionID::MoveRight:
+	case ActionID::TurnLeft:
+	case ActionID::TurnRight:
 	case ActionID::MoveDown:
 	case ActionID::MoveUp:
 	case ActionID::Fire:

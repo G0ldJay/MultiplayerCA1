@@ -6,8 +6,8 @@ SettingState::SettingState(StateStack& stack, Context context)
 {
 	mBackgroundSprite.setTexture(context.textures->get(TextureID::TitleScreen));
 	//Build key bindings and button labels
-	addButtonLabel(ActionID::MoveLeft, 300.f, "Move Left", context);
-	addButtonLabel(ActionID::MoveRight, 350.f, "Move Right", context);
+	addButtonLabel(ActionID::TurnLeft, 300.f, "Move Left", context);
+	addButtonLabel(ActionID::TurnRight, 350.f, "Move Right", context);
 	addButtonLabel(ActionID::MoveUp, 400.f, "Move Up", context);
 	addButtonLabel(ActionID::MoveDown, 450.f, "Move Down", context);
 	addButtonLabel(ActionID::Fire, 500.f, "Fire", context);
