@@ -172,7 +172,19 @@ bool Tank::isMarkedForRemoval() const
 
 bool Tank::isAllied() const
 {
-	return mType == TankID::LMG1;
+	return mType != TankID::Tesla3;
+}
+
+ProjectileID Tank::getProjectile() const
+{
+	if (mType == TankID::LMG1 || mType == TankID::LMG2 || mType == TankID::LMG3)
+		return ProjectileID::LMGBullet;
+	else if (mType == TankID::HMG1 || mType == TankID::HMG2 || mType == TankID::HMG3)
+		return ProjectileID::HMGBullet;
+	else if (mType == TankID::Gatling1 || mType == TankID::Gatling2 || mType == TankID::Gatling3)
+		return ProjectileID::GatlingBullet;
+	else if (mType == TankID::Tesla1 || mType == TankID::Tesla2 || mType == TankID::Tesla3)
+		return ProjectileID::TeslaBullet;
 }
 
 
@@ -264,8 +276,9 @@ void Tank::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 
 void Tank::createBullets(SceneNode& node, const TextureHolder& textures) const
 {
-	ProjectileID type = isAllied() ? ProjectileID::LMGBullet : ProjectileID::LMGBullet;
-	
+	//ProjectileID type = isAllied() ? ProjectileID::HMGBullet : ProjectileID::HMGBullet;
+	ProjectileID type = Tank::getProjectile();
+
 	switch (mSpreadLevel)
 	{
 	case 1:

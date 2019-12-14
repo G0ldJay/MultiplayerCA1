@@ -19,6 +19,7 @@ public:
 	void fire();
 	void launchMissile();
 	bool isAllied() const;
+	ProjectileID getProjectile() const;
 	void increaseFireRate();
 	void increaseSpread();
 	void collectMissiles(unsigned int count);

@@ -77,7 +77,7 @@ std::vector<TankData> initializeTankData()
 
 	//Gatling Tank - Faster Movement
 	data[static_cast<int>(TankID::Gatling3)].hitpoints = 100;
-	data[static_cast<int>(TankID::Gatling3)].speed = 250.f;
+	data[static_cast<int>(TankID::Gatling3)].speed = 300.f;
 	data[static_cast<int>(TankID::Gatling3)].fireInterval = sf::seconds(0.6f);
 	data[static_cast<int>(TankID::Gatling3)].textureRect = sf::IntRect(760, 0, 95, 128);
 	data[static_cast<int>(TankID::Gatling3)].texture = TextureID::Tanks;
@@ -118,23 +118,23 @@ std::vector<ProjectileData> initializeProjectileData()
 	data[static_cast<int>(ProjectileID::LMGBullet)].damage = 5;
 	data[static_cast<int>(ProjectileID::LMGBullet)].speed = 300.f;
 	data[static_cast<int>(ProjectileID::LMGBullet)].texture = TextureID::Tanks;
-	data[static_cast<int>(ProjectileID::LMGBullet)].textureRect = sf::IntRect(0, 0, 95, 128);
+	data[static_cast<int>(ProjectileID::LMGBullet)].textureRect = sf::IntRect(175, 64, 3, 14);
 
 	data[static_cast<int>(ProjectileID::HMGBullet)].damage = 8;
 	data[static_cast<int>(ProjectileID::HMGBullet)].speed = 260.f;
 	data[static_cast<int>(ProjectileID::HMGBullet)].texture = TextureID::Entities;
-	data[static_cast<int>(ProjectileID::HMGBullet)].textureRect = sf::IntRect(175, 64, 3, 14);
+	data[static_cast<int>(ProjectileID::HMGBullet)].textureRect = sf::IntRect(184, 66, 30, 38);
 
 
 	data[static_cast<int>(ProjectileID::GatlingBullet)].damage = 3;
 	data[static_cast<int>(ProjectileID::GatlingBullet)].speed = 300.f;
 	data[static_cast<int>(ProjectileID::GatlingBullet)].texture = TextureID::Entities;
-	data[static_cast<int>(ProjectileID::GatlingBullet)].textureRect = sf::IntRect(1175, 64, 3, 14);
+	data[static_cast<int>(ProjectileID::GatlingBullet)].textureRect = sf::IntRect(175, 64, 3, 14);
 
 	data[static_cast<int>(ProjectileID::TeslaBullet)].damage = 12;
 	data[static_cast<int>(ProjectileID::TeslaBullet)].speed = 200.f;
 	data[static_cast<int>(ProjectileID::TeslaBullet)].texture = TextureID::Entities;
-	data[static_cast<int>(ProjectileID::TeslaBullet)].textureRect = sf::IntRect(1175, 64, 3, 14);
+	data[static_cast<int>(ProjectileID::TeslaBullet)].textureRect = sf::IntRect(160, 54, 15, 32);
 
 	return data;
 }
