@@ -140,10 +140,10 @@ void Tank::updateCurrent(sf::Time dt, CommandQueue& commands)
 
 unsigned int Tank::getCategory() const
 {
-	if (isAllied())
+	//if (isAllied())
 		return static_cast<int>(CategoryID::PlayerTank);
-	else
-		return static_cast<int>(CategoryID::EnemyTank);
+	//else
+		//return static_cast<int>(CategoryID::EnemyTank);
 }
 
 sf::FloatRect Tank::getBoundingRect() const
@@ -156,10 +156,10 @@ bool Tank::isMarkedForRemoval() const
 	return isDestroyed() && (mExplosion.isFinished() || !mShowExplosion);
 }
 
-bool Tank::isAllied() const
-{
-	return mType == TankID::LMG1;
-}
+//bool Tank::isAllied() const
+//{
+//	return mType == TankID::LMG1;
+//}
 
 float Tank::getMaxSpeed() const
 {
@@ -213,49 +213,25 @@ void Tank::launchMissile()
 	}
 }
 
-//void Tank::updateMovementPattern(sf::Time dt)
-//{
-//	// Enemy airplane: Movement pattern
-//	const std::vector<Direction>& directions = Table[static_cast<int>(mType)].directions;
-//	if (!directions.empty())
-//	{
-//		// Moved long enough in current direction: Change direction
-//		if (mTravelledDistance > directions[mDirectionIndex].distance)
-//		{
-//			mDirectionIndex = (mDirectionIndex + 1) % directions.size();
-//			mTravelledDistance = 0.f;
-//		}
-//
-//		// Compute velocity from direction
-//		float radians = toRadian(directions[mDirectionIndex].angle + 90.f);
-//		float vx = getMaxSpeed() * std::cos(radians);
-//		float vy = getMaxSpeed() * std::sin(radians);
-//
-//		setVelocity(vx, vy);
-//
-//		mTravelledDistance += getMaxSpeed() * dt.asSeconds();
-//	}
-//}
-
 void Tank::checkPickupDrop(CommandQueue& commands)
 {
-	if (!isAllied() && randomInt(3) == 0 && !mSpawnedPickup)
+	if (randomInt(3) == 0 && !mSpawnedPickup)
 		commands.push(mDropPickupCommand);
 	mSpawnedPickup = true;
 }
 
 void Tank::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 {
-	// Enemies try to fire all the time
-	if (!isAllied())
-		fire();
+	//// Enemies try to fire all the time
+	//if (!isAllied())
+	//	fire();
 
 	// Check for automatic gunfire, allow only in intervals
 	if (mIsFiring && mFireCountdown <= sf::Time::Zero)
 	{
 		// Interval expired: We can fire a new bullet
 		commands.push(mFireCommand);
-		playerLocalSound(commands, isAllied() ? SoundEffectID::AlliedGunfire : SoundEffectID::EnemyGunfire);
+		playerLocalSound(commands, SoundEffectID::EnemyGunfire);
 		mFireCountdown += Table[static_cast<int>(mType)].fireInterval / (mFireRateLevel + 1.f);
 		mIsFiring = false;
 	}
@@ -277,7 +253,8 @@ void Tank::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 
 void Tank::createBullets(SceneNode& node, const TextureHolder& textures) const
 {
-	ProjectileID type = isAllied() ? ProjectileID::LMGBullet : ProjectileID::LMGBullet;
+	ProjectileID type = Table[static_cast<int>(mType)].bulletType;
+		//isAllied() ? ProjectileID::LMGBullet : ProjectileID::LMGBullet;
 
 	switch (mSpreadLevel)
 	{
@@ -305,7 +282,8 @@ void Tank::createProjectile(SceneNode& node, ProjectileID type, float xOffset, f
 	sf::Vector2f offset(xOffset * mSprite.getGlobalBounds().width, yOffset * mSprite.getGlobalBounds().height);
 	sf::Vector2f velocity(0, projectile->getMaxSpeed());
 
-	float sign = isAllied() ? -1.f : +1.f;
+	//float sign = isAllied() ? -1.f : +1.f;
+	float sign = 1.f;
 	projectile->setPosition(getWorldPosition() + offset * sign);
 	projectile->setVelocity(velocity * sign);
 	node.attachChild(std::move(projectile));

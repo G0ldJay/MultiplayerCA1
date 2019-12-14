@@ -28,9 +28,9 @@ struct TankData
 	int hitpoints;
 	float speed;
 	TextureID texture;
-	ProjectileID bulletType;
 	sf::IntRect textureRect;
 	sf::Time fireInterval;
+	ProjectileID bulletType;
 };
 
 struct ProjectileData
