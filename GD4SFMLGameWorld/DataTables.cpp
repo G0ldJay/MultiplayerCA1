@@ -25,7 +25,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::LMG2)].fireInterval = sf::seconds(0.6f);
 	data[static_cast<int>(TankID::LMG2)].textureRect = sf::IntRect(95, 0, 95, 128);
 	data[static_cast<int>(TankID::LMG2)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::LMGBullet;
+	data[static_cast<int>(TankID::LMG2)].bulletType = ProjectileID::LMGBullet;
 
 	//Starter Tank - Faster movement
 	data[static_cast<int>(TankID::LMG3)].hitpoints = 100;
@@ -33,7 +33,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::LMG3)].fireInterval = sf::seconds(1);
 	data[static_cast<int>(TankID::LMG3)].textureRect = sf::IntRect(190, 0, 95, 128);
 	data[static_cast<int>(TankID::LMG3)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::LMGBullet;
+	data[static_cast<int>(TankID::LMG3)].bulletType = ProjectileID::LMGBullet;
 
 	//Heavy Tank - Heavy Machine Gun
 	data[static_cast<int>(TankID::HMG1)].hitpoints = 100;
@@ -41,7 +41,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::HMG1)].fireInterval = sf::seconds(1);
 	data[static_cast<int>(TankID::HMG1)].textureRect = sf::IntRect(285, 0, 95, 128);
 	data[static_cast<int>(TankID::HMG1)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::HMGBullet;
+	data[static_cast<int>(TankID::HMG1)].bulletType = ProjectileID::HMGBullet;
 
 	//Heavy Tank - Double Heavy Machine Gun
 	data[static_cast<int>(TankID::HMG2)].hitpoints = 100;
@@ -49,7 +49,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::HMG2)].fireInterval = sf::seconds(1);
 	data[static_cast<int>(TankID::HMG2)].textureRect = sf::IntRect(380, 0, 95, 128);
 	data[static_cast<int>(TankID::HMG2)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::HMGBullet;
+	data[static_cast<int>(TankID::HMG2)].bulletType = ProjectileID::HMGBullet;
 
 	//Heavy Tank - Faster Movement
 	data[static_cast<int>(TankID::HMG3)].hitpoints = 100;
@@ -57,7 +57,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::HMG3)].fireInterval = sf::seconds(1);
 	data[static_cast<int>(TankID::HMG3)].textureRect = sf::IntRect(475, 0, 95, 128);
 	data[static_cast<int>(TankID::HMG3)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::HMGBullet;
+	data[static_cast<int>(TankID::HMG3)].bulletType = ProjectileID::HMGBullet;
 
 	//Gatling Tank - Gatling Gun
 	data[static_cast<int>(TankID::Gatling1)].hitpoints = 100;
@@ -65,7 +65,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::Gatling1)].fireInterval = sf::seconds(0.6f);
 	data[static_cast<int>(TankID::Gatling1)].textureRect = sf::IntRect(570, 0, 95, 128);
 	data[static_cast<int>(TankID::Gatling1)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::GatlingBullet;
+	data[static_cast<int>(TankID::Gatling1)].bulletType = ProjectileID::GatlingBullet;
 
 	//Gatling Tank - Double Gatling Gun
 	data[static_cast<int>(TankID::Gatling2)].hitpoints = 100;
@@ -73,7 +73,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::Gatling2)].fireInterval = sf::seconds(0.4f);
 	data[static_cast<int>(TankID::Gatling2)].textureRect = sf::IntRect(665, 0, 95, 128);
 	data[static_cast<int>(TankID::Gatling2)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::GatlingBullet;
+	data[static_cast<int>(TankID::Gatling2)].bulletType = ProjectileID::GatlingBullet;
 
 	//Gatling Tank - Faster Movement
 	data[static_cast<int>(TankID::Gatling3)].hitpoints = 100;
@@ -81,7 +81,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::Gatling3)].fireInterval = sf::seconds(0.6f);
 	data[static_cast<int>(TankID::Gatling3)].textureRect = sf::IntRect(760, 0, 95, 128);
 	data[static_cast<int>(TankID::Gatling3)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::GatlingBullet;
+	data[static_cast<int>(TankID::Gatling3)].bulletType = ProjectileID::GatlingBullet;
 
 	//Tesla Tank - Lightening Gun
 	data[static_cast<int>(TankID::Tesla1)].hitpoints = 100;
@@ -89,7 +89,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::Tesla1)].fireInterval = sf::seconds(1);
 	data[static_cast<int>(TankID::Tesla1)].textureRect = sf::IntRect(855, 0, 95, 128);
 	data[static_cast<int>(TankID::Tesla1)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::TeslaBullet;
+	data[static_cast<int>(TankID::Tesla1)].bulletType = ProjectileID::TeslaBullet;
 
 	//Tesla Tank - Double Lightening Gun
 	data[static_cast<int>(TankID::Tesla2)].hitpoints = 100;
@@ -97,7 +97,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::Tesla2)].fireInterval = sf::seconds(1);
 	data[static_cast<int>(TankID::Tesla2)].textureRect = sf::IntRect(950, 0, 95, 128);
 	data[static_cast<int>(TankID::Tesla2)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::TeslaBullet;
+	data[static_cast<int>(TankID::Tesla2)].bulletType = ProjectileID::TeslaBullet;
 
 	//Tesla Tank - Faster Movement
 	data[static_cast<int>(TankID::Tesla3)].hitpoints = 100;
@@ -105,7 +105,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::Tesla3)].fireInterval = sf::seconds(1);
 	data[static_cast<int>(TankID::Tesla3)].textureRect = sf::IntRect(1045, 0, 95, 128);
 	data[static_cast<int>(TankID::Tesla3)].texture = TextureID::Tanks;
-	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::TeslaBullet;
+	data[static_cast<int>(TankID::Tesla3)].bulletType = ProjectileID::TeslaBullet;
 
 
 	return data;

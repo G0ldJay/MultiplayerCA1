@@ -5,6 +5,7 @@
 #include "Pickup.hpp"
 #include "CommandQueue.hpp"
 #include "SoundNode.hpp"
+#include "EmitterNode.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "SFML/Graphics/RenderStates.hpp"
@@ -108,6 +109,14 @@ Tank::Tank(TankID type, const TextureHolder& textures, const FontHolder& fonts)
 		attachChild(std::move(missileDisplay));
 		attachChild(std::move(playerDisplay));
 	}
+
+	std::unique_ptr<EmitterNode> smokeLeft(new EmitterNode(ParticleID::Smoke));
+	smokeLeft->setPosition(-40.f, -getBoundingRect().height / 2.f);
+	attachChild(std::move(smokeLeft));
+
+	std::unique_ptr<EmitterNode> smokeRight(new EmitterNode(ParticleID::Smoke));
+	smokeRight->setPosition(40.f, -getBoundingRect().height / 2.f);
+	attachChild(std::move(smokeRight));
 
 	updateTexts();
 }
@@ -302,12 +311,13 @@ void Tank::createProjectile(SceneNode& node, ProjectileID type, float xOffset, f
 {
 	std::unique_ptr<Projectile> projectile(new Projectile(type, textures));
 
-	sf::Vector2f offset(xOffset * mSprite.getGlobalBounds().width, yOffset * mSprite.getGlobalBounds().height);
-	sf::Vector2f velocity(0, projectile->getMaxSpeed());
+	//sf::Vector2f offset(xOffset * mSprite.getGlobalBounds().width, yOffset * mSprite.getGlobalBounds().height);
+	sf::Vector2f offset(xOffset * Tank::getWorldPosition());
+	sf::Vector2f velocity(projectile->getMaxSpeed() * 1.5f * -sin(toRadian(Tank::getRotation())), projectile->getMaxSpeed() * 1.5f * cos(toRadian(Tank::getRotation())));
 
-	float sign = isAllied() ? -1.f : +1.f;
-	projectile->setPosition(getWorldPosition() + offset * sign);
-	projectile->setVelocity(velocity * sign);
+	projectile->setPosition(getWorldPosition() + offset);
+	projectile->setVelocity(velocity);
+	projectile->setRotation(Tank::getRotation() + 180.f);
 	node.attachChild(std::move(projectile));
 }
 
