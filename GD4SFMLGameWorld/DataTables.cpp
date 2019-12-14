@@ -1,44 +1,31 @@
 #include "DataTables.hpp"
-#include "Aircraft.hpp"
+#include "Tank.hpp"
 #include "Projectile.hpp"
 #include "Pickup.hpp"
-#include "AircraftID.hpp"
+#include "TankID.hpp"
+#include "TankID.hpp"
 #include "ProjectileID.hpp"
 #include "PickupID.hpp"
 #include "ParticleID.hpp"
 
-std::vector<AircraftData> initializeAircraftData()
+std::vector<TankData> initializeTankData()
 {
-	std::vector<AircraftData> data(static_cast<int>(AircraftID::TypeCount));
-	data[static_cast<int>(AircraftID::Eagle)].hitpoints = 100;
-	data[static_cast<int>(AircraftID::Eagle)].speed = 200.f;
-	data[static_cast<int>(AircraftID::Eagle)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(AircraftID::Eagle)].textureRect = sf::IntRect(0, 0, 48, 64);
-	data[static_cast<int>(AircraftID::Eagle)].texture = TextureID::Entities;
-	data[static_cast<int>(AircraftID::Eagle)].hasRollAnimation = true;
+	std::vector<TankData> data(static_cast<int>(TankID::TypeCount));
+	data[static_cast<int>(TankID::LMG1)].hitpoints = 100;
+	data[static_cast<int>(TankID::LMG1)].speed = 200.f;
+	data[static_cast<int>(TankID::LMG1)].fireInterval = sf::seconds(1);
+	data[static_cast<int>(TankID::LMG1)].textureRect = sf::IntRect(0, 0, 95, 128);
+	data[static_cast<int>(TankID::LMG1)].texture = TextureID::Tanks;
 
-	data[static_cast<int>(AircraftID::Raptor)].hitpoints = 20;
-	data[static_cast<int>(AircraftID::Raptor)].speed = 80.f;
-	data[static_cast<int>(AircraftID::Raptor)].fireInterval = sf::Time::Zero;
-	data[static_cast<int>(AircraftID::Raptor)].texture = TextureID::Entities;
-	data[static_cast<int>(AircraftID::Raptor)].textureRect = sf::IntRect(144, 0, 84, 64);
+	data[static_cast<int>(TankID::LMG2)].hitpoints = 20;
+	data[static_cast<int>(TankID::LMG2)].speed = 80.f;
+	data[static_cast<int>(TankID::LMG2)].fireInterval = sf::Time::Zero;
+	data[static_cast<int>(TankID::LMG2)].texture = TextureID::Tanks;
+	data[static_cast<int>(TankID::LMG2)].textureRect = sf::IntRect(144, 0, 84, 64);
 
-	data[static_cast<int>(AircraftID::Raptor)].directions.push_back(Direction(+45.f, 80.f));
-	data[static_cast<int>(AircraftID::Raptor)].directions.push_back(Direction(-45.f, 160.f));
-	data[static_cast<int>(AircraftID::Raptor)].directions.push_back(Direction(+45.f, 80.f));
-	data[static_cast<int>(AircraftID::Raptor)].hasRollAnimation = false;
-
-	data[static_cast<int>(AircraftID::Avenger)].hitpoints = 40;
-	data[static_cast<int>(AircraftID::Avenger)].speed = 50.f;
-	data[static_cast<int>(AircraftID::Avenger)].fireInterval = sf::seconds(2);
-	data[static_cast<int>(AircraftID::Avenger)].texture = TextureID::Entities;
-	data[static_cast<int>(AircraftID::Avenger)].textureRect = sf::IntRect(228, 0, 60, 59);
-	data[static_cast<int>(AircraftID::Avenger)].directions.push_back(Direction(+45.f, 50.f));
-	data[static_cast<int>(AircraftID::Avenger)].directions.push_back(Direction(0.f, 50.f));
-	data[static_cast<int>(AircraftID::Avenger)].directions.push_back(Direction(-45.f, 100.f));
-	data[static_cast<int>(AircraftID::Avenger)].directions.push_back(Direction(0.f, 50.f));
-	data[static_cast<int>(AircraftID::Avenger)].directions.push_back(Direction(+45.f, 50.f));
-	data[static_cast<int>(AircraftID::Avenger)].hasRollAnimation = false;
+	data[static_cast<int>(TankID::LMG3)].directions.push_back(Direction(+45.f, 80.f));
+	data[static_cast<int>(TankID::LMG3)].directions.push_back(Direction(-45.f, 160.f));
+	data[static_cast<int>(TankID::LMG3)].directions.push_back(Direction(+45.f, 80.f));
 
 	return data;
 }
@@ -71,19 +58,19 @@ std::vector<PickupData> initializePickupData()
 	std::vector<PickupData> data(static_cast<int>(PickupID::TypeCount));
 	data[static_cast<int>(PickupID::HealthRefill)].texture = TextureID::Entities;
 	data[static_cast<int>(PickupID::HealthRefill)].textureRect = sf::IntRect(0, 64, 40, 40);
-	data[static_cast<int>(PickupID::HealthRefill)].action = [](Aircraft& a) {a.repair(25); };
+	data[static_cast<int>(PickupID::HealthRefill)].action = [](Tank& a) {a.repair(25); };
 
 	data[static_cast<int>(PickupID::MissileRefill)].texture = TextureID::Entities;
 	data[static_cast<int>(PickupID::MissileRefill)].textureRect = sf::IntRect(40, 64, 40, 40);
-	data[static_cast<int>(PickupID::MissileRefill)].action = std::bind(&Aircraft::collectMissiles, std::placeholders::_1, 3);
+	data[static_cast<int>(PickupID::MissileRefill)].action = std::bind(&Tank::collectMissiles, std::placeholders::_1, 3);
 
 	data[static_cast<int>(PickupID::FireSpread)].texture = TextureID::Entities;
 	data[static_cast<int>(PickupID::FireSpread)].textureRect = sf::IntRect(80, 64, 40, 40);
-	data[static_cast<int>(PickupID::FireSpread)].action = std::bind(&Aircraft::increaseSpread, std::placeholders::_1);
+	data[static_cast<int>(PickupID::FireSpread)].action = std::bind(&Tank::increaseSpread, std::placeholders::_1);
 
 	data[static_cast<int>(PickupID::FireRate)].texture = TextureID::Entities;
 	data[static_cast<int>(PickupID::FireRate)].textureRect = sf::IntRect(120, 64, 40, 40);
-	data[static_cast<int>(PickupID::FireRate)].action = std::bind(&Aircraft::increaseFireRate, std::placeholders::_1);
+	data[static_cast<int>(PickupID::FireRate)].action = std::bind(&Tank::increaseFireRate, std::placeholders::_1);
 
 	return data;
 }

@@ -1,5 +1,5 @@
 #pragma once
-enum class AircraftID
+enum class TankID
 {
 	Eagle,
 	Raptor,

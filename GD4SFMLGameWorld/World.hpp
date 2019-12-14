@@ -4,10 +4,10 @@
 #include "ResourceIdentifiers.hpp"
 #include "SceneNode.hpp"
 #include "SpriteNode.hpp"
-#include "Aircraft.hpp"
+#include "Tank.hpp"
 #include "LayerID.hpp"
 #include "CommandQueue.hpp"
-#include "AircraftID.hpp"
+#include "TankID.hpp"
 #include "Pickup.hpp"
 #include "PostEffect.hpp"
 #include "BloomEffect.hpp"
@@ -48,7 +48,7 @@ private:
 
 	void spawnEnemies();
 	void addEnemies();
-	void addEnemy(AircraftID type, float relX, float relY);
+	void addEnemy(TankID type, float relX, float relY);
 
 	sf::FloatRect getBattlefieldBounds() const;
 	sf::FloatRect getViewBounds() const;
@@ -59,14 +59,14 @@ private:
 
 	struct SpawnPoint
 	{
-		SpawnPoint(AircraftID type, float x, float y)
+		SpawnPoint(TankID type, float x, float y)
 			: type(type)
 			, x(x)
 			, y(y)
 		{
 		}
 
-		AircraftID type;
+		TankID type;
 		float x;
 		float y;
 	};
@@ -86,10 +86,10 @@ private:
 	sf::FloatRect mWorldBounds;
 	sf::Vector2f mSpawnPosition;
 	float mScrollSpeed;
-	Aircraft* mPlayerAircraft;
+	Tank* mPlayerTank;
 
 	std::vector<SpawnPoint>	mEnemySpawnPoints;
-	std::vector<Aircraft*> mActiveEnemies;
+	std::vector<Tank*> mActiveEnemies;
 
 	BloomEffect	mBloomEffect;
 };
