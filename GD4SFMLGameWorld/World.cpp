@@ -46,6 +46,7 @@ void World::update(sf::Time dt)
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	adaptPlayerVelocity();
+	adaptPlayerTwoVelocity();
 
 	// Collision detection and response (may destroy entities)
 	handleCollisions();
@@ -57,6 +58,7 @@ void World::update(sf::Time dt)
 	// Regular update step, adapt position (correct if outside view)
 	mSceneGraph.update(dt, mCommandQueue);
 	adaptPlayerPosition();
+	adaptPlayerTwoPosition();
 
 	updateSounds();
 }
@@ -216,7 +218,7 @@ void World::buildScene()
 	mSceneGraph.attachChild(std::move(soundNode));
 
 	// Add player's Tank
-	std::unique_ptr<Tank> player(new Tank(TankID::Tesla2, mTextures, mFonts));
+	std::unique_ptr<Tank> player(new Tank(TankID::HMG1, mTextures, mFonts));
 	mPlayerTank = player.get();
 	mPlayerTank->setPosition(mSpawnPosition);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player));
@@ -244,6 +246,20 @@ void World::adaptPlayerPosition()
 	mPlayerTank->setPosition(position);
 }
 
+void World::adaptPlayerTwoPosition()
+{
+	// Keep player's position inside the screen bounds, at least borderDistance units from the border
+	sf::FloatRect viewBounds = getViewBounds();
+	const float borderDistance = 40.f;
+
+	sf::Vector2f position = mPlayerTwoTank->getPosition();
+	position.x = std::max(position.x, viewBounds.left + borderDistance);
+	position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
+	position.y = std::max(position.y, viewBounds.top + borderDistance);
+	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
+	mPlayerTwoTank->setPosition(position);
+}
+
 void World::adaptPlayerVelocity()
 {
 	sf::Vector2f velocity = mPlayerTank->getVelocity();
@@ -254,6 +270,18 @@ void World::adaptPlayerVelocity()
 
 	// Add scrolling velocity
 	mPlayerTank->accelerate(0.f, mScrollSpeed);
+}
+
+void World::adaptPlayerTwoVelocity()
+{
+	sf::Vector2f velocity = mPlayerTwoTank->getVelocity();
+
+	// If moving diagonally, reduce velocity (to have always same velocity)
+	if (velocity.x != 0.f && velocity.y != 0.f)
+		mPlayerTwoTank->setVelocity(velocity / std::sqrt(2.f));
+
+	// Add scrolling velocity
+	mPlayerTwoTank->accelerate(0.f, mScrollSpeed);
 }
 
 void World::addEnemies()

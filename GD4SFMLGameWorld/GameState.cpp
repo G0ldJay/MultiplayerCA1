@@ -41,7 +41,7 @@ bool GameState::handleEvent(const sf::Event& event)
 {
 	CommandQueue& commands = mWorld.getCommandQueue();
 	mPlayer.handleEvent(event, commands);
-	mPlayer.handleEvent(event, commands);
+	mPlayerTwo.handleEvent(event, commands);
 
 	//Pause if esc is pressed
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
