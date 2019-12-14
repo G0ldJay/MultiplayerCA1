@@ -11,6 +11,7 @@ public:
 	void setVelocity(float vx, float vy);
 	void accelerate(sf::Vector2f velocity);
 	void accelerate(float vx, float vy);
+	void turn(float x);
 	sf::Vector2f getVelocity() const;
 
 	int getHitpoints() const;
@@ -24,5 +25,6 @@ protected:
 
 private:
 	sf::Vector2f mVelocity;
+	float direction;
 	int mHitpoints;
 };

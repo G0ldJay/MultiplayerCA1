@@ -2,6 +2,7 @@
 #include "CommandQueue.hpp"
 #include "Tank.hpp"
 #include "ActionID.hpp"
+#include "Utility.hpp"
 
 #include <map>
 #include <string>
@@ -27,8 +28,8 @@ struct TankMover
 Player::Player() : mCurrentMissionStatus(MissionStatusID::MissionRunning)
 {
 	// Set initial key bindings
-	mKeyBinding[sf::Keyboard::A] = ActionID::MoveLeft;
-	mKeyBinding[sf::Keyboard::D] = ActionID::MoveRight;
+	mKeyBinding[sf::Keyboard::A] = ActionID::TurnLeft;
+	mKeyBinding[sf::Keyboard::D] = ActionID::TurnRight;
 	mKeyBinding[sf::Keyboard::W] = ActionID::MoveUp;
 	mKeyBinding[sf::Keyboard::S] = ActionID::MoveDown;
 	mKeyBinding[sf::Keyboard::Space] = ActionID::Fire;
@@ -107,10 +108,10 @@ MissionStatusID Player::getMissionStatus() const
 
 void Player::initializeActions()
 {
-	mActionBinding[ActionID::MoveLeft].action = derivedAction<Tank>(TankMover(-1, 0));
-	mActionBinding[ActionID::MoveRight].action = derivedAction<Tank>(TankMover(+1, 0));
-	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>(TankMover(0, -1));
-	mActionBinding[ActionID::MoveDown].action = derivedAction<Tank>(TankMover(0, +1));
+	mActionBinding[ActionID::TurnLeft].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.rotate(-5.f); });
+	mActionBinding[ActionID::TurnRight].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.rotate(5.f); });
+	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * -sin(toRadian( a.getRotation() )), 1.5f * cos(toRadian( a.getRotation() ))); });
+	mActionBinding[ActionID::MoveDown].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * sin(toRadian(a.getRotation())), 1.5f * -cos(toRadian(a.getRotation()))); });
 	mActionBinding[ActionID::Fire].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.fire(); });
 	mActionBinding[ActionID::LaunchMissile].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.launchMissile(); });
 }
@@ -119,8 +120,8 @@ bool Player::isRealtimeAction(ActionID action)
 {
 	switch (action)
 	{
-	case ActionID::MoveLeft:
-	case ActionID::MoveRight:
+	case ActionID::TurnLeft:
+	case ActionID::TurnRight:
 	case ActionID::MoveDown:
 	case ActionID::MoveUp:
 	case ActionID::Fire:

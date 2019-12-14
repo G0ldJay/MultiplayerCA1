@@ -28,6 +28,11 @@ void Entity::accelerate(float vx, float vy)
 	mVelocity.y += vy;
 }
 
+void Entity::turn(float x)
+{
+	direction += x;
+}
+
 sf::Vector2f Entity::getVelocity() const
 {
 	return mVelocity;
