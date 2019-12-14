@@ -13,7 +13,6 @@ enum class CategoryID
 	EnemyProjectile = 1 << 6,
 	ParticleSystem = 1 << 7,
 	SoundEffect = 1 << 8,
-	//PlayerTwoTank = 1<<9,
 
 	Tank = PlayerTank | PlayerTwoTank | AlliedTank ,
 	Projectile = AlliedProjectile | EnemyProjectile,

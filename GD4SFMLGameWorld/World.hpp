@@ -14,6 +14,7 @@
 #include "SoundNode.hpp"
 #include "SoundPlayer.hpp"
 #include "Obstacle.hpp"
+#include"CollisionID.hpp"
 
 #include "SFML/System/NonCopyable.hpp"
 #include "SFML/Graphics/View.hpp"

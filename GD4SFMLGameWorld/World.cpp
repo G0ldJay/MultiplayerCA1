@@ -142,6 +142,27 @@ bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID 
 	}
 }
 
+bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CollisionID type2)
+{
+	unsigned int category1 = colliders.first->getCategory();
+	unsigned int category2 = colliders.second->getCategory();
+
+	// Make sure first pair entry has category type1 and second has type2
+	if (((static_cast<int>(type1))& category1) && ((static_cast<int>(type2))& category2))
+	{
+		return true;
+	}
+	else if (((static_cast<int>(type1))& category2) && ((static_cast<int>(type2))& category1))
+	{
+		std::swap(colliders.first, colliders.second);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void World::handleCollisions()
 {
 	std::set<SceneNode::Pair> collisionPairs;
@@ -168,6 +189,15 @@ void World::handleCollisions()
 			pickup.apply(player);
 			player.playerLocalSound(mCommandQueue, SoundEffectID::CollectPickup);
 			pickup.destroy();
+		}
+
+		else if (matchesCategories(pair, CategoryID::PlayerTank, CollisionID::Barrel)) {
+			auto& player = static_cast<Tank&>(*pair.first);
+			auto& obstacle = static_cast<Obstacle&>(*pair.second);
+
+			// Collision: Player damage = enemy's remaining HP
+			player.damage(obstacle.getHitpoints());
+			obstacle.destroy();
 		}
 
 		//else if (matchesCategories(pair, CategoryID::EnemyTank, CategoryID::AlliedProjectile)
@@ -227,12 +257,14 @@ void World::buildScene()
 	// Add player's Tank
 	std::unique_ptr<Tank> player(new Tank(CategoryID::PlayerTank,TankID::GreenLMG1, mTextures, mFonts));
 	mPlayerTank = player.get();
+	mPlayerTank->setScale(.5f, .5f);
 	mPlayerTank->setPosition(mSpawnPosition);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player));
 
 	// Add player two Tank
 	std::unique_ptr<Tank> player2(new Tank(CategoryID::PlayerTwoTank,TankID::RedLMG1, mTextures, mFonts));
 	mPlayerTwoTank = player2.get();
+	mPlayerTwoTank->setScale(.5f, .5f);
 	mPlayerTwoTank->setPosition(mSpawnPositionPlayerTwo);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player2));
 
@@ -331,7 +363,7 @@ void World::addEnemies()
 
 void World::addObstacles()
 {
-	addObstacle(ObstacleID::Barrel, mSpawnPosition.x, mSpawnPosition.y);
+	addObstacle(ObstacleID::Barrel, mSpawnPosition.x+100, mSpawnPosition.y+100);
 }
 
 void World::addObstacle(ObstacleID type, float posX, float posY)
@@ -348,10 +380,11 @@ void World::spawnObstacles()
 		ObstacleSpawnPoint spawn = mObstacles.back();
 
 		std::unique_ptr<Obstacle> obstacle(new Obstacle(spawn.type, mTextures));
+		obstacle->setScale(0.25f,0.25f);
 		obstacle->setPosition(spawn.x, spawn.y);
 		//obstacle->setRotation(180.f);
 
-		mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(obstacle));
+		mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(obstacle));
 
 		// Enemy is spawned, remove from the list to spawn
 		mObstacles.pop_back();

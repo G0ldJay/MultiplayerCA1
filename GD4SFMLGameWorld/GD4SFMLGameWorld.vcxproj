@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActionID.hpp" />
+    <ClInclude Include="CollisionID.hpp" />
     <ClInclude Include="Obstacle.hpp" />
     <ClInclude Include="ObstacleID.hpp" />
     <ClInclude Include="PlayerTwo.hpp" />
