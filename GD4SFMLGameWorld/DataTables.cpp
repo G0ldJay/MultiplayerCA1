@@ -15,7 +15,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::LMG1)].hitpoints = 100;
 	data[static_cast<int>(TankID::LMG1)].speed = 200.f;
 	data[static_cast<int>(TankID::LMG1)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(TankID::LMG1)].textureRect = sf::IntRect(0, 128, 95, 128);
+	data[static_cast<int>(TankID::LMG1)].textureRect = sf::IntRect(0, 0, 95, 128);
 	data[static_cast<int>(TankID::LMG1)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::LMG1)].bulletType = ProjectileID::LMGBullet;
 
@@ -117,8 +117,8 @@ std::vector<ProjectileData> initializeProjectileData()
 
 	data[static_cast<int>(ProjectileID::LMGBullet)].damage = 5;
 	data[static_cast<int>(ProjectileID::LMGBullet)].speed = 300.f;
-	data[static_cast<int>(ProjectileID::LMGBullet)].texture = TextureID::Entities;
-	data[static_cast<int>(ProjectileID::LMGBullet)].textureRect = sf::IntRect(175, 64, 3, 14);
+	data[static_cast<int>(ProjectileID::LMGBullet)].texture = TextureID::Tanks;
+	data[static_cast<int>(ProjectileID::LMGBullet)].textureRect = sf::IntRect(0, 0, 95, 128);
 
 	data[static_cast<int>(ProjectileID::HMGBullet)].damage = 8;
 	data[static_cast<int>(ProjectileID::HMGBullet)].speed = 260.f;
