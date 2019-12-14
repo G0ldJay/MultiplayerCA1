@@ -214,7 +214,7 @@ void World::buildScene()
 	mSceneGraph.attachChild(std::move(soundNode));
 
 	// Add player's Tank
-	std::unique_ptr<Tank> player(new Tank(TankID::LMG1, mTextures, mFonts));
+	std::unique_ptr<Tank> player(new Tank(TankID::Tesla2, mTextures, mFonts));
 	mPlayerTank = player.get();
 	mPlayerTank->setPosition(mSpawnPosition);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player));
