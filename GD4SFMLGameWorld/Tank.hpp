@@ -18,7 +18,7 @@ public:
 	float getMaxSpeed() const;
 	void fire();
 	void launchMissile();
-	//bool isAllied() const;
+	bool isAllied() const;
 	void increaseFireRate();
 	void increaseSpread();
 	void collectMissiles(unsigned int count);

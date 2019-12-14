@@ -140,10 +140,10 @@ void Tank::updateCurrent(sf::Time dt, CommandQueue& commands)
 
 unsigned int Tank::getCategory() const
 {
-	//if (isAllied())
+	if (isAllied())
 		return static_cast<int>(CategoryID::PlayerTank);
-	//else
-		//return static_cast<int>(CategoryID::EnemyTank);
+	else
+		return static_cast<int>(CategoryID::EnemyTank);
 }
 
 sf::FloatRect Tank::getBoundingRect() const
@@ -156,10 +156,11 @@ bool Tank::isMarkedForRemoval() const
 	return isDestroyed() && (mExplosion.isFinished() || !mShowExplosion);
 }
 
-//bool Tank::isAllied() const
-//{
-//	return mType == TankID::LMG1;
-//}
+bool Tank::isAllied() const
+{
+	return mType == TankID::LMG1;
+}
+
 
 float Tank::getMaxSpeed() const
 {
@@ -222,10 +223,6 @@ void Tank::checkPickupDrop(CommandQueue& commands)
 
 void Tank::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 {
-	//// Enemies try to fire all the time
-	//if (!isAllied())
-	//	fire();
-
 	// Check for automatic gunfire, allow only in intervals
 	if (mIsFiring && mFireCountdown <= sf::Time::Zero)
 	{
@@ -253,9 +250,8 @@ void Tank::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 
 void Tank::createBullets(SceneNode& node, const TextureHolder& textures) const
 {
-	ProjectileID type = ProjectileID::LMGBullet;//Table[static_cast<int>(mType)].bulletType;
-		//risAllied() ? ProjectileID::LMGBullet : ProjectileID::LMGBullet;
-
+	ProjectileID type = isAllied() ? ProjectileID::LMGBullet : ProjectileID::LMGBullet;
+	
 	switch (mSpreadLevel)
 	{
 	case 1:
@@ -282,8 +278,7 @@ void Tank::createProjectile(SceneNode& node, ProjectileID type, float xOffset, f
 	sf::Vector2f offset(xOffset * mSprite.getGlobalBounds().width, yOffset * mSprite.getGlobalBounds().height);
 	sf::Vector2f velocity(0, projectile->getMaxSpeed());
 
-	//float sign = isAllied() ? -1.f : +1.f;
-	float sign = 1.f;
+	float sign = isAllied() ? -1.f : +1.f;
 	projectile->setPosition(getWorldPosition() + offset * sign);
 	projectile->setVelocity(velocity * sign);
 	node.attachChild(std::move(projectile));
