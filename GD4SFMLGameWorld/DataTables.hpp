@@ -2,6 +2,7 @@
 
 #include "ResourceIdentifiers.hpp"
 #include "TextureID.hpp"
+#include "ProjectileID.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/Color.hpp>
@@ -27,9 +28,9 @@ struct TankData
 	int hitpoints;
 	float speed;
 	TextureID texture;
+	ProjectileID bulletType;
 	sf::IntRect textureRect;
 	sf::Time fireInterval;
-	std::vector<Direction> directions;
 };
 
 struct ProjectileData
@@ -53,7 +54,6 @@ struct ParticleData
 	sf::Time lifetime;
 };
 
-std::vector<TankData> initializeTankData();
 std::vector<TankData> initializeTankData();
 std::vector<ProjectileData> initializeProjectileData();
 std::vector<PickupData> initializePickupData();

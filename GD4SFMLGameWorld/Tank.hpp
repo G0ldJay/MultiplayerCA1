@@ -28,7 +28,7 @@ public:
 private:
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
-	void updateMovementPattern(sf::Time dt);
+	//void updateMovementPattern(sf::Time dt);
 	void updateTexts();
 
 	void checkProjectileLaunch(sf::Time dt, CommandQueue& commands);
