@@ -253,8 +253,8 @@ void Tank::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 
 void Tank::createBullets(SceneNode& node, const TextureHolder& textures) const
 {
-	ProjectileID type = Table[static_cast<int>(mType)].bulletType;
-		//isAllied() ? ProjectileID::LMGBullet : ProjectileID::LMGBullet;
+	ProjectileID type = ProjectileID::LMGBullet;//Table[static_cast<int>(mType)].bulletType;
+		//risAllied() ? ProjectileID::LMGBullet : ProjectileID::LMGBullet;
 
 	switch (mSpreadLevel)
 	{
