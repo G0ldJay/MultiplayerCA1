@@ -17,11 +17,12 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mSceneGraph()
 	, mSceneLayers()
 	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, mCamera.getSize().y)
-	, mSpawnPosition(mCamera.getSize().x *.25f, mCamera.getSize().y / 2.f)
+	, mSpawnPosition(mCamera.getSize().x * .25f, mCamera.getSize().y / 2.f)
 	, mSpawnPositionPlayerTwo(mCamera.getSize().x * .75f, mCamera.getSize().y / 2.f)
 	, mScrollSpeed(0)
 	, mPlayerTank(nullptr)
 	, mPlayerTwoTank(nullptr)
+	, mObstacles()
 	, mEnemySpawnPoints()
 	, mActiveEnemies()
 {
@@ -55,7 +56,8 @@ void World::update(sf::Time dt)
 
 	// Remove all destroyed entities, create new ones
 	mSceneGraph.removeWrecks();
-	spawnEnemies();
+	//spawnEnemies();
+	spawnObstacles();
 
 	// Regular update step, adapt position (correct if outside view)
 	mSceneGraph.update(dt, mCommandQueue);
@@ -218,10 +220,6 @@ void World::buildScene()
 	std::unique_ptr<ParticleNode> propellantNode(new ParticleNode(ParticleID::Propellant, mTextures));
 	mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(propellantNode));
 
-	std::unique_ptr<Obstacle> barrel(new Obstacle(ObstacleID::Barrel, mTextures));
-	barrel->setPosition(mSpawnPosition);
-	mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(barrel));
-
 	//Add the sound effect node
 	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSounds));
 	mSceneGraph.attachChild(std::move(soundNode));
@@ -238,7 +236,8 @@ void World::buildScene()
 	mPlayerTwoTank->setPosition(mSpawnPositionPlayerTwo);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player2));
 
-	addEnemies();
+	//addEnemies();
+	addObstacles();
 }
 
 void World::adaptPlayerPosition()
@@ -332,6 +331,31 @@ void World::addEnemies()
 
 void World::addObstacles()
 {
+	addObstacle(ObstacleID::Barrel, mSpawnPosition.x, mSpawnPosition.y);
+}
+
+void World::addObstacle(ObstacleID type, float posX, float posY)
+{
+	ObstacleSpawnPoint spawn(type, posX, posY);
+	mObstacles.push_back(spawn);
+}
+
+void World::spawnObstacles()
+{
+	// Spawn all enemies entering the view area (including distance) this frame
+	while (!mObstacles.empty())
+	{
+		ObstacleSpawnPoint spawn = mObstacles.back();
+
+		std::unique_ptr<Obstacle> obstacle(new Obstacle(spawn.type, mTextures));
+		obstacle->setPosition(spawn.x, spawn.y);
+		//obstacle->setRotation(180.f);
+
+		mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(obstacle));
+
+		// Enemy is spawned, remove from the list to spawn
+		mObstacles.pop_back();
+	}
 }
 
 void World::addEnemy(TankID type, float relX, float relY)

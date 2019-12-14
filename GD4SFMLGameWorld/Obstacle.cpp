@@ -14,13 +14,13 @@
 
 namespace
 {
-	const std::vector<ProjectileData> Table = initializeProjectileData();
+	const std::vector<ObstacleData> Table = initializeObstacleData();
 }
 
 Obstacle::Obstacle(ObstacleID type, const TextureHolder& textures)
 	: Entity(1)
 	, mType(type)
-	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)
+	, mSprite(textures.get(Table[static_cast<int>(type)].texture))
 {
 
 }

@@ -53,6 +53,7 @@ private:
 	void addEnemies();
 	void addObstacles();
 	void addObstacle(ObstacleID type , float posX, float posY);
+	void spawnObstacles();
 	void addEnemy(TankID type, float relX, float relY);
 
 	sf::FloatRect getBattlefieldBounds() const;
@@ -76,6 +77,20 @@ private:
 		float y;
 	};
 
+	struct ObstacleSpawnPoint
+	{
+		ObstacleSpawnPoint(ObstacleID type, float x, float y)
+			: type(type)
+			, x(x)
+			, y(y)
+		{
+		}
+
+		ObstacleID type;
+		float x;
+		float y;
+	};
+
 private:
 	sf::RenderTarget& mTarget;
 	sf::RenderTexture mSceneTexture;
@@ -95,7 +110,7 @@ private:
 	Tank* mPlayerTank;
 	Tank* mPlayerTwoTank;
 
-	std::vector<Obstacle> mObstacles;
+	std::vector<ObstacleSpawnPoint> mObstacles;
 	std::vector<SpawnPoint>	mEnemySpawnPoints;
 	std::vector<Tank*> mActiveEnemies;
 

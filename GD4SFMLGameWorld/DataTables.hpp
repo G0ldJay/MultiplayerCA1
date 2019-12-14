@@ -66,6 +66,7 @@ std::vector<TankData> initializeTankData();
 std::vector<ProjectileData> initializeProjectileData();
 std::vector<PickupData> initializePickupData();
 std::vector<ParticleData> initializeParticleData();
+std::vector<ObstacleData> initializeObstacleData();
 
 
 
