@@ -17,7 +17,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mSceneLayers()
 	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, 5000.f)
 	, mSpawnPosition(mCamera.getSize().x / 2.f, mWorldBounds.height - mCamera.getSize().y / 2.f)
-	, mScrollSpeed(-50.f)
+	, mScrollSpeed(0)
 	, mPlayerAircraft(nullptr)
 	, mEnemySpawnPoints()
 	, mActiveEnemies()
@@ -33,7 +33,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 void World::update(sf::Time dt)
 {
 	// Scroll the world, reset player velocity
-	mCamera.move(0.f, mScrollSpeed * dt.asSeconds());
+	//mCamera.move(0.f, mScrollSpeed * dt.asSeconds());
 	mPlayerAircraft->setVelocity(0.f, 0.f);
 
 	// Setup commands to destroy entities, and guide missiles

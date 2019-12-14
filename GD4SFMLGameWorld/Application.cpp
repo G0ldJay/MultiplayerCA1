@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Application.hpp"
 #include "Utility.hpp"
 #include "TitleState.hpp"
@@ -29,7 +30,6 @@ Application::Application()
 	mStatisticText.setFont(mFonts.get(FontID::Main));
 	mStatisticText.setPosition(5.f, 5.f);
 	mStatisticText.setCharacterSize(20);
-
 	registerStates();
 	mStateStack.pushState(StateID::Title);
 }
@@ -38,6 +38,21 @@ void Application::run()
 {
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+	//Check if controller is connected
+	if (sf::Joystick::isConnected(0))
+	{
+		std::cout << "Joystick Connected" << std::endl;
+		std::cout << sf::Joystick::ButtonCount << std::endl;
+		if (sf::Joystick::isButtonPressed(0, 1))
+		{
+			std::cout << "Button Pressed" << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "No joystick connected" << std::endl;
+	}
+	//
 	while (mWindow.isOpen())
 	{
 		sf::Time elapsedTime = clock.restart();
