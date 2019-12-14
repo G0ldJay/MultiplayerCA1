@@ -18,12 +18,6 @@
     <ClInclude Include="Entity.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Aircraft.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AircraftID.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceHolder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -180,12 +174,15 @@
     <ClInclude Include="ControllerInput.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TankID.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Aircraft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SceneNode.cpp">
@@ -285,6 +282,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoundNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

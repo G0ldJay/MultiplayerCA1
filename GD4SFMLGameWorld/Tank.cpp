@@ -1,4 +1,4 @@
-#include "Aircraft.hpp"
+#include "Tank.hpp"
 #include "ResourceHolder.hpp"
 #include "DataTables.hpp"
 #include "Utility.hpp"
@@ -9,31 +9,33 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "SFML/Graphics/RenderStates.hpp"
 #include "TextureID.hpp"
-#include "AircraftID.hpp"
+#include "TankID.hpp"
 #include "ProjectileID.hpp"
 #include "PickupID.hpp"
+
+#include "TankID.hpp"
 
 #include <cmath>
 
 namespace
 {
-	const std::vector<AircraftData> Table = initializeAircraftData();
+	const std::vector<TankData> Table = initializeTankData();
 }
 
-//TextureID toTextureID(AircraftID type)
+//TextureID toTextureID(TankID type)
 //{
 //	switch (type)
 //	{
-//	case AircraftID::Eagle:
+//	case TankID::Eagle:
 //		return TextureID::Eagle;
 //
-//	case AircraftID::Raptor:
+//	case TankID::Raptor:
 //		return TextureID::Raptor;
 //	}
 //	return TextureID::Eagle;
 //}
 
-Aircraft::Aircraft(AircraftID type, const TextureHolder& textures, const FontHolder& fonts)
+Tank::Tank(TankID type, const TextureHolder& textures, const FontHolder& fonts)
 	: Entity(Table[static_cast<int>(type)].hitpoints)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)
@@ -85,7 +87,7 @@ Aircraft::Aircraft(AircraftID type, const TextureHolder& textures, const FontHol
 	mHealthDisplay = healthDisplay.get();
 	attachChild(std::move(healthDisplay));
 
-	if (getCategory() == (static_cast<int>(CategoryID::PlayerAircraft)))
+	if (getCategory() == (static_cast<int>(CategoryID::PlayerTank)))
 	{
 		std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
 		missileDisplay->setPosition(0, 70);
@@ -97,7 +99,7 @@ Aircraft::Aircraft(AircraftID type, const TextureHolder& textures, const FontHol
 }
 
 
-void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
+void Tank::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if (isDestroyed() && mShowExplosion)
 		target.draw(mExplosion, states);
@@ -105,7 +107,7 @@ void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) co
 		target.draw(mSprite, states);
 }
 
-void Aircraft::updateCurrent(sf::Time dt, CommandQueue& commands)
+void Tank::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
 	// Entity has been destroyed: Possibly drop pickup, mark for removal
 	if (isDestroyed())
@@ -128,61 +130,60 @@ void Aircraft::updateCurrent(sf::Time dt, CommandQueue& commands)
 	checkProjectileLaunch(dt, commands);
 
 	// Update enemy movement pattern; apply velocity
-	updateMovementPattern(dt);
+	//updateMovementPattern(dt);
 	Entity::updateCurrent(dt, commands);
 
 	// Update texts
 	updateTexts();
-	updateRollAnimation();
 }
 
 
-unsigned int Aircraft::getCategory() const
+unsigned int Tank::getCategory() const
 {
 	if (isAllied())
-		return static_cast<int>(CategoryID::PlayerAircraft);
+		return static_cast<int>(CategoryID::PlayerTank);
 	else
-		return static_cast<int>(CategoryID::EnemyAircraft);
+		return static_cast<int>(CategoryID::EnemyTank);
 }
 
-sf::FloatRect Aircraft::getBoundingRect() const
+sf::FloatRect Tank::getBoundingRect() const
 {
 	return getWorldTransform().transformRect(mSprite.getGlobalBounds());
 }
 
-bool Aircraft::isMarkedForRemoval() const
+bool Tank::isMarkedForRemoval() const
 {
 	return isDestroyed() && (mExplosion.isFinished() || !mShowExplosion);
 }
 
-bool Aircraft::isAllied() const
+bool Tank::isAllied() const
 {
-	return mType == AircraftID::Eagle;
+	return mType == TankID::LMG1;
 }
 
-float Aircraft::getMaxSpeed() const
+float Tank::getMaxSpeed() const
 {
 	return Table[static_cast<int>(mType)].speed;
 }
 
-void Aircraft::increaseFireRate()
+void Tank::increaseFireRate()
 {
 	if (mFireRateLevel < 10)
 		++mFireRateLevel;
 }
 
-void Aircraft::increaseSpread()
+void Tank::increaseSpread()
 {
 	if (mSpreadLevel < 3)
 		++mSpreadLevel;
 }
 
-void Aircraft::collectMissiles(unsigned int count)
+void Tank::collectMissiles(unsigned int count)
 {
 	mMissileAmmo += count;
 }
 
-void Aircraft::playerLocalSound(CommandQueue& commands, SoundEffectID effect)
+void Tank::playerLocalSound(CommandQueue& commands, SoundEffectID effect)
 {
 	sf::Vector2f worldPosition = getWorldPosition();
 
@@ -196,14 +197,14 @@ void Aircraft::playerLocalSound(CommandQueue& commands, SoundEffectID effect)
 	commands.push(command);
 }
 
-void Aircraft::fire()
+void Tank::fire()
 {
 	// Only ships with fire interval != 0 are able to fire
 	if (Table[static_cast<int>(mType)].fireInterval != sf::Time::Zero)
 		mIsFiring = true;
 }
 
-void Aircraft::launchMissile()
+void Tank::launchMissile()
 {
 	if (mMissileAmmo > 0)
 	{
@@ -212,38 +213,38 @@ void Aircraft::launchMissile()
 	}
 }
 
-void Aircraft::updateMovementPattern(sf::Time dt)
-{
-	// Enemy airplane: Movement pattern
-	const std::vector<Direction>& directions = Table[static_cast<int>(mType)].directions;
-	if (!directions.empty())
-	{
-		// Moved long enough in current direction: Change direction
-		if (mTravelledDistance > directions[mDirectionIndex].distance)
-		{
-			mDirectionIndex = (mDirectionIndex + 1) % directions.size();
-			mTravelledDistance = 0.f;
-		}
+//void Tank::updateMovementPattern(sf::Time dt)
+//{
+//	// Enemy airplane: Movement pattern
+//	const std::vector<Direction>& directions = Table[static_cast<int>(mType)].directions;
+//	if (!directions.empty())
+//	{
+//		// Moved long enough in current direction: Change direction
+//		if (mTravelledDistance > directions[mDirectionIndex].distance)
+//		{
+//			mDirectionIndex = (mDirectionIndex + 1) % directions.size();
+//			mTravelledDistance = 0.f;
+//		}
+//
+//		// Compute velocity from direction
+//		float radians = toRadian(directions[mDirectionIndex].angle + 90.f);
+//		float vx = getMaxSpeed() * std::cos(radians);
+//		float vy = getMaxSpeed() * std::sin(radians);
+//
+//		setVelocity(vx, vy);
+//
+//		mTravelledDistance += getMaxSpeed() * dt.asSeconds();
+//	}
+//}
 
-		// Compute velocity from direction
-		float radians = toRadian(directions[mDirectionIndex].angle + 90.f);
-		float vx = getMaxSpeed() * std::cos(radians);
-		float vy = getMaxSpeed() * std::sin(radians);
-
-		setVelocity(vx, vy);
-
-		mTravelledDistance += getMaxSpeed() * dt.asSeconds();
-	}
-}
-
-void Aircraft::checkPickupDrop(CommandQueue& commands)
+void Tank::checkPickupDrop(CommandQueue& commands)
 {
 	if (!isAllied() && randomInt(3) == 0 && !mSpawnedPickup)
 		commands.push(mDropPickupCommand);
 	mSpawnedPickup = true;
 }
 
-void Aircraft::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
+void Tank::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 {
 	// Enemies try to fire all the time
 	if (!isAllied())
@@ -274,9 +275,9 @@ void Aircraft::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 	}
 }
 
-void Aircraft::createBullets(SceneNode& node, const TextureHolder& textures) const
+void Tank::createBullets(SceneNode& node, const TextureHolder& textures) const
 {
-	ProjectileID type = isAllied() ? ProjectileID::AlliedBullet : ProjectileID::EnemyBullet;
+	ProjectileID type = isAllied() ? ProjectileID::LMGBullet : ProjectileID::LMGBullet;
 
 	switch (mSpreadLevel)
 	{
@@ -297,7 +298,7 @@ void Aircraft::createBullets(SceneNode& node, const TextureHolder& textures) con
 	}
 }
 
-void Aircraft::createProjectile(SceneNode& node, ProjectileID type, float xOffset, float yOffset, const TextureHolder& textures) const
+void Tank::createProjectile(SceneNode& node, ProjectileID type, float xOffset, float yOffset, const TextureHolder& textures) const
 {
 	std::unique_ptr<Projectile> projectile(new Projectile(type, textures));
 
@@ -310,7 +311,7 @@ void Aircraft::createProjectile(SceneNode& node, ProjectileID type, float xOffse
 	node.attachChild(std::move(projectile));
 }
 
-void Aircraft::createPickup(SceneNode& node, const TextureHolder& textures) const
+void Tank::createPickup(SceneNode& node, const TextureHolder& textures) const
 {
 	auto type = static_cast<PickupID>(randomInt(static_cast<int>(PickupID::TypeCount)));
 
@@ -320,7 +321,7 @@ void Aircraft::createPickup(SceneNode& node, const TextureHolder& textures) cons
 	node.attachChild(std::move(pickup));
 }
 
-void Aircraft::updateTexts()
+void Tank::updateTexts()
 {
 	mHealthDisplay->setString(toString(getHitpoints()) + " HP");
 	mHealthDisplay->setPosition(0.f, 50.f);
@@ -332,23 +333,5 @@ void Aircraft::updateTexts()
 			mMissileDisplay->setString("");
 		else
 			mMissileDisplay->setString("M: " + toString(mMissileAmmo));
-	}
-}
-
-void Aircraft::updateRollAnimation()
-{
-	if (Table[static_cast<int>(mType)].hasRollAnimation)
-	{
-		sf::IntRect textureRect = Table[static_cast<int>(mType)].textureRect;
-
-		// Roll left: Texture rect offset once
-		if (getVelocity().x < 0.f)
-			textureRect.left += textureRect.width;
-
-		// Roll right: Texture rect offset twice
-		else if (getVelocity().x > 0.f)
-			textureRect.left += 2 * textureRect.width;
-
-		mSprite.setTextureRect(textureRect);
 	}
 }

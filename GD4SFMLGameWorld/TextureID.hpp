@@ -7,5 +7,6 @@ enum class TextureID
 	Buttons,
 	Explosion,
 	Particle,
+	Tanks,
 	FinishLine
 };

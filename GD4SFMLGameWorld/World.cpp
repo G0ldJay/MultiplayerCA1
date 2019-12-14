@@ -18,7 +18,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, 5000.f)
 	, mSpawnPosition(mCamera.getSize().x / 2.f, mWorldBounds.height - mCamera.getSize().y / 2.f)
 	, mScrollSpeed(0)
-	, mPlayerAircraft(nullptr)
+	, mPlayerTank(nullptr)
 	, mEnemySpawnPoints()
 	, mActiveEnemies()
 {
@@ -34,7 +34,7 @@ void World::update(sf::Time dt)
 {
 	// Scroll the world, reset player velocity
 	//mCamera.move(0.f, mScrollSpeed * dt.asSeconds());
-	mPlayerAircraft->setVelocity(0.f, 0.f);
+	mPlayerTank->setVelocity(0.f, 0.f);
 
 	// Setup commands to destroy entities, and guide missiles
 	destroyEntitiesOutsideView();
@@ -83,18 +83,18 @@ CommandQueue& World::getCommandQueue()
 
 bool World::hasAlivePlayer() const
 {
-	return !mPlayerAircraft->isMarkedForRemoval();
+	return !mPlayerTank->isMarkedForRemoval();
 }
 
 bool World::hasPlayerReachedEnd() const
 {
-	return !mWorldBounds.contains(mPlayerAircraft->getPosition());
+	return !mWorldBounds.contains(mPlayerTank->getPosition());
 }
 
 void World::updateSounds()
 {
 	//Set the listener to the player position
-	mSounds.setListenPosition(mPlayerAircraft->getWorldPosition());
+	mSounds.setListenPosition(mPlayerTank->getWorldPosition());
 	//Remove unused sounds
 	mSounds.removeStoppedSounds();
 
@@ -102,6 +102,7 @@ void World::updateSounds()
 
 void World::loadTextures()
 {
+	mTextures.load(TextureID::Tanks, "Media/Textures/TankSpriteSheet.png");
 	mTextures.load(TextureID::Entities, "Media/Textures/Entities.png");
 	mTextures.load(TextureID::Jungle, "Media/Textures/Jungle.png");
 	mTextures.load(TextureID::Explosion, "Media/Textures/Explosion.png");
@@ -137,19 +138,19 @@ void World::handleCollisions()
 
 	for (SceneNode::Pair pair : collisionPairs)
 	{
-		if (matchesCategories(pair, CategoryID::PlayerAircraft, CategoryID::EnemyAircraft))
+		if (matchesCategories(pair, CategoryID::PlayerTank, CategoryID::EnemyTank))
 		{
-			auto& player = static_cast<Aircraft&>(*pair.first);
-			auto& enemy = static_cast<Aircraft&>(*pair.second);
+			auto& player = static_cast<Tank&>(*pair.first);
+			auto& enemy = static_cast<Tank&>(*pair.second);
 
 			// Collision: Player damage = enemy's remaining HP
 			player.damage(enemy.getHitpoints());
 			enemy.destroy();
 		}
 
-		else if (matchesCategories(pair, CategoryID::PlayerAircraft, CategoryID::Pickup))
+		else if (matchesCategories(pair, CategoryID::PlayerTank, CategoryID::Pickup))
 		{
-			auto& player = static_cast<Aircraft&>(*pair.first);
+			auto& player = static_cast<Tank&>(*pair.first);
 			auto& pickup = static_cast<Pickup&>(*pair.second);
 
 			// Apply pickup effect to player, destroy projectile
@@ -158,16 +159,16 @@ void World::handleCollisions()
 			pickup.destroy();
 		}
 
-		else if (matchesCategories(pair, CategoryID::EnemyAircraft, CategoryID::AlliedProjectile)
-			|| matchesCategories(pair, CategoryID::PlayerAircraft, CategoryID::EnemyProjectile))
-		{
-			auto& aircraft = static_cast<Aircraft&>(*pair.first);
-			auto& projectile = static_cast<Projectile&>(*pair.second);
+		//else if (matchesCategories(pair, CategoryID::EnemyTank, CategoryID::AlliedProjectile)
+		//	|| matchesCategories(pair, CategoryID::PlayerTank, CategoryID::EnemyProjectile))
+		//{
+		//	auto& Tank = static_cast<Tank&>(*pair.first);
+		//	auto& projectile = static_cast<Projectile&>(*pair.second);
 
-			// Apply projectile damage to aircraft, destroy projectile
-			aircraft.damage(projectile.getDamage());
-			projectile.destroy();
-		}
+		//	// Apply projectile damage to Tank, destroy projectile
+		//	Tank.damage(projectile.getDamage());
+		//	projectile.destroy();
+		//}
 	}
 }
 
@@ -212,10 +213,10 @@ void World::buildScene()
 	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSounds));
 	mSceneGraph.attachChild(std::move(soundNode));
 
-	// Add player's aircraft
-	std::unique_ptr<Aircraft> player(new Aircraft(AircraftID::Eagle, mTextures, mFonts));
-	mPlayerAircraft = player.get();
-	mPlayerAircraft->setPosition(mSpawnPosition);
+	// Add player's Tank
+	std::unique_ptr<Tank> player(new Tank(TankID::LMG1, mTextures, mFonts));
+	mPlayerTank = player.get();
+	mPlayerTank->setPosition(mSpawnPosition);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player));
 
 	addEnemies();
@@ -227,55 +228,55 @@ void World::adaptPlayerPosition()
 	sf::FloatRect viewBounds = getViewBounds();
 	const float borderDistance = 40.f;
 
-	sf::Vector2f position = mPlayerAircraft->getPosition();
+	sf::Vector2f position = mPlayerTank->getPosition();
 	position.x = std::max(position.x, viewBounds.left + borderDistance);
 	position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
 	position.y = std::max(position.y, viewBounds.top + borderDistance);
 	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
-	mPlayerAircraft->setPosition(position);
+	mPlayerTank->setPosition(position);
 }
 
 void World::adaptPlayerVelocity()
 {
-	sf::Vector2f velocity = mPlayerAircraft->getVelocity();
+	sf::Vector2f velocity = mPlayerTank->getVelocity();
 
 	// If moving diagonally, reduce velocity (to have always same velocity)
 	if (velocity.x != 0.f && velocity.y != 0.f)
-		mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
+		mPlayerTank->setVelocity(velocity / std::sqrt(2.f));
 
 	// Add scrolling velocity
-	mPlayerAircraft->accelerate(0.f, mScrollSpeed);
+	mPlayerTank->accelerate(0.f, mScrollSpeed);
 }
 
 void World::addEnemies()
 {
 	// Add enemies to the spawn point container
-	addEnemy(AircraftID::Raptor, 0.f, 500.f);
-	addEnemy(AircraftID::Raptor, 0.f, 1000.f);
-	addEnemy(AircraftID::Raptor, +100.f, 1150.f);
-	addEnemy(AircraftID::Raptor, -100.f, 1150.f);
-	addEnemy(AircraftID::Avenger, 70.f, 1500.f);
-	addEnemy(AircraftID::Avenger, -70.f, 1500.f);
+	addEnemy(TankID::LMG3, 0.f, 500.f);
+	addEnemy(TankID::LMG3, 0.f, 1000.f);
+	addEnemy(TankID::LMG3, +100.f, 1150.f);
+	addEnemy(TankID::LMG3, -100.f, 1150.f);
+	addEnemy(TankID::LMG3, 70.f, 1500.f);
+	addEnemy(TankID::LMG3, -70.f, 1500.f);
 
-	addEnemy(AircraftID::Avenger, -70.f, 1710.f);
-	addEnemy(AircraftID::Avenger, 70.f, 1700.f);
-	addEnemy(AircraftID::Avenger, 30.f, 1850.f);
-	addEnemy(AircraftID::Raptor, 300.f, 2200.f);
-	addEnemy(AircraftID::Raptor, -300.f, 2200.f);
-	addEnemy(AircraftID::Raptor, 0.f, 2200.f);
-	addEnemy(AircraftID::Raptor, 0.f, 2500.f);
-	addEnemy(AircraftID::Avenger, -300.f, 2700.f);
-	addEnemy(AircraftID::Avenger, -300.f, 2700.f);
-	addEnemy(AircraftID::Raptor, 0.f, 3000.f);
-	addEnemy(AircraftID::Raptor, 250.f, 3250.f);
-	addEnemy(AircraftID::Raptor, -250.f, 3250.f);
-	addEnemy(AircraftID::Avenger, 0.f, 3500.f);
-	addEnemy(AircraftID::Avenger, 0.f, 3700.f);
-	addEnemy(AircraftID::Raptor, 0.f, 3800.f);
-	addEnemy(AircraftID::Avenger, 0.f, 4000.f);
-	addEnemy(AircraftID::Avenger, -200.f, 4200.f);
-	addEnemy(AircraftID::Raptor, 200.f, 4200.f);
-	addEnemy(AircraftID::Raptor, 0.f, 4400.f);
+	addEnemy(TankID::LMG3, -70.f, 1710.f);
+	addEnemy(TankID::LMG3, 70.f, 1700.f);
+	addEnemy(TankID::LMG3, 30.f, 1850.f);
+	addEnemy(TankID::LMG3, 300.f, 2200.f);
+	addEnemy(TankID::LMG3, -300.f, 2200.f);
+	addEnemy(TankID::LMG3, 0.f, 2200.f);
+	addEnemy(TankID::LMG3, 0.f, 2500.f);
+	addEnemy(TankID::LMG3, -300.f, 2700.f);
+	addEnemy(TankID::LMG3, -300.f, 2700.f);
+	addEnemy(TankID::LMG3, 0.f, 3000.f);
+	addEnemy(TankID::LMG3, 250.f, 3250.f);
+	addEnemy(TankID::LMG3, -250.f, 3250.f);
+	addEnemy(TankID::LMG3, 0.f, 3500.f);
+	addEnemy(TankID::LMG3, 0.f, 3700.f);
+	addEnemy(TankID::LMG3, 0.f, 3800.f);
+	addEnemy(TankID::LMG3, 0.f, 4000.f);
+	addEnemy(TankID::LMG3, -200.f, 4200.f);
+	addEnemy(TankID::LMG3, 200.f, 4200.f);
+	addEnemy(TankID::LMG3, 0.f, 4400.f);
 
 	// Sort all enemies according to their y value, such that lower enemies are checked first for spawning
 	std::sort(mEnemySpawnPoints.begin(), mEnemySpawnPoints.end(), [](SpawnPoint lhs, SpawnPoint rhs)
@@ -284,7 +285,7 @@ void World::addEnemies()
 	});
 }
 
-void World::addEnemy(AircraftID type, float relX, float relY)
+void World::addEnemy(TankID type, float relX, float relY)
 {
 	SpawnPoint spawn(type, mSpawnPosition.x + relX, mSpawnPosition.y - relY);
 	mEnemySpawnPoints.push_back(spawn);
@@ -298,7 +299,7 @@ void World::spawnEnemies()
 	{
 		SpawnPoint spawn = mEnemySpawnPoints.back();
 
-		std::unique_ptr<Aircraft> enemy(new Aircraft(spawn.type, mTextures, mFonts));
+		std::unique_ptr<Tank> enemy(new Tank(spawn.type, mTextures, mFonts));
 		enemy->setPosition(spawn.x, spawn.y);
 		enemy->setRotation(180.f);
 
@@ -312,7 +313,7 @@ void World::spawnEnemies()
 void World::destroyEntitiesOutsideView()
 {
 	Command command;
-	command.category = static_cast<int>(CategoryID::Projectile) | static_cast<int>(CategoryID::EnemyAircraft);
+	command.category = static_cast<int>(CategoryID::Projectile) | static_cast<int>(CategoryID::EnemyTank);
 	command.action = derivedAction<Entity>([this](Entity& e, sf::Time)
 	{
 		if (!getBattlefieldBounds().intersects(e.getBoundingRect()))
@@ -326,8 +327,8 @@ void World::guideMissiles()
 {
 	// Setup command that stores all enemies in mActiveEnemies
 	Command enemyCollector;
-	enemyCollector.category = static_cast<int>(CategoryID::EnemyAircraft);
-	enemyCollector.action = derivedAction<Aircraft>([this](Aircraft& enemy, sf::Time)
+	enemyCollector.category = static_cast<int>(CategoryID::EnemyTank);
+	enemyCollector.action = derivedAction<Tank>([this](Tank& enemy, sf::Time)
 	{
 		if (!enemy.isDestroyed())
 			mActiveEnemies.push_back(&enemy);
@@ -343,10 +344,10 @@ void World::guideMissiles()
 			return;
 
 		float minDistance = std::numeric_limits<float>::max();
-		Aircraft* closestEnemy = nullptr;
+		Tank* closestEnemy = nullptr;
 
 		// Find closest enemy
-		for (Aircraft* enemy : mActiveEnemies)
+		for (Tank* enemy : mActiveEnemies)
 		{
 			float enemyDistance = distance(missile, *enemy);
 

@@ -1,16 +1,16 @@
 #pragma once
 #include "Entity.hpp"
-#include "AircraftID.hpp"
+#include "TankID.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "CommandQueue.hpp"
 #include "TextNode.hpp"
 #include "Projectile.hpp"
 #include "Animation.hpp"
 
-class Aircraft : public Entity
+class Tank : public Entity
 {
 public:
-	Aircraft(AircraftID type, const TextureHolder& textures, const FontHolder& fonts);
+	Tank(TankID type, const TextureHolder& textures, const FontHolder& fonts);
 	virtual unsigned int getCategory() const;
 	virtual sf::FloatRect getBoundingRect() const;
 	virtual bool isMarkedForRemoval() const;
@@ -28,7 +28,7 @@ public:
 private:
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
-	void updateMovementPattern(sf::Time dt);
+	//void updateMovementPattern(sf::Time dt);
 	void updateTexts();
 
 	void checkProjectileLaunch(sf::Time dt, CommandQueue& commands);
@@ -38,10 +38,9 @@ private:
 
 	void createPickup(SceneNode& node, const TextureHolder& textures) const;
 	void checkPickupDrop(CommandQueue& commands);
-	void updateRollAnimation();
 
 private:
-	AircraftID mType;
+	TankID mType;
 	sf::Sprite mSprite;
 	Animation mExplosion;
 	TextNode* mHealthDisplay;

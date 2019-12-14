@@ -2,6 +2,7 @@
 
 #include "ResourceIdentifiers.hpp"
 #include "TextureID.hpp"
+#include "ProjectileID.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/Color.hpp>
@@ -10,7 +11,7 @@
 #include <vector>
 #include <functional>
 
-class Aircraft;
+class Tank;
 
 struct Direction
 {
@@ -22,15 +23,14 @@ struct Direction
 	float distance;
 };
 
-struct AircraftData
+struct TankData
 {
 	int hitpoints;
 	float speed;
 	TextureID texture;
+	ProjectileID bulletType;
 	sf::IntRect textureRect;
 	sf::Time fireInterval;
-	std::vector<Direction> directions;
-	bool hasRollAnimation;
 };
 
 struct ProjectileData
@@ -43,7 +43,7 @@ struct ProjectileData
 
 struct PickupData
 {
-	std::function<void(Aircraft&)> action;
+	std::function<void(Tank&)> action;
 	TextureID texture;
 	sf::IntRect textureRect;
 };
@@ -54,7 +54,7 @@ struct ParticleData
 	sf::Time lifetime;
 };
 
-std::vector<AircraftData> initializeAircraftData();
+std::vector<TankData> initializeTankData();
 std::vector<ProjectileData> initializeProjectileData();
 std::vector<PickupData> initializePickupData();
 std::vector<ParticleData> initializeParticleData();

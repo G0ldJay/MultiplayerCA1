@@ -136,8 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActionID.hpp" />
-    <ClInclude Include="Aircraft.hpp" />
-    <ClInclude Include="AircraftID.hpp" />
+    <ClInclude Include="Tank.hpp" />
     <ClInclude Include="Animation.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="BloomEffect.hpp" />
@@ -185,6 +184,7 @@
     <ClInclude Include="StateID.hpp" />
     <ClInclude Include="StateStack.hpp" />
     <ClInclude Include="StateStackActionID.hpp" />
+    <ClInclude Include="TankID.hpp" />
     <ClInclude Include="TextNode.hpp" />
     <ClInclude Include="Utility.hpp" />
     <ClInclude Include="TextureID.hpp" />
@@ -192,7 +192,7 @@
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Aircraft.cpp" />
+    <ClCompile Include="Tank.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BloomEffect.cpp" />

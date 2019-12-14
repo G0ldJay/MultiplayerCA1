@@ -1,6 +1,6 @@
 #include "Player.hpp"
 #include "CommandQueue.hpp"
-#include "Aircraft.hpp"
+#include "Tank.hpp"
 #include "ActionID.hpp"
 
 #include <map>
@@ -9,16 +9,16 @@
 #include <iostream>
 
 
-struct AircraftMover
+struct TankMover
 {
-	AircraftMover(float vx, float vy)
+	TankMover(float vx, float vy)
 		: velocity(vx, vy)
 	{
 	}
 
-	void operator() (Aircraft& aircraft, sf::Time) const
+	void operator() (Tank& Tank, sf::Time) const
 	{
-		aircraft.accelerate(velocity * aircraft.getMaxSpeed());
+		Tank.accelerate(velocity * Tank.getMaxSpeed());
 	}
 
 	sf::Vector2f velocity;
@@ -37,9 +37,9 @@ Player::Player() : mCurrentMissionStatus(MissionStatusID::MissionRunning)
 	// Set initial action bindings
 	initializeActions();
 
-	// Assign all categories to player's aircraft
+	// Assign all categories to player's Tank
 	for (auto& pair : mActionBinding)
-		pair.second.category = static_cast<int>(CategoryID::PlayerAircraft);
+		pair.second.category = static_cast<int>(CategoryID::PlayerTank);
 }
 
 void Player::handleEvent(const sf::Event& event, CommandQueue& commands)
@@ -107,12 +107,12 @@ MissionStatusID Player::getMissionStatus() const
 
 void Player::initializeActions()
 {
-	mActionBinding[ActionID::MoveLeft].action = derivedAction<Aircraft>(AircraftMover(-1, 0));
-	mActionBinding[ActionID::MoveRight].action = derivedAction<Aircraft>(AircraftMover(+1, 0));
-	mActionBinding[ActionID::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0, -1));
-	mActionBinding[ActionID::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0, +1));
-	mActionBinding[ActionID::Fire].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.fire(); });
-	mActionBinding[ActionID::LaunchMissile].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.launchMissile(); });
+	mActionBinding[ActionID::MoveLeft].action = derivedAction<Tank>(TankMover(-1, 0));
+	mActionBinding[ActionID::MoveRight].action = derivedAction<Tank>(TankMover(+1, 0));
+	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>(TankMover(0, -1));
+	mActionBinding[ActionID::MoveDown].action = derivedAction<Tank>(TankMover(0, +1));
+	mActionBinding[ActionID::Fire].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.fire(); });
+	mActionBinding[ActionID::LaunchMissile].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.launchMissile(); });
 }
 
 bool Player::isRealtimeAction(ActionID action)
