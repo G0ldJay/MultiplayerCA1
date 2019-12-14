@@ -15,7 +15,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mTextures()
 	, mSceneGraph()
 	, mSceneLayers()
-	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, 5000.f)
+	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, mCamera.getSize().y)
 	, mSpawnPosition(mCamera.getSize().x / 2.f, mWorldBounds.height - mCamera.getSize().y / 2.f)
 	, mScrollSpeed(0)
 	, mPlayerTank(nullptr)
@@ -104,7 +104,7 @@ void World::loadTextures()
 {
 	mTextures.load(TextureID::Tanks, "Media/Textures/TankSpriteSheet.png");
 	mTextures.load(TextureID::Entities, "Media/Textures/Entities.png");
-	mTextures.load(TextureID::Jungle, "Media/Textures/Jungle.png");
+	mTextures.load(TextureID::Jungle, "Media/Textures/Gamebackground.png");
 	mTextures.load(TextureID::Explosion, "Media/Textures/Explosion.png");
 	mTextures.load(TextureID::Particle, "Media/Textures/Particle.png");
 	mTextures.load(TextureID::FinishLine, "Media/Textures/FinishLine.png");
