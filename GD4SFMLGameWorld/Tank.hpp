@@ -10,7 +10,7 @@
 class Tank : public Entity
 {
 public:
-	Tank(TankID type, const TextureHolder& textures, const FontHolder& fonts);
+	Tank(CategoryID entity,TankID type, const TextureHolder& textures, const FontHolder& fonts);
 	virtual unsigned int getCategory() const;
 	virtual sf::FloatRect getBoundingRect() const;
 	virtual bool isMarkedForRemoval() const;
@@ -41,6 +41,7 @@ private:
 	void checkPickupDrop(CommandQueue& commands);
 
 private:
+	CategoryID mEntity;
 	TankID mType;
 	sf::Sprite mSprite;
 	Animation mExplosion;

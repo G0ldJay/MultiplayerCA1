@@ -219,13 +219,13 @@ void World::buildScene()
 	mSceneGraph.attachChild(std::move(soundNode));
 
 	// Add player's Tank
-	std::unique_ptr<Tank> player(new Tank(TankID::HMG1, mTextures, mFonts));
+	std::unique_ptr<Tank> player(new Tank(CategoryID::PlayerTank,TankID::HMG1, mTextures, mFonts));
 	mPlayerTank = player.get();
 	mPlayerTank->setPosition(mSpawnPosition);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player));
 
 	// Add player two Tank
-	std::unique_ptr<Tank> player2(new Tank(TankID::Tesla1, mTextures, mFonts));
+	std::unique_ptr<Tank> player2(new Tank(CategoryID::PlayerTwoTank,TankID::Tesla1, mTextures, mFonts));
 	mPlayerTwoTank = player2.get();
 	mPlayerTwoTank->setPosition(mSpawnPositionPlayerTwo);
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player2));
@@ -336,7 +336,7 @@ void World::spawnEnemies()
 	{
 		SpawnPoint spawn = mEnemySpawnPoints.back();
 
-		std::unique_ptr<Tank> enemy(new Tank(spawn.type, mTextures, mFonts));
+		std::unique_ptr<Tank> enemy(new Tank(CategoryID::EnemyTank,spawn.type, mTextures, mFonts));
 		enemy->setPosition(spawn.x, spawn.y);
 		enemy->setRotation(180.f);
 
