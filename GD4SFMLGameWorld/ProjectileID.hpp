@@ -4,9 +4,13 @@ enum class ProjectileID
 	AlliedBullet,
 	EnemyBullet,
 	Missile,
-	LMGBullet,
-	HMGBullet,
-	GatlingBullet,
-	TeslaBullet,
+	GreenLMGBullet,
+	GreenHMGBullet,
+	GreenGatlingBullet,
+	GreenTeslaBullet,
+	RedLMGBullet,
+	RedHMGBullet,
+	RedGatlingBullet,
+	RedTeslaBullet,
 	TypeCount
 };

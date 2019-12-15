@@ -170,14 +170,22 @@ void World::handleCollisions()
 
 	for (SceneNode::Pair pair : collisionPairs)
 	{
-		if (matchesCategories(pair, CategoryID::PlayerTank, CategoryID::PlayerTwoTank))
+		//Green tank shooting red tank
+		if (matchesCategories(pair, CategoryID::AlliedProjectile, CategoryID::PlayerTwoTank))
 		{
-			auto& player = static_cast<Tank&>(*pair.first);
+			auto& projectile = static_cast<Projectile&>(*pair.first);
 			auto& enemy = static_cast<Tank&>(*pair.second);
+			projectile.destroy();
+			enemy.damage(projectile.getDamage());
+		}
 
-			// Collision: Player damage = enemy's remaining HP
-			player.damage(enemy.getHitpoints());
-			enemy.destroy();
+		//Red tank shooting green tank
+		else if (matchesCategories(pair, CategoryID::EnemyProjectile, CategoryID::PlayerTank))
+		{
+			auto& projectile = static_cast<Projectile&>(*pair.first);
+			auto& enemy = static_cast<Tank&>(*pair.second);
+			projectile.destroy();
+			enemy.damage(projectile.getDamage());
 		}
 
 		else if (matchesCategories(pair, CategoryID::PlayerTank, CategoryID::Pickup))

@@ -209,31 +209,35 @@ ProjectileID Tank::getProjectile() const
 	case TankID::GreenLMG1:
 	case TankID::GreenLMG2:
 	case TankID::GreenLMG3:
+		return ProjectileID::GreenLMGBullet;
 	case TankID::RedLMG1:
 	case TankID::RedLMG2:
 	case TankID::RedLMG3:
-		return ProjectileID::LMGBullet;
+		return ProjectileID::RedLMGBullet;
 	case TankID::GreenHMG1:
 	case TankID::GreenHMG2:
 	case TankID::GreenHMG3:
+		return ProjectileID::GreenHMGBullet;
 	case TankID::RedHMG1:
 	case TankID::RedHMG2:
 	case TankID::RedHMG3:
-		return ProjectileID::HMGBullet;
+		return ProjectileID::RedHMGBullet;
 	case TankID::GreenGatling1:
 	case TankID::GreenGatling2:
 	case TankID::GreenGatling3:
+		return ProjectileID::GreenGatlingBullet;
 	case TankID::RedGatling1:
 	case TankID::RedGatling2:
 	case TankID::RedGatling3:
-		return ProjectileID::GatlingBullet;
+		return ProjectileID::RedGatlingBullet;
 	case TankID::GreenTesla1:
 	case TankID::GreenTesla2:
 	case TankID::GreenTesla3:
+		return ProjectileID::GreenTeslaBullet;
 	case TankID::RedTesla1:
 	case TankID::RedTesla2:
 	case TankID::RedTesla3:
-		return ProjectileID::TeslaBullet;
+		return ProjectileID::RedTeslaBullet;
 	}
 		
 	/*if (mType == TankID::GreenLMG1 || mType == TankID::LMG2 || mType == TankID::LMG3)

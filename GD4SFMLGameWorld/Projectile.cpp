@@ -76,7 +76,7 @@ void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) 
 
 unsigned int Projectile::getCategory() const
 {
-	if (mType == ProjectileID::EnemyBullet)
+	if (mType == ProjectileID::RedLMGBullet || mType == ProjectileID::RedHMGBullet || mType == ProjectileID::RedGatlingBullet || mType == ProjectileID::RedTeslaBullet)
 		return static_cast<int>(CategoryID::EnemyProjectile);
 	else
 		return static_cast<int>(CategoryID::AlliedProjectile);
