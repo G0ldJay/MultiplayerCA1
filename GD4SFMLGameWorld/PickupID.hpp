@@ -6,5 +6,7 @@ enum class PickupID
 	FireSpread,
 	FireRate,
 	TypeCount,
-
+	HeavyGun,
+	GatlingGun,
+	TeslaGun
 };

@@ -94,6 +94,11 @@ bool World::hasAlivePlayer() const
 	return !mPlayerTank->isMarkedForRemoval();
 }
 
+bool World::hasAlivePlayerTwo() const
+{
+	return !mPlayerTwoTank->isMarkedForRemoval();
+}
+
 bool World::hasPlayerReachedEnd() const
 {
 	return !mWorldBounds.contains(mPlayerTank->getPosition());

@@ -32,7 +32,7 @@ Obstacle::Obstacle(ObstacleID type, const TextureHolder& textures)
 
 unsigned int Obstacle::getCategory() const
 {
-	return static_cast<int>(ObstacleID::Barrel);
+	return static_cast<int>(mType);
 }
 
 sf::FloatRect Obstacle::getBoundingRect() const
