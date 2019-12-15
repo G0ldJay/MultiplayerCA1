@@ -388,14 +388,15 @@ void Tank::createPickup(SceneNode& node, const TextureHolder& textures) const
 void Tank::updateTexts()
 {
 	mHealthDisplay->setString(toString(getHitpoints()) + " HP");
-	mHealthDisplay->setPosition(0.f, 50.f);
+	mHealthDisplay->setPosition(0.f, -120.f);
 	mHealthDisplay->setRotation(-getRotation());
+	mHealthDisplay->setScale(2.f, 2.f);
 
-	if (mMissileDisplay)
+	/*if (mMissileDisplay)
 	{
 		if (mMissileAmmo == 0)
 			mMissileDisplay->setString("");
 		else
 			mMissileDisplay->setString("M: " + toString(mMissileAmmo));
-	}
+	}*/
 }

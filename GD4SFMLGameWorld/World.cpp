@@ -267,7 +267,7 @@ void World::buildScene()
 	mSceneGraph.attachChild(std::move(soundNode));
 
 	// Add player's Tank
-	std::unique_ptr<Tank> player(new Tank(CategoryID::PlayerTank,TankID::GreenHMG1, mTextures, mFonts));
+	std::unique_ptr<Tank> player(new Tank(CategoryID::PlayerTank,TankID::GreenTesla1, mTextures, mFonts));
 	mPlayerTank = player.get();
 	mPlayerTank->setScale(.5f, .5f);
 	mPlayerTank->setPosition(mSpawnPosition);
