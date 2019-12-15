@@ -8,6 +8,8 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
+#include<iostream>
+
 
 namespace
 {
@@ -22,6 +24,7 @@ Obstacle::Obstacle(ObstacleID type, const TextureHolder& textures)
 	, mShowExplosion(true)
 	, mPlayedExplosionSound(false)
 {
+	std::cout << getCategory() << std::endl;
 	mExplosion.setFrameSize(sf::Vector2i(256, 256));
 	mExplosion.setNumFrames(16);
 	mExplosion.setDuration(sf::seconds(1));

@@ -151,7 +151,7 @@ bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID 
 	}
 }
 
-bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CollisionID type2)
+bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, ObstacleID type2)
 {
 	unsigned int category1 = colliders.first->getCategory();
 	unsigned int category2 = colliders.second->getCategory();
@@ -208,13 +208,31 @@ void World::handleCollisions()
 			pickup.destroy();
 		}
 
-		else if (matchesCategories(pair, CategoryID::PlayerTank, CollisionID::Barrel)) {
+		else if (matchesCategories(pair, CategoryID::PlayerTank, ObstacleID::Barrel)) {
 			auto& player = static_cast<Tank&>(*pair.first);
 			auto& obstacle = static_cast<Obstacle&>(*pair.second);
 
 			// Collision: Player damage = enemy's remaining HP
 			player.damage(obstacle.getHitpoints());
 			obstacle.destroy();
+		}
+
+		else if (matchesCategories(pair, CategoryID::AlliedProjectile, ObstacleID::Wall)) {
+			auto& projectile = static_cast<Projectile&>(*pair.first);
+			auto& obstacle = static_cast<Obstacle&>(*pair.second);
+
+			// Collision: Player damage = enemy's remaining HP
+			projectile.destroy();
+			obstacle.damage(projectile.getDamage());
+		}
+
+		else if (matchesCategories(pair, CategoryID::EnemyProjectile, ObstacleID::Wall)) {
+			auto& projectile = static_cast<Projectile&>(*pair.first);
+			auto& obstacle = static_cast<Obstacle&>(*pair.second);
+
+			// Collision: Player damage = enemy's remaining HP
+			projectile.destroy();
+			obstacle.damage(projectile.getDamage());
 		}
 
 		//else if (matchesCategories(pair, CategoryID::EnemyTank, CategoryID::AlliedProjectile)
@@ -272,7 +290,7 @@ void World::buildScene()
 	mSceneGraph.attachChild(std::move(soundNode));
 
 	// Add player's Tank
-	std::unique_ptr<Tank> player(new Tank(CategoryID::PlayerTank,TankID::GreenTesla1, mTextures, mFonts));
+	std::unique_ptr<Tank> player(new Tank(CategoryID::PlayerTank,TankID::GreenLMG1, mTextures, mFonts));
 	mPlayerTank = player.get();
 	mPlayerTank->setScale(.5f, .5f);
 	mPlayerTank->setPosition(mSpawnPosition);

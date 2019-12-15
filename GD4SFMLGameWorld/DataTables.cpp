@@ -263,7 +263,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	std::vector<ObstacleData> data(static_cast<int>(ObstacleID::TypeCount));
 
 	data[static_cast<int>(ObstacleID::Wall)].damage = 2;
-	data[static_cast<int>(ObstacleID::Wall)].hitpoints = 10000;
+	data[static_cast<int>(ObstacleID::Wall)].hitpoints = 10;
 	data[static_cast<int>(ObstacleID::Wall)].texture = TextureID::Wall;
 
 	data[static_cast<int>(ObstacleID::Barrel)].damage = 40;
