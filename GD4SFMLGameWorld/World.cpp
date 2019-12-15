@@ -119,6 +119,10 @@ void World::loadTextures()
 	mTextures.load(TextureID::Explosion, "Media/Textures/Explosion.png");
 	mTextures.load(TextureID::Particle, "Media/Textures/Particle.png");
 	mTextures.load(TextureID::FinishLine, "Media/Textures/FinishLine.png");
+	mTextures.load(TextureID::LmgBullet, "Media/Textures/Bullet.png");
+	mTextures.load(TextureID::HmgBullet, "Media/Textures/HeavyBullet.png");
+	mTextures.load(TextureID::GatlingBullet, "Media/Textures/Bullet.png");
+	mTextures.load(TextureID::TeslaBullet, "Media/Textures/LightningBall.png");
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID type2)
@@ -205,8 +209,7 @@ void World::handleCollisions()
 
 			// Collision: Player damage = enemy's remaining HP
 			player.damage(obstacle.getHitpoints());
-			obstacle.damage(50);
-			//obstacle.destroy();
+			obstacle.destroy();
 		}
 
 		//else if (matchesCategories(pair, CategoryID::EnemyTank, CategoryID::AlliedProjectile)
@@ -373,6 +376,8 @@ void World::addEnemies()
 void World::addObstacles()
 {
 	addObstacle(ObstacleID::Barrel, mSpawnPosition.x+100, mSpawnPosition.y+100);
+
+	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 200, mSpawnPosition.y + 100);
 }
 
 void World::addObstacle(ObstacleID type, float posX, float posY)
@@ -406,24 +411,24 @@ void World::addEnemy(TankID type, float relX, float relY)
 	mEnemySpawnPoints.push_back(spawn);
 }
 
-void World::spawnEnemies()
-{
-	// Spawn all enemies entering the view area (including distance) this frame
-	while (!mEnemySpawnPoints.empty()
-		&& mEnemySpawnPoints.back().y > getBattlefieldBounds().top)
-	{
-		SpawnPoint spawn = mEnemySpawnPoints.back();
-
-		std::unique_ptr<Tank> enemy(new Tank(CategoryID::PlayerTwoTank,spawn.type, mTextures, mFonts));
-		enemy->setPosition(spawn.x, spawn.y);
-		enemy->setRotation(180.f);
-
-		mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(enemy));
-
-		// Enemy is spawned, remove from the list to spawn
-		mEnemySpawnPoints.pop_back();
-	}
-}
+//void World::spawnEnemies()
+//{
+//	// Spawn all enemies entering the view area (including distance) this frame
+//	while (!mEnemySpawnPoints.empty()
+//		&& mEnemySpawnPoints.back().y > getBattlefieldBounds().top)
+//	{
+//		SpawnPoint spawn = mEnemySpawnPoints.back();
+//
+//		std::unique_ptr<Tank> enemy(new Tank(CategoryID::PlayerTwoTank,spawn.type, mTextures, mFonts));
+//		enemy->setPosition(spawn.x, spawn.y);
+//		enemy->setRotation(180.f);
+//
+//		mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(enemy));
+//
+//		// Enemy is spawned, remove from the list to spawn
+//		mEnemySpawnPoints.pop_back();
+//	}
+//}
 
 void World::destroyEntitiesOutsideView()
 {
