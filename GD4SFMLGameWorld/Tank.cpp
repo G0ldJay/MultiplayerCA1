@@ -183,7 +183,24 @@ bool Tank::isMarkedForRemoval() const
 
 bool Tank::isAllied() const
 {
-	return mType == TankID::GreenLMG1;
+	switch (mType) 
+	{
+		case TankID::GreenLMG1:
+		case TankID::GreenLMG2:
+		case TankID::GreenLMG3:
+		case TankID::GreenHMG1:
+		case TankID::GreenHMG2:
+		case TankID::GreenHMG3:
+		case TankID::GreenGatling1:
+		case TankID::GreenGatling2:
+		case TankID::GreenGatling3:
+		case TankID::GreenTesla1:
+		case TankID::GreenTesla2:
+		case TankID::GreenTesla3:
+			return true;
+	}
+	return false;
+	//return mType == TankID::GreenLMG1;
 }
 
 ProjectileID Tank::getProjectile() const
