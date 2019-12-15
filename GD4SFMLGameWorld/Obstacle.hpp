@@ -13,6 +13,8 @@ public:
 
 	virtual unsigned int	getCategory() const;
 	virtual sf::FloatRect	getBoundingRect() const;
+	virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
+	void playerLocalSound(CommandQueue& command, SoundEffectID effect);
 
 protected:
 	virtual void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -21,4 +23,7 @@ protected:
 private:
 	ObstacleID mType;
 	sf::Sprite mSprite;
+	Animation mExplosion;
+	bool mShowExplosion;
+	bool mPlayedExplosionSound;
 };

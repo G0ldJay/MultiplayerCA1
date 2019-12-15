@@ -197,7 +197,8 @@ void World::handleCollisions()
 
 			// Collision: Player damage = enemy's remaining HP
 			player.damage(obstacle.getHitpoints());
-			obstacle.destroy();
+			obstacle.damage(50);
+			//obstacle.destroy();
 		}
 
 		//else if (matchesCategories(pair, CategoryID::EnemyTank, CategoryID::AlliedProjectile)
