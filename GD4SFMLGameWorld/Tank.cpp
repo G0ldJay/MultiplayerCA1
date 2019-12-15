@@ -113,12 +113,19 @@ Tank::Tank(CategoryID entity,TankID type, const TextureHolder& textures, const F
 	}
 
 	std::unique_ptr<EmitterNode> smokeLeft(new EmitterNode(ParticleID::Smoke));
-	smokeLeft->setPosition(-40.f, -getBoundingRect().height / 2.f);
+	smokeLeft->setPosition(-40.f, getBoundingRect().height / 2.f);
 	attachChild(std::move(smokeLeft));
 
 	std::unique_ptr<EmitterNode> smokeRight(new EmitterNode(ParticleID::Smoke));
-	smokeRight->setPosition(40.f, -getBoundingRect().height / 2.f);
+	smokeRight->setPosition(40.f, getBoundingRect().height / 2.f);
 	attachChild(std::move(smokeRight));
+
+	if (mIsFiring)
+	{
+		std::unique_ptr<EmitterNode> smokeCannon(new EmitterNode(ParticleID::BulletSmoke));
+		smokeRight->setPosition(100.f, getBoundingRect().height / 2.f);
+		attachChild(std::move(smokeCannon));
+	}
 
 	updateTexts();
 }

@@ -114,7 +114,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedLMG1)].hitpoints = 50;
 	data[static_cast<int>(TankID::RedLMG1)].speed = 200.f;
 	data[static_cast<int>(TankID::RedLMG1)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(TankID::RedLMG1)].textureRect = sf::IntRect(0, 128, 95, 128);
+	data[static_cast<int>(TankID::RedLMG1)].textureRect = sf::IntRect(0, 128, 95, 112);
 	data[static_cast<int>(TankID::RedLMG1)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedLMG1)].bulletType = ProjectileID::RedLMGBullet;
 								  
@@ -122,7 +122,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedLMG2)].hitpoints = 50;
 	data[static_cast<int>(TankID::RedLMG2)].speed = 200.f;
 	data[static_cast<int>(TankID::RedLMG2)].fireInterval = sf::seconds(0.6f);
-	data[static_cast<int>(TankID::RedLMG2)].textureRect = sf::IntRect(95, 128, 95, 128);
+	data[static_cast<int>(TankID::RedLMG2)].textureRect = sf::IntRect(95, 128, 95, 112);
 	data[static_cast<int>(TankID::RedLMG2)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedLMG2)].bulletType = ProjectileID::RedLMGBullet;
 								  
@@ -130,7 +130,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedLMG3)].hitpoints = 50;
 	data[static_cast<int>(TankID::RedLMG3)].speed = 250.f;
 	data[static_cast<int>(TankID::RedLMG3)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(TankID::RedLMG3)].textureRect = sf::IntRect(190, 128, 95, 128);
+	data[static_cast<int>(TankID::RedLMG3)].textureRect = sf::IntRect(190, 128, 95, 112);
 	data[static_cast<int>(TankID::RedLMG3)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedLMG3)].bulletType = ProjectileID::RedLMGBullet;
 								  
@@ -138,7 +138,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedHMG1)].hitpoints = 100;
 	data[static_cast<int>(TankID::RedHMG1)].speed = 200.f;
 	data[static_cast<int>(TankID::RedHMG1)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(TankID::RedHMG1)].textureRect = sf::IntRect(285, 128, 95, 128);
+	data[static_cast<int>(TankID::RedHMG1)].textureRect = sf::IntRect(285, 128, 95, 112);
 	data[static_cast<int>(TankID::RedHMG1)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedHMG1)].bulletType = ProjectileID::RedHMGBullet;
 								  
@@ -146,7 +146,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedHMG2)].hitpoints = 100;
 	data[static_cast<int>(TankID::RedHMG2)].speed = 200.f;
 	data[static_cast<int>(TankID::RedHMG2)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(TankID::RedHMG2)].textureRect = sf::IntRect(380, 128, 95, 128);
+	data[static_cast<int>(TankID::RedHMG2)].textureRect = sf::IntRect(380, 128, 95, 112);
 	data[static_cast<int>(TankID::RedHMG2)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedHMG2)].bulletType = ProjectileID::RedHMGBullet;
 								  
@@ -154,7 +154,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedHMG3)].hitpoints = 100;
 	data[static_cast<int>(TankID::RedHMG3)].speed = 250.f;
 	data[static_cast<int>(TankID::RedHMG3)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(TankID::RedHMG3)].textureRect = sf::IntRect(475, 128, 95, 128);
+	data[static_cast<int>(TankID::RedHMG3)].textureRect = sf::IntRect(475, 128, 95, 112);
 	data[static_cast<int>(TankID::RedHMG3)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedHMG3)].bulletType = ProjectileID::RedHMGBullet;
 								  
@@ -162,7 +162,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedGatling1)].hitpoints = 150;
 	data[static_cast<int>(TankID::RedGatling1)].speed = 200.f;
 	data[static_cast<int>(TankID::RedGatling1)].fireInterval = sf::seconds(0.6f);
-	data[static_cast<int>(TankID::RedGatling1)].textureRect = sf::IntRect(570, 128, 95, 128);
+	data[static_cast<int>(TankID::RedGatling1)].textureRect = sf::IntRect(570, 128, 95, 112);
 	data[static_cast<int>(TankID::RedGatling1)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedGatling1)].bulletType = ProjectileID::RedGatlingBullet;
 								  
@@ -170,7 +170,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedGatling2)].hitpoints = 150;
 	data[static_cast<int>(TankID::RedGatling2)].speed = 200.f;
 	data[static_cast<int>(TankID::RedGatling2)].fireInterval = sf::seconds(0.4f);
-	data[static_cast<int>(TankID::RedGatling2)].textureRect = sf::IntRect(665, 128, 95, 128);
+	data[static_cast<int>(TankID::RedGatling2)].textureRect = sf::IntRect(665, 128, 95, 112);
 	data[static_cast<int>(TankID::RedGatling2)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedGatling2)].bulletType = ProjectileID::RedGatlingBullet;
 								  
@@ -178,7 +178,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedGatling3)].hitpoints = 150;
 	data[static_cast<int>(TankID::RedGatling3)].speed = 300.f;
 	data[static_cast<int>(TankID::RedGatling3)].fireInterval = sf::seconds(0.6f);
-	data[static_cast<int>(TankID::RedGatling3)].textureRect = sf::IntRect(760, 128, 95, 128);
+	data[static_cast<int>(TankID::RedGatling3)].textureRect = sf::IntRect(760, 128, 95, 112);
 	data[static_cast<int>(TankID::RedGatling3)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedGatling3)].bulletType = ProjectileID::RedGatlingBullet;
 								  
@@ -186,7 +186,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedTesla1)].hitpoints = 200;
 	data[static_cast<int>(TankID::RedTesla1)].speed = 200.f;
 	data[static_cast<int>(TankID::RedTesla1)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(TankID::RedTesla1)].textureRect = sf::IntRect(855, 128, 95, 128);
+	data[static_cast<int>(TankID::RedTesla1)].textureRect = sf::IntRect(855, 128, 95, 112);
 	data[static_cast<int>(TankID::RedTesla1)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedTesla1)].bulletType = ProjectileID::RedTeslaBullet;
 								  
@@ -194,7 +194,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedTesla2)].hitpoints = 200;
 	data[static_cast<int>(TankID::RedTesla2)].speed = 200.f;
 	data[static_cast<int>(TankID::RedTesla2)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(TankID::RedTesla2)].textureRect = sf::IntRect(950, 128, 95, 128);
+	data[static_cast<int>(TankID::RedTesla2)].textureRect = sf::IntRect(950, 128, 95, 112);
 	data[static_cast<int>(TankID::RedTesla2)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedTesla2)].bulletType = ProjectileID::RedTeslaBullet;
 								  
@@ -202,7 +202,7 @@ std::vector<TankData> initializeTankData()
 	data[static_cast<int>(TankID::RedTesla3)].hitpoints = 200;
 	data[static_cast<int>(TankID::RedTesla3)].speed = 250.f;
 	data[static_cast<int>(TankID::RedTesla3)].fireInterval = sf::seconds(1);
-	data[static_cast<int>(TankID::RedTesla3)].textureRect = sf::IntRect(1045, 128, 95, 128);
+	data[static_cast<int>(TankID::RedTesla3)].textureRect = sf::IntRect(1045, 128, 95, 112);
 	data[static_cast<int>(TankID::RedTesla3)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedTesla3)].bulletType = ProjectileID::RedTeslaBullet;
 
@@ -306,8 +306,11 @@ std::vector<ParticleData> initializeParticleData()
 	data[static_cast<int>(ParticleID::Propellant)].color = sf::Color(255, 255, 50);
 	data[static_cast<int>(ParticleID::Propellant)].lifetime = sf::seconds(0.6f);
 
-	data[static_cast<int>(ParticleID::Smoke)].color = sf::Color(50, 50, 50);
-	data[static_cast<int>(ParticleID::Smoke)].lifetime = sf::seconds(4.f);
+	data[static_cast<int>(ParticleID::Smoke)].color = sf::Color(211, 182, 140);
+	data[static_cast<int>(ParticleID::Smoke)].lifetime = sf::seconds(1.5f);
+
+	data[static_cast<int>(ParticleID::BulletSmoke)].color = sf::Color(103, 103, 103);
+	data[static_cast<int>(ParticleID::BulletSmoke)].lifetime = sf::seconds(0.5f);
 
 	return data;
 }
