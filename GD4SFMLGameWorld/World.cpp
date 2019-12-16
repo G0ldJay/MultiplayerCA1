@@ -128,7 +128,6 @@ void World::loadTextures()
 	mTextures.load(TextureID::HmgBullet, "Media/Textures/HeavyBullet.png");
 	mTextures.load(TextureID::GatlingBullet, "Media/Textures/Bullet.png");
 	mTextures.load(TextureID::TeslaBullet, "Media/Textures/LightningBallScaled.png");
-
 	mTextures.load(TextureID::HeavyGunPickup, "Media/Textures/Arena/Props/Dot_A.png");
 	mTextures.load(TextureID::GatlingGunPickup, "Media/Textures/Arena/Props/Dot_B.png");
 	mTextures.load(TextureID::TeslaGunPickup, "Media/Textures/Arena/Props/Artifact.png");
@@ -310,7 +309,7 @@ void World::buildScene()
 	mPlayerTwoTank->setPosition(mSpawnPositionPlayerTwo); //Set up player 2 spawn - Jason Lynch
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player2));
 
-	//addEnemies();
+	//addExtras();
 	addObstacles();
 	addPickups();
 }
@@ -411,9 +410,9 @@ void World::spawnObstacles() //Spawn obstacles, set scale, rotation, and positio
 
 void World::addPickups() //Set up pickups - Jason Lynch
 {
-	addPickup(TankPickupID::HeavyGun, 120, 110 );
-	addPickup(TankPickupID::GatlingGun, 400, 110);
-	addPickup(TankPickupID::TeslaGun, 800, 110);
+	addPickup(TankPickupID::HeavyGun, 100, 100 );
+	addPickup(TankPickupID::GatlingGun, 912, 650);
+	addPickup(TankPickupID::TeslaGun, 512, 380);
 }
 
 void World::addPickup(TankPickupID type, float posX, float posY)//Add Tank Pickups to Vector of PickupSpawnPoint structs - Jason Lynch
