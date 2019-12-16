@@ -397,6 +397,7 @@ void World::spawnObstacles() //Spawn obstacles, set scale, rotation, and positio
 
 		std::unique_ptr<Obstacle> obstacle(new Obstacle(spawn.type, mTextures, mFonts));
 		obstacle->setScale(spawn.scaleX, spawn.scaleY);
+		obstacle->getCategory();
 		obstacle->setPosition(spawn.x, spawn.y);
 		obstacle->setRotation(spawn.rotation);
 		//obstacle->setRotation(180.f);
