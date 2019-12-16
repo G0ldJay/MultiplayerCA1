@@ -330,9 +330,13 @@ std::vector<ParticleData> initializeParticleData()
 	data[static_cast<int>(ParticleID::Smoke)].color = sf::Color(211, 182, 140);
 	data[static_cast<int>(ParticleID::Smoke)].lifetime = sf::seconds(1.5f);
 
-	//Grey smoke for tank gun - Dylan Reillyk
+	//Grey smoke for tank gun - Dylan Reilly
 	data[static_cast<int>(ParticleID::BulletSmoke)].color = sf::Color(103, 103, 103);
 	data[static_cast<int>(ParticleID::BulletSmoke)].lifetime = sf::seconds(0.5f);
+
+	//Blue smoke for tesla gun - Dylan Reilly
+	data[static_cast<int>(ParticleID::TeslaSmoke)].color = sf::Color(0, 234, 255);
+	data[static_cast<int>(ParticleID::TeslaSmoke)].lifetime = sf::seconds(0.5f);
 
 	return data;
 }

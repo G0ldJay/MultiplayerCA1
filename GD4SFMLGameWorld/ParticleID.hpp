@@ -4,5 +4,6 @@ enum class ParticleID
 	Propellant,
 	Smoke,
 	BulletSmoke,
+	TeslaSmoke,
 	ParticleCount
 };

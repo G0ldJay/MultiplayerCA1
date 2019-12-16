@@ -27,18 +27,20 @@ Projectile::Projectile(ProjectileID type, const TextureHolder& textures)
 	centreOrigin(mSprite);
 
 	//Add particle system for system
-	if (isGuided())
+	if (mType == ProjectileID::GreenHMGBullet || mType == ProjectileID::RedHMGBullet)
 	{
-		std::cout << "IsGuided triggered" << std::endl;
-		std::unique_ptr<EmitterNode> smoke(new EmitterNode(ParticleID::Smoke));
+		std::unique_ptr<EmitterNode> smoke(new EmitterNode(ParticleID::BulletSmoke));
 		smoke->setPosition(0.f, getBoundingRect().height / 2.f);
 		attachChild(std::move(smoke));
-
-		std::unique_ptr<EmitterNode> propellant(new EmitterNode(ParticleID::Propellant));
-		propellant->setPosition(0.f, getBoundingRect().height / 2.f);
-		attachChild(std::move(propellant));
-
 	}
+
+	if (mType == ProjectileID::GreenTeslaBullet || mType == ProjectileID::RedTeslaBullet)
+	{
+		std::unique_ptr<EmitterNode> smoke(new EmitterNode(ParticleID::TeslaSmoke));
+		smoke->setPosition(0.f, getBoundingRect().height / 2.f);
+		attachChild(std::move(smoke));
+	}
+
 }
 
 void Projectile::guideTowards(sf::Vector2f position)

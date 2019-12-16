@@ -286,6 +286,12 @@ void World::buildScene()
 	std::unique_ptr<ParticleNode> propellantNode(new ParticleNode(ParticleID::Propellant, mTextures));
 	mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(propellantNode));
 
+	std::unique_ptr<ParticleNode> bulletSmokeNode(new ParticleNode(ParticleID::BulletSmoke, mTextures));
+	mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(bulletSmokeNode));
+
+	std::unique_ptr<ParticleNode> teslaSmokeNode(new ParticleNode(ParticleID::TeslaSmoke, mTextures));
+	mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(teslaSmokeNode));
+
 	//Add the sound effect node
 	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSounds));
 	mSceneGraph.attachChild(std::move(soundNode));

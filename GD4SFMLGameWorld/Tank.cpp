@@ -110,15 +110,14 @@ Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const 
 	std::unique_ptr<EmitterNode> smokeRight(new EmitterNode(ParticleID::Smoke));
 	smokeRight->setPosition(40.f, getBoundingRect().height / 2.f);
 	attachChild(std::move(smokeRight));
-
-	//Spawns smoke particles when firing the gun - Dylan
+	
+	//Properllant when firing - Dylan Reilly -NOT WORKING
 	if (mIsFiring)
 	{
-		std::unique_ptr<EmitterNode> smokeCannon(new EmitterNode(ParticleID::BulletSmoke));
-		smokeRight->setPosition(100.f, getBoundingRect().height / 2.f);
-		attachChild(std::move(smokeCannon));
+		std::unique_ptr<EmitterNode> tankShot(new EmitterNode(ParticleID::Propellant));
+		tankShot->setPosition(0.f, getBoundingRect().height / 2.f);
+		attachChild(std::move(tankShot));
 	}
-
 	updateTexts();
 }
 
