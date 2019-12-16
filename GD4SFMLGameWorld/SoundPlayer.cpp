@@ -23,6 +23,10 @@ SoundPlayer::SoundPlayer()
 	mSoundsBuffer.load(SoundEffectID::LaunchMissile, "Media/Sound/LaunchMissile.wav");
 	mSoundsBuffer.load(SoundEffectID::CollectPickup, "Media/Sound/CollectPickup.wav");
 	mSoundsBuffer.load(SoundEffectID::Button, "Media/Sound/Button.wav");
+	mSoundsBuffer.load(SoundEffectID::TankLMG, "Media/Sound/TankLMG.wav");
+	mSoundsBuffer.load(SoundEffectID::TankGatling, "Media/Sound/TankGatling.wav");
+	mSoundsBuffer.load(SoundEffectID::TankCannon1, "Media/Sound/TankCannon1.wav");
+	mSoundsBuffer.load(SoundEffectID::TankCannon2, "Media/Sound/TankCannon2.wav");
 
 	sf::Listener::setDirection(0.f, 0.f, -1.f);
 }

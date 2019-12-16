@@ -26,6 +26,7 @@ public:
 	void collectMissiles(unsigned int count);
 
 	void playerLocalSound(CommandQueue& command, SoundEffectID effect);
+	void CorrectFiringSound(CommandQueue& commands);
 
 private:
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -5,6 +5,10 @@ enum class SoundEffectID
 	EnemyGunfire,
 	Explosion1,
 	Explosion2,
+	TankLMG,
+	TankCannon1,
+	TankCannon2,
+	TankGatling,
 	LaunchMissile,
 	CollectPickup,
 	Button

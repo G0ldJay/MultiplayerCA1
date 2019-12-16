@@ -389,7 +389,7 @@ void Tank::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 	{
 		// Interval expired: We can fire a new bullet
 		commands.push(mFireCommand);
-		playerLocalSound(commands, SoundEffectID::EnemyGunfire);
+		CorrectFiringSound(commands);
 		mFireCountdown += Table[static_cast<int>(mType)].fireInterval / (mFireRateLevel + 1.f);
 		mIsFiring = false;
 	}
@@ -406,6 +406,28 @@ void Tank::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 		commands.push(mMissileCommand);
 		playerLocalSound(commands, SoundEffectID::LaunchMissile);
 		mIsLaunchingMissile = false;
+	}
+}
+
+void Tank::CorrectFiringSound(CommandQueue& commands) { //Determines firing sound based in projectile type - Jason lynch 
+	ProjectileID id = getProjectile();
+
+	if (id == ProjectileID::GreenLMGBullet || id == ProjectileID::RedLMGBullet)  //If tank type is LMG - Jason lynch 
+	{
+		playerLocalSound(commands, SoundEffectID::TankLMG); //Play LMG sound - Jason lynch 
+	}
+	else if (id == ProjectileID::GreenHMGBullet || id == ProjectileID::RedHMGBullet) //If tank type is HMG - Jason lynch 
+	{
+		SoundEffectID soundEffect = (randomInt(2) == 0) ? SoundEffectID::TankCannon1 : SoundEffectID::TankCannon2; //Pick one of two sounds - Jason lynch  
+		playerLocalSound(commands, soundEffect); //Play that sound - Jason lynch 
+	}
+	else if (id == ProjectileID::GreenGatlingBullet || id == ProjectileID::RedGatlingBullet) //If tank type is Gatling - Jason lynch  
+	{
+		playerLocalSound(commands, SoundEffectID::TankGatling);//Play gatling sound - Jason lynch 
+	}
+	else if (id == ProjectileID::GreenTeslaBullet || id == ProjectileID::RedTeslaBullet)//If tank type is Tesla - Jason lynch 
+	{
+
 	}
 }
 
