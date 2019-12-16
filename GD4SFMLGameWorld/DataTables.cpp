@@ -11,6 +11,7 @@
 
 std::vector<TankData> initializeTankData()
 {
+	//Added new data table entries for the different tanks, giving each tank different attributes
 	std::vector<TankData> data(static_cast<int>(TankID::TypeCount));
 	//Starter Tank - Light Machine Gun
 	data[static_cast<int>(TankID::GreenLMG1)].hitpoints = 50;
@@ -213,6 +214,7 @@ std::vector<TankData> initializeTankData()
 
 std::vector<ProjectileData> initializeProjectileData()
 {
+	//Data for different projectiles for different tanks - Dylan Reilly
 	std::vector<ProjectileData> data(static_cast<int>(ProjectileID::TypeCount));
 	//Green Bullets
 	data[static_cast<int>(ProjectileID::GreenLMGBullet)].damage = 5;
@@ -324,9 +326,11 @@ std::vector<ParticleData> initializeParticleData()
 	data[static_cast<int>(ParticleID::Propellant)].color = sf::Color(255, 255, 50);
 	data[static_cast<int>(ParticleID::Propellant)].lifetime = sf::seconds(0.6f);
 
+	//Changed rgb values for brown dust - Dylan Reilly
 	data[static_cast<int>(ParticleID::Smoke)].color = sf::Color(211, 182, 140);
 	data[static_cast<int>(ParticleID::Smoke)].lifetime = sf::seconds(1.5f);
 
+	//Grey smoke for tank gun - Dylan Reillyk
 	data[static_cast<int>(ParticleID::BulletSmoke)].color = sf::Color(103, 103, 103);
 	data[static_cast<int>(ParticleID::BulletSmoke)].lifetime = sf::seconds(0.5f);
 

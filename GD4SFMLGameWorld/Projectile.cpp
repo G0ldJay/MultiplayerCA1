@@ -74,6 +74,7 @@ void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) 
 	target.draw(mSprite, states);
 }
 
+//Returns whether a projectile is allied or enemy(green or red) based on bullet type - Dyllan Reilly
 unsigned int Projectile::getCategory() const
 {
 	if (mType == ProjectileID::RedLMGBullet || mType == ProjectileID::RedHMGBullet || mType == ProjectileID::RedGatlingBullet || mType == ProjectileID::RedTeslaBullet)

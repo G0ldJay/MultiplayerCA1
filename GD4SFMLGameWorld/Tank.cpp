@@ -114,6 +114,8 @@ Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const 
 		attachChild(std::move(playerDisplay));
 	}
 
+	//Dust trails for tank treads - Dylan
+	//Adds trail to the front left & right of the sprite
 	std::unique_ptr<EmitterNode> smokeLeft(new EmitterNode(ParticleID::Smoke));
 	smokeLeft->setPosition(-40.f, getBoundingRect().height / 2.f);
 	attachChild(std::move(smokeLeft));
@@ -122,6 +124,7 @@ Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const 
 	smokeRight->setPosition(40.f, getBoundingRect().height / 2.f);
 	attachChild(std::move(smokeRight));
 
+	//Spawns smoke particles when firing the gun - Dylan
 	if (mIsFiring)
 	{
 		std::unique_ptr<EmitterNode> smokeCannon(new EmitterNode(ParticleID::BulletSmoke));
@@ -190,6 +193,7 @@ bool Tank::isMarkedForRemoval() const
 	return isDestroyed() && (mExplosion.isFinished() || !mShowExplosion);
 }
 
+//Returns whether tank is allied or enemy (green or red respectively) - Dylan Reilly
 bool Tank::isAllied() const
 {
 	switch (mType)
@@ -212,6 +216,7 @@ bool Tank::isAllied() const
 	//return mType == TankID::GreenLMG1;
 }
 
+//Returns correct projectile ID based on the tank being used - Dylan Reilly
 ProjectileID Tank::getProjectile() const
 {
 	switch (mType) {
@@ -455,12 +460,14 @@ void Tank::createBullets(SceneNode& node, const TextureHolder& textures) const
 	}
 }
 
+//Creates projectile and sets its direction to the direction the tank is facing - Dylan Reilly
 void Tank::createProjectile(SceneNode& node, ProjectileID type, float xOffset, float yOffset, const TextureHolder& textures) const
 {
 	std::unique_ptr<Projectile> projectile(new Projectile(type, textures));
 
-	//sf::Vector2f offset(xOffset * mSprite.getGlobalBounds().width, yOffset * mSprite.getGlobalBounds().height);
+	//Sets projectile spawn position to origin on the tank
 	sf::Vector2f offset(xOffset * Tank::getWorldPosition());
+	//Sets velocity respective to the type of bullet and direction based on the direction the tank is facing
 	sf::Vector2f velocity(projectile->getMaxSpeed() * 1.5f * -sin(toRadian(Tank::getRotation())), projectile->getMaxSpeed() * 1.5f * cos(toRadian(Tank::getRotation())));
 
 	projectile->setPosition(getWorldPosition() + offset);

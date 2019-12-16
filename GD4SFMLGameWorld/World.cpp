@@ -185,7 +185,7 @@ void World::handleCollisions()
 
 	for (SceneNode::Pair pair : collisionPairs)
 	{
-		//Green tank shooting red tank
+		//Green tank shooting red tank - Dylan Reilly
 		if (matchesCategories(pair, CategoryID::AlliedProjectile, CategoryID::PlayerTwoTank))
 		{
 			auto& projectile = static_cast<Projectile&>(*pair.first);
@@ -195,7 +195,7 @@ void World::handleCollisions()
 			enemy.damage(projectile.getDamage());
 		}
 
-		//Red tank shooting green tank
+		//Red tank shooting green tank - Dylan Reilly
 		else if (matchesCategories(pair, CategoryID::EnemyProjectile, CategoryID::PlayerTank))
 		{
 			auto& projectile = static_cast<Projectile&>(*pair.first);
@@ -216,7 +216,7 @@ void World::handleCollisions()
 			player.playerLocalSound(mCommandQueue, SoundEffectID::CollectPickup);
 			pickup.destroy();
 		}
-
+		//Collision for player 2 with Tank pick up - Jason Lynch
 		else if (matchesCategories(pair, CategoryID::PlayerTwoTank, CategoryID::Pickup))
 		{
 			auto& player = static_cast<Tank&>(*pair.first);

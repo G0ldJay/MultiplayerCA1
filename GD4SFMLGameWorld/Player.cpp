@@ -106,10 +106,13 @@ MissionStatusID Player::getMissionStatus() const
 	return mCurrentMissionStatus;
 }
 
+//Updated to allow the tank to turn rather than strafe, tank now moves foward in the direction it is facing - Dylan Reilly
 void Player::initializeActions()
 {
+	//Turns tank while key is held
 	mActionBinding[ActionID::TurnLeft].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.rotate(-5.f); });
 	mActionBinding[ActionID::TurnRight].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.rotate(5.f); });
+	//Moves tank fowards/backwards based on its direction
 	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * -sin(toRadian( a.getRotation() )), 1.5f * cos(toRadian( a.getRotation() ))); });
 	mActionBinding[ActionID::MoveDown].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * sin(toRadian(a.getRotation())), 1.5f * -cos(toRadian(a.getRotation()))); });
 	mActionBinding[ActionID::Fire].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.fire(); });
