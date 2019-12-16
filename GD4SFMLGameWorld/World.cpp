@@ -37,8 +37,6 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 
 void World::update(sf::Time dt)
 {
-	// Scroll the world, reset player velocity
-	//mCamera.move(0.f, mScrollSpeed * dt.asSeconds());
 	mPlayerTank->setVelocity(0.f, 0.f);
 	mPlayerTwoTank->setVelocity(0.f, 0.f);
 
@@ -254,35 +252,6 @@ void World::handleCollisions()
 			player.damage(obstacle.getDamage());
 			obstacle.damage(5);
 		}
-
-		//else if (matchesCategories(pair, CategoryID::AlliedProjectile, ObstacleID::Wall)) {
-		//	auto& projectile = static_cast<Projectile&>(*pair.first);
-		//	auto& obstacle = static_cast<Obstacle&>(*pair.second);
-
-		//	// Collision: Player damage = enemy's remaining HP
-		//	projectile.destroy();
-		//	obstacle.damage(projectile.getDamage());
-		//}
-
-		//else if (matchesCategories(pair, CategoryID::EnemyProjectile, ObstacleID::Wall)) {
-		//	auto& projectile = static_cast<Projectile&>(*pair.first);
-		//	auto& obstacle = static_cast<Obstacle&>(*pair.second);
-
-		//	// Collision: Player damage = enemy's remaining HP
-		//	projectile.destroy();
-		//	obstacle.damage(projectile.getDamage());
-		//}
-
-		//else if (matchesCategories(pair, CategoryID::EnemyTank, CategoryID::AlliedProjectile)
-		//	|| matchesCategories(pair, CategoryID::PlayerTank, CategoryID::EnemyProjectile))
-		//{
-		//	auto& Tank = static_cast<Tank&>(*pair.first);
-		//	auto& projectile = static_cast<Projectile&>(*pair.second);
-
-		//	// Apply projectile damage to Tank, destroy projectile
-		//	Tank.damage(projectile.getDamage());
-		//	projectile.destroy();
-		//}
 	}
 }
 
@@ -309,12 +278,6 @@ void World::buildScene()
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 	backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mSceneLayers[static_cast<int>(LayerID::Background)]->attachChild(std::move(backgroundSprite));
-
-	//Add the finish line to the scene
-	sf::Texture& finishTexture = mTextures.get(TextureID::FinishLine);
-	std::unique_ptr<SpriteNode> finishSprite(new SpriteNode(finishTexture));
-	finishSprite->setPosition(0.f, -76.f);
-	mSceneLayers[static_cast<int>(LayerID::Background)]->attachChild(std::move(finishSprite));
 
 	//Add particle nodes for smoke and propellant
 	std::unique_ptr<ParticleNode> smokeNode(new ParticleNode(ParticleID::Smoke, mTextures));
@@ -398,43 +361,6 @@ void World::adaptPlayerTwoVelocity()
 	mPlayerTwoTank->accelerate(0.f, mScrollSpeed);
 }
 
-void World::addEnemies()
-{
-	// Add enemies to the spawn point container
-	addEnemy(TankID::GreenHMG1, 0.f, 500.f);
-	addEnemy(TankID::GreenHMG1, 0.f, 1000.f);
-	addEnemy(TankID::GreenHMG1, +100.f, 1150.f);
-	addEnemy(TankID::GreenHMG1, -100.f, 1150.f);
-	addEnemy(TankID::GreenHMG1, 70.f, 1500.f);
-	addEnemy(TankID::GreenHMG1, -70.f, 1500.f);
-				
-	addEnemy(TankID::GreenHMG1, -70.f, 1710.f);
-	addEnemy(TankID::GreenHMG1, 70.f, 1700.f);
-	addEnemy(TankID::GreenHMG1, 30.f, 1850.f);
-	addEnemy(TankID::GreenHMG1, 300.f, 2200.f);
-	addEnemy(TankID::GreenHMG1, -300.f, 2200.f);
-	addEnemy(TankID::GreenHMG1, 0.f, 2200.f);
-	addEnemy(TankID::GreenHMG1, 0.f, 2500.f);
-	addEnemy(TankID::GreenHMG1, -300.f, 2700.f);
-	addEnemy(TankID::GreenHMG1, -300.f, 2700.f);
-	addEnemy(TankID::GreenHMG1, 0.f, 3000.f);
-	addEnemy(TankID::GreenHMG1, 250.f, 3250.f);
-	addEnemy(TankID::GreenHMG1, -250.f, 3250.f);
-	addEnemy(TankID::GreenHMG1, 0.f, 3500.f);
-	addEnemy(TankID::GreenHMG1, 0.f, 3700.f);
-	addEnemy(TankID::GreenHMG1, 0.f, 3800.f);
-	addEnemy(TankID::GreenHMG1, 0.f, 4000.f);
-	addEnemy(TankID::GreenHMG1, -200.f, 4200.f);
-	addEnemy(TankID::GreenHMG1, 200.f, 4200.f);
-	addEnemy(TankID::GreenHMG1, 0.f, 4400.f);
-
-	// Sort all enemies according to their y value, such that lower enemies are checked first for spawning
-	std::sort(mEnemySpawnPoints.begin(), mEnemySpawnPoints.end(), [](SpawnPoint lhs, SpawnPoint rhs)
-	{
-		return lhs.y < rhs.y;
-	});
-}
-
 void World::addObstacles() //Set up obstacles - Jason Lynch
 {
 	addObstacle(ObstacleID::Barrel, mSpawnPosition.x+100, mSpawnPosition.y+100, 0.f, 0.25f, 0.25f);
@@ -505,40 +431,8 @@ void World::spawnPickups()//Spawn Tank pickups, set scale, rotation, and positio
 
 		// Enemy is spawned, remove from the list to spawn
 		mPickups.pop_back();
-	
-		/*auto type = static_cast<PickupID>(randomInt(static_cast<int>(PickupID::TypeCount)));
-
-		std::unique_ptr<Pickup> pickup(new Pickup(type, textures));
-		pickup->setPosition(getWorldPosition());
-		pickup->setVelocity(0.f, 1.f);
-		node.attachChild(std::move(pickup));*/
 	}
 }
-
-void World::addEnemy(TankID type, float relX, float relY)
-{
-	SpawnPoint spawn(type, mSpawnPosition.x + relX, mSpawnPosition.y - relY);
-	mEnemySpawnPoints.push_back(spawn);
-}
-
-//void World::spawnEnemies()
-//{
-//	// Spawn all enemies entering the view area (including distance) this frame
-//	while (!mEnemySpawnPoints.empty()
-//		&& mEnemySpawnPoints.back().y > getBattlefieldBounds().top)
-//	{
-//		SpawnPoint spawn = mEnemySpawnPoints.back();
-//
-//		std::unique_ptr<Tank> enemy(new Tank(CategoryID::PlayerTwoTank,spawn.type, mTextures, mFonts));
-//		enemy->setPosition(spawn.x, spawn.y);
-//		enemy->setRotation(180.f);
-//
-//		mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(enemy));
-//
-//		// Enemy is spawned, remove from the list to spawn
-//		mEnemySpawnPoints.pop_back();
-//	}
-//}
 
 void World::destroyEntitiesOutsideView()
 {

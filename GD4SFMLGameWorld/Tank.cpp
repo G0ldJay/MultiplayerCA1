@@ -24,19 +24,6 @@ namespace
 	const std::vector<TankData> Table = initializeTankData();
 }
 
-//TextureID toTextureID(TankID type)
-//{
-//	switch (type)
-//	{
-//	case TankID::Eagle:
-//		return TextureID::Eagle;
-//
-//	case TankID::Raptor:
-//		return TextureID::Raptor;
-//	}
-//	return TextureID::Eagle;
-//}
-
 Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const FontHolder& fonts)
 	: Entity(Table[static_cast<int>(type)].hitpoints)
 	, mEntity(entity)
@@ -151,11 +138,10 @@ void Tank::updateCurrent(sf::Time dt, CommandQueue& commands)
 	{
 		//checkPickupDrop(commands);
 		mExplosion.update(dt);
-		//mIsMarkedForRemoval = true;
+
 		//Play explosion sound
 		if (!mPlayedExplosionSound)
 		{
-			//SoundEffectID soundEffect = (randomInt(2) == 0) ? SoundEffectID::Explosion1 : SoundEffectID::Explosion2;
 			playerLocalSound(commands, SoundEffectID::TankDestroyed);
 
 			mPlayedExplosionSound = true;
@@ -167,7 +153,6 @@ void Tank::updateCurrent(sf::Time dt, CommandQueue& commands)
 	checkProjectileLaunch(dt, commands);
 
 	// Update enemy movement pattern; apply velocity
-	//updateMovementPattern(dt);
 	Entity::updateCurrent(dt, commands);
 
 	// Update texts
@@ -213,7 +198,6 @@ bool Tank::isAllied() const
 		return true;
 	}
 	return false;
-	//return mType == TankID::GreenLMG1;
 }
 
 //Returns correct projectile ID based on the tank being used - Dylan Reilly
@@ -255,15 +239,6 @@ ProjectileID Tank::getProjectile() const
 	default:
 		return ProjectileID::None;
 	}
-
-	/*if (mType == TankID::GreenLMG1 || mType == TankID::LMG2 || mType == TankID::LMG3)
-		return ProjectileID::LMGBullet;
-	else if (mType == TankID::HMG1 || mType == TankID::HMG2 || mType == TankID::HMG3)
-		return ProjectileID::HMGBullet;
-	else if (mType == TankID::Gatling1 || mType == TankID::Gatling2 || mType == TankID::Gatling3)
-		return ProjectileID::GatlingBullet;
-	else if (mType == TankID::Tesla1 || mType == TankID::Tesla2 || mType == TankID::Tesla3)
-		return ProjectileID::TeslaBullet;*/
 }
 
 
@@ -492,12 +467,4 @@ void Tank::updateTexts()
 	mHealthDisplay->setPosition(0.f, -120.f);
 	mHealthDisplay->setRotation(-getRotation());
 	mHealthDisplay->setScale(2.f, 2.f);
-
-	/*if (mMissileDisplay)
-	{
-		if (mMissileAmmo == 0)
-			mMissileDisplay->setString("");
-		else
-			mMissileDisplay->setString("M: " + toString(mMissileAmmo));
-	}*/
 }
