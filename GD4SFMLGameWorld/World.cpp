@@ -23,6 +23,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mPlayerTank(nullptr)
 	, mPlayerTwoTank(nullptr)
 	, mObstacles()
+	, mPickups()
 	, mEnemySpawnPoints()
 	, mActiveEnemies()
 {
@@ -58,6 +59,7 @@ void World::update(sf::Time dt)
 	mSceneGraph.removeWrecks();
 	//spawnEnemies();
 	spawnObstacles();
+	spawnPickups();
 
 	// Regular update step, adapt position (correct if outside view)
 	mSceneGraph.update(dt, mCommandQueue);
@@ -128,6 +130,8 @@ void World::loadTextures()
 	mTextures.load(TextureID::HmgBullet, "Media/Textures/HeavyBullet.png");
 	mTextures.load(TextureID::GatlingBullet, "Media/Textures/Bullet.png");
 	mTextures.load(TextureID::TeslaBullet, "Media/Textures/LightningBall.png");
+
+	mTextures.load(TextureID::HeavyGunPickup, "Media/Textures/Arena/Props/Dot_A.png");
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID type2)
@@ -197,10 +201,11 @@ void World::handleCollisions()
 			enemy.damage(projectile.getDamage());
 		}
 
+		//Collision for player 1 with Tank pick up - Jason Lynch
 		else if (matchesCategories(pair, CategoryID::PlayerTank, CategoryID::Pickup))
 		{
 			auto& player = static_cast<Tank&>(*pair.first);
-			auto& pickup = static_cast<Pickup&>(*pair.second);
+			auto& pickup = static_cast<TankPickups&>(*pair.second);
 
 			// Apply pickup effect to player, destroy projectile
 			pickup.apply(player);
@@ -213,11 +218,11 @@ void World::handleCollisions()
 			auto& obstacle = static_cast<Obstacle&>(*pair.second);
 
 			// Collision: Player damage = enemy's remaining HP
-			player.damage(obstacle.getHitpoints());
+			player.damage(obstacle.getDamage());
 			obstacle.destroy();
 		}
 
-		else if (matchesCategories(pair, CategoryID::AlliedProjectile, ObstacleID::Wall)) {
+		else if (matchesCategories(pair, CategoryID::AlliedProjectile, ObstacleID::Barrel)) {
 			auto& projectile = static_cast<Projectile&>(*pair.first);
 			auto& obstacle = static_cast<Obstacle&>(*pair.second);
 
@@ -226,14 +231,23 @@ void World::handleCollisions()
 			obstacle.damage(projectile.getDamage());
 		}
 
-		else if (matchesCategories(pair, CategoryID::EnemyProjectile, ObstacleID::Wall)) {
-			auto& projectile = static_cast<Projectile&>(*pair.first);
-			auto& obstacle = static_cast<Obstacle&>(*pair.second);
+		//else if (matchesCategories(pair, CategoryID::AlliedProjectile, ObstacleID::Wall)) {
+		//	auto& projectile = static_cast<Projectile&>(*pair.first);
+		//	auto& obstacle = static_cast<Obstacle&>(*pair.second);
 
-			// Collision: Player damage = enemy's remaining HP
-			projectile.destroy();
-			obstacle.damage(projectile.getDamage());
-		}
+		//	// Collision: Player damage = enemy's remaining HP
+		//	projectile.destroy();
+		//	obstacle.damage(projectile.getDamage());
+		//}
+
+		//else if (matchesCategories(pair, CategoryID::EnemyProjectile, ObstacleID::Wall)) {
+		//	auto& projectile = static_cast<Projectile&>(*pair.first);
+		//	auto& obstacle = static_cast<Obstacle&>(*pair.second);
+
+		//	// Collision: Player damage = enemy's remaining HP
+		//	projectile.destroy();
+		//	obstacle.damage(projectile.getDamage());
+		//}
 
 		//else if (matchesCategories(pair, CategoryID::EnemyTank, CategoryID::AlliedProjectile)
 		//	|| matchesCategories(pair, CategoryID::PlayerTank, CategoryID::EnemyProjectile))
@@ -305,6 +319,7 @@ void World::buildScene()
 
 	//addEnemies();
 	addObstacles();
+	addPickups();
 }
 
 void World::adaptPlayerPosition()
@@ -416,7 +431,7 @@ void World::spawnObstacles()
 	{
 		ObstacleSpawnPoint spawn = mObstacles.back();
 
-		std::unique_ptr<Obstacle> obstacle(new Obstacle(spawn.type, mTextures));
+		std::unique_ptr<Obstacle> obstacle(new Obstacle(spawn.type, mTextures, mFonts));
 		obstacle->setScale(0.25f,0.25f);
 		obstacle->setPosition(spawn.x, spawn.y);
 		//obstacle->setRotation(180.f);
@@ -425,6 +440,43 @@ void World::spawnObstacles()
 
 		// Enemy is spawned, remove from the list to spawn
 		mObstacles.pop_back();
+	}
+}
+
+void World::addPickups()
+{
+	addPickup(TankPickupID::HeavyGun, mSpawnPosition.x +150, mSpawnPosition.y );
+}
+
+void World::addPickup(TankPickupID type, float posX, float posY)
+{
+	PickupSpawnPoint spawn(type, posX, posY);
+	mPickups.push_back(spawn);
+}
+
+void World::spawnPickups()
+{
+	// Spawn all enemies entering the view area (including distance) this frame
+	while (!mPickups.empty())
+	{
+		PickupSpawnPoint spawn = mPickups.back();
+
+		std::unique_ptr<TankPickups> pickup(new TankPickups(spawn.type, mTextures));
+		pickup->setScale(0.1f, .1f);
+		pickup->setPosition(spawn.x, spawn.y);
+		//obstacle->setRotation(180.f);
+
+		mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(pickup));
+
+		// Enemy is spawned, remove from the list to spawn
+		mPickups.pop_back();
+	
+		/*auto type = static_cast<PickupID>(randomInt(static_cast<int>(PickupID::TypeCount)));
+
+		std::unique_ptr<Pickup> pickup(new Pickup(type, textures));
+		pickup->setPosition(getWorldPosition());
+		pickup->setVelocity(0.f, 1.f);
+		node.attachChild(std::move(pickup));*/
 	}
 }
 

@@ -41,6 +41,7 @@ Tank::Tank(CategoryID entity,TankID type, const TextureHolder& textures, const F
 	,mEntity(entity)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)
+	, mTextures(textures)
 	, mExplosion(textures.get(TextureID::Explosion))
 	, mFireCommand()
 	, mMissileCommand()
@@ -275,6 +276,15 @@ void Tank::increaseSpread()
 		++mSpreadLevel;
 }
 
+void Tank::setTankTexture(unsigned int val) {
+	if (val == 1) {
+		TankID change = TankID::GreenGatling2;
+		mSprite.setTexture(mTextures.get(Table[static_cast<int>(change)].texture), false);
+		mSprite.setTextureRect(Table[static_cast<int>(change)].textureRect);
+		++mSpreadLevel;
+	}
+}
+
 void Tank::collectMissiles(unsigned int count)
 {
 	mMissileAmmo += count;
@@ -356,8 +366,8 @@ void Tank::createBullets(SceneNode& node, const TextureHolder& textures) const
 		break;
 
 	case 2:
-		createProjectile(node, type, -0.33f, 0.33f, textures);
-		createProjectile(node, type, +0.33f, 0.33f, textures);
+		createProjectile(node, type, -0.01, 0.01f, textures);
+		createProjectile(node, type, +0.01, 0.01, textures);
 		break;
 
 	case 3:

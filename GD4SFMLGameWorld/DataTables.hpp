@@ -56,6 +56,13 @@ struct PickupData
 	sf::IntRect textureRect;
 };
 
+struct TankPickupData
+{
+	std::function<void(Tank&)> action;
+	TextureID texture;
+	//sf::IntRect textureRect;
+};
+
 struct ParticleData
 {
 	sf::Color color;
@@ -65,6 +72,7 @@ struct ParticleData
 std::vector<TankData> initializeTankData();
 std::vector<ProjectileData> initializeProjectileData();
 std::vector<PickupData> initializePickupData();
+std::vector<TankPickupData> initializeTankPickupData();
 std::vector<ParticleData> initializeParticleData();
 std::vector<ObstacleData> initializeObstacleData();
 

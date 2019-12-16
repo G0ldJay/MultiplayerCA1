@@ -5,8 +5,5 @@ enum class PickupID
 	MissileRefill,
 	FireSpread,
 	FireRate,
-	TypeCount,
-	HeavyGun,
-	GatlingGun,
-	TeslaGun
+	TypeCount
 };

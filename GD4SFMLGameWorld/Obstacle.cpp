@@ -16,26 +16,37 @@ namespace
 	const std::vector<ObstacleData> Table = initializeObstacleData();
 }
 
-Obstacle::Obstacle(ObstacleID type, const TextureHolder& textures)
+Obstacle::Obstacle(ObstacleID type, const TextureHolder& textures, const FontHolder& fonts)
 	: Entity(Table[static_cast<int>(type)].hitpoints)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture))
 	, mExplosion(textures.get(TextureID::Explosion))
 	, mShowExplosion(true)
 	, mPlayedExplosionSound(false)
+	, mHealthDisplay(nullptr)
 {
 	std::cout << getCategory() << std::endl;
+
 	mExplosion.setFrameSize(sf::Vector2i(256, 256));
 	mExplosion.setNumFrames(16);
 	mExplosion.setDuration(sf::seconds(1));
 
 	centreOrigin(mSprite);
 	centreOrigin(mExplosion);
+
+	std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
+	mHealthDisplay = healthDisplay.get();
+	attachChild(std::move(healthDisplay));
 }
 
 unsigned int Obstacle::getCategory() const
 {
 	return static_cast<int>(mType);
+}
+
+unsigned int Obstacle::getDamage() const
+{
+	return Table[static_cast<int>(mType)].damage;
 }
 
 sf::FloatRect Obstacle::getBoundingRect() const
@@ -59,6 +70,24 @@ void Obstacle::updateCurrent(sf::Time dt, CommandQueue& commands)
 		}
 		return;
 	}
+
+	updateTexts();
+}
+
+void Obstacle::updateTexts()
+{
+	mHealthDisplay->setString(toString(getHitpoints()) + " HP");
+	mHealthDisplay->setPosition(0.f, 100.f);
+	mHealthDisplay->setRotation(-getRotation());
+	mHealthDisplay->setScale(2.f, 2.f);
+
+	/*if (mMissileDisplay)
+	{
+		if (mMissileAmmo == 0)
+			mMissileDisplay->setString("");
+		else
+			mMissileDisplay->setString("M: " + toString(mMissileAmmo));
+	}*/
 }
 
 void Obstacle::playerLocalSound(CommandQueue& commands, SoundEffectID effect)

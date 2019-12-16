@@ -22,6 +22,7 @@ public:
 	ProjectileID getProjectile() const;
 	void increaseFireRate();
 	void increaseSpread();
+	void setTankTexture(unsigned int val);
 	void collectMissiles(unsigned int count);
 
 	void playerLocalSound(CommandQueue& command, SoundEffectID effect);
@@ -47,6 +48,7 @@ private:
 	Animation mExplosion;
 	TextNode* mHealthDisplay;
 	TextNode* mMissileDisplay;
+	const TextureHolder& mTextures;
 
 	bool mIsFiring;
 	bool mIsLaunchingMissile;

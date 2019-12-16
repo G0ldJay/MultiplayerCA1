@@ -3,16 +3,19 @@
 #include "Command.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "ObstacleID.hpp"
+#include "TextNode.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 
 class Obstacle : public Entity
 {
 public:
-	Obstacle(ObstacleID type, const TextureHolder& textures);
+	Obstacle(ObstacleID type, const TextureHolder& textures, const FontHolder& fonts);
 
 	virtual unsigned int	getCategory() const;
+	virtual unsigned int	getDamage() const;
 	virtual sf::FloatRect	getBoundingRect() const;
+	void updateTexts();
 	virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
 	void playerLocalSound(CommandQueue& command, SoundEffectID effect);
 
@@ -26,4 +29,5 @@ private:
 	Animation mExplosion;
 	bool mShowExplosion;
 	bool mPlayedExplosionSound;
+	TextNode* mHealthDisplay;
 };

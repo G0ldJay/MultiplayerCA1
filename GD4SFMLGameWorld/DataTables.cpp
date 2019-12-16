@@ -7,6 +7,7 @@
 #include "PickupID.hpp"
 #include "ParticleID.hpp"
 #include"ObstacleID.hpp"
+#include"TankPickupID.hpp"
 
 std::vector<TankData> initializeTankData()
 {
@@ -295,6 +296,15 @@ std::vector<PickupData> initializePickupData()
 	data[static_cast<int>(PickupID::FireRate)].texture = TextureID::Entities;
 	data[static_cast<int>(PickupID::FireRate)].textureRect = sf::IntRect(120, 64, 40, 40);
 	data[static_cast<int>(PickupID::FireRate)].action = std::bind(&Tank::increaseFireRate, std::placeholders::_1);
+
+	return data;
+}
+
+std::vector<TankPickupData> initializeTankPickupData()
+{
+	std::vector<TankPickupData> data(static_cast<int>(PickupID::TypeCount));
+	data[static_cast<int>(TankPickupID::HeavyGun)].texture = TextureID::HeavyGunPickup;
+	data[static_cast<int>(TankPickupID::HeavyGun)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 1);
 
 	return data;
 }

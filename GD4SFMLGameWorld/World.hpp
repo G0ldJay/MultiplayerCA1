@@ -9,6 +9,7 @@
 #include "CommandQueue.hpp"
 #include "TankID.hpp"
 #include "Pickup.hpp"
+#include "TankPickups.hpp"
 #include "PostEffect.hpp"
 #include "BloomEffect.hpp"
 #include "SoundNode.hpp"
@@ -54,8 +55,11 @@ private:
 	void spawnEnemies();
 	void addEnemies();
 	void addObstacles();
+	void addPickups();
+	void addPickup(TankPickupID type, float posX, float posY);
 	void addObstacle(ObstacleID type , float posX, float posY);
 	void spawnObstacles();
+	void spawnPickups();
 	void addEnemy(TankID type, float relX, float relY);
 
 	sf::FloatRect getBattlefieldBounds() const;
@@ -93,6 +97,20 @@ private:
 		float y;
 	};
 
+	struct PickupSpawnPoint
+	{
+		PickupSpawnPoint(TankPickupID type, float x, float y)
+			: type(type)
+			, x(x)
+			, y(y)
+		{
+		}
+
+		TankPickupID type;
+		float x;
+		float y;
+	};
+
 private:
 	sf::RenderTarget& mTarget;
 	sf::RenderTexture mSceneTexture;
@@ -113,6 +131,7 @@ private:
 	Tank* mPlayerTwoTank;
 
 	std::vector<ObstacleSpawnPoint> mObstacles;
+	std::vector<PickupSpawnPoint> mPickups;
 	std::vector<SpawnPoint>	mEnemySpawnPoints;
 	std::vector<Tank*> mActiveEnemies;
 
