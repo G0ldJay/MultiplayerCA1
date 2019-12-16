@@ -65,4 +65,3 @@ void centreOrigin(Animation& animation)
 	sf::FloatRect bounds = animation.getLocalBounds();
 	animation.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
 }
-

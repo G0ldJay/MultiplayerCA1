@@ -289,11 +289,13 @@ void Tank::setTankTexture(unsigned int val) { //Allows change of tank texture (e
 			//Assigns new texture to player one tank - Jason Lynch
 			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::GreenHMG1)].texture), false);
 			mSprite.setTextureRect(Table[static_cast<int>(TankID::GreenHMG1)].textureRect);
+			mType = TankID::GreenHMG1;
 			break;
 		case 8:
 			//Assigns new texture to player two tank - Jason Lynch
 			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::RedHMG1)].texture), false);
 			mSprite.setTextureRect(Table[static_cast<int>(TankID::RedHMG1)].textureRect);
+			mType = TankID::RedHMG1;
 			break;
 		}
 	}
@@ -306,11 +308,13 @@ void Tank::setTankTexture(unsigned int val) { //Allows change of tank texture (e
 			//Assigns new texture to player one tank - Jason Lynch
 			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::GreenGatling2)].texture), false);
 			mSprite.setTextureRect(Table[static_cast<int>(TankID::GreenGatling2)].textureRect);
+			mType = TankID::GreenGatling2;
 			break;
 		case 8:
 			//Assigns new texture to player two tank - Jason Lynch
 			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::RedGatling2)].texture), false);
 			mSprite.setTextureRect(Table[static_cast<int>(TankID::RedGatling2)].textureRect);
+			mType = TankID::RedGatling2;
 			break;
 		}
 		increaseFireRate();
@@ -324,11 +328,13 @@ void Tank::setTankTexture(unsigned int val) { //Allows change of tank texture (e
 			//Assigns new texture to player one tank - Jason Lynch
 			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::GreenTesla2)].texture), false);
 			mSprite.setTextureRect(Table[static_cast<int>(TankID::GreenTesla2)].textureRect);
+			mType = TankID::GreenTesla2;
 			break;
 		case 8:
 			//Assigns new texture to player two tank - Jason Lynch
 			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::RedTesla3)].texture), false);
 			mSprite.setTextureRect(Table[static_cast<int>(TankID::RedTesla3)].textureRect);
+			mType = TankID::RedTesla3;
 			break;
 		}
 	}

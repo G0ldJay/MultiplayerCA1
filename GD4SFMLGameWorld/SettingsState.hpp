@@ -24,6 +24,7 @@ public:
 private:
 	void updateLabels();
 	void addButtonLabel(ActionID action, float y, const std::string& text, Context context);
+	const char* getKeyName(const sf::Keyboard::Key key);
 
 private:
 	sf::Sprite mBackgroundSprite;
