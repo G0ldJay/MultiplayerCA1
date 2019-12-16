@@ -27,6 +27,7 @@ Projectile::Projectile(ProjectileID type, const TextureHolder& textures)
 {
 	//Initializes animation for tesla bullet - Dylan Reilly
 	mFiringAnimation.setFrameSize(sf::Vector2i(128, 128));
+	mFiringAnimation.setScale(0.5f, 0.5f);
 	mFiringAnimation.setNumFrames(12);
 	mFiringAnimation.setDuration(sf::seconds(2));
 
