@@ -81,7 +81,7 @@ void Obstacle::updateTexts() //Updates attached text area with current health, s
 	mHealthDisplay->setString(toString(getHitpoints()) + " HP");
 	mHealthDisplay->setPosition(0.f, 0.0f);
 	mHealthDisplay->setRotation(-getRotation());
-	mHealthDisplay->setScale(2.f, 2.f);
+	mHealthDisplay->setScale(1.8f, 1.8f);
 }
 
 void Obstacle::playerLocalSound(CommandQueue& commands, SoundEffectID effect) //Plays sound when called, needs looking at also - Jason Lynch

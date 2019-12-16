@@ -57,7 +57,7 @@ private:
 	void addObstacles();
 	void addPickups();
 	void addPickup(TankPickupID type, float posX, float posY);
-	void addObstacle(ObstacleID type , float posX, float posY);
+	void addObstacle(ObstacleID type , float posX, float posY, float rotation, float scaleX, float scaleY);
 	void spawnObstacles();
 	void spawnPickups();
 	void addEnemy(TankID type, float relX, float relY);
@@ -85,16 +85,22 @@ private:
 
 	struct ObstacleSpawnPoint
 	{
-		ObstacleSpawnPoint(ObstacleID type, float x, float y)
+		ObstacleSpawnPoint(ObstacleID type, float x, float y, float rotation, float scaleX, float scaleY)
 			: type(type)
 			, x(x)
 			, y(y)
+			, rotation(rotation)
+			, scaleX(scaleX)
+			, scaleY(scaleY)
 		{
 		}
 
 		ObstacleID type;
 		float x;
 		float y;
+		float rotation;
+		float scaleX;
+		float scaleY;
 	};
 
 	struct PickupSpawnPoint

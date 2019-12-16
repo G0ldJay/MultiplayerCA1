@@ -231,6 +231,15 @@ void World::handleCollisions()
 			obstacle.damage(projectile.getDamage());
 		}
 
+		else if (matchesCategories(pair, CategoryID::PlayerTank, ObstacleID::Wall)) {
+			auto& player = static_cast<Tank&>(*pair.first);
+			auto& obstacle = static_cast<Obstacle&>(*pair.second);
+
+			// Collision: Player damage = enemy's remaining HP
+			player.damage(obstacle.getDamage());
+			obstacle.damage(5);
+		}
+
 		//else if (matchesCategories(pair, CategoryID::AlliedProjectile, ObstacleID::Wall)) {
 		//	auto& projectile = static_cast<Projectile&>(*pair.first);
 		//	auto& obstacle = static_cast<Obstacle&>(*pair.second);
@@ -413,14 +422,22 @@ void World::addEnemies()
 
 void World::addObstacles()
 {
-	addObstacle(ObstacleID::Barrel, mSpawnPosition.x+100, mSpawnPosition.y+100);
+	addObstacle(ObstacleID::Barrel, mSpawnPosition.x+100, mSpawnPosition.y+100, 0.f, 0.25f, 0.25f);
 
-	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 200, mSpawnPosition.y + 100);
+	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 190, mSpawnPosition.y + 100, 90.0f, .4f,.4f);
+	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 190, mSpawnPosition.y , 90.0f, .4f, .4f);
+	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 190, mSpawnPosition.y-100, 90.0f, .4f, .4f);
+
+	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 320, mSpawnPosition.y + 100, 90.0f, .4f, .4f);
+	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 320, mSpawnPosition.y, 90.0f, .4f, .4f);
+	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 320, mSpawnPosition.y - 100, 90.0f, .4f, .4f);
+
+	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 260, mSpawnPosition.y-170, 0.0f, .4f, .4f);
 }
 
-void World::addObstacle(ObstacleID type, float posX, float posY)
+void World::addObstacle(ObstacleID type, float posX, float posY, float rotation, float scaleX, float scaleY)
 {
-	ObstacleSpawnPoint spawn(type, posX, posY);
+	ObstacleSpawnPoint spawn(type, posX, posY, rotation, scaleX, scaleY);
 	mObstacles.push_back(spawn);
 }
 
@@ -432,8 +449,9 @@ void World::spawnObstacles()
 		ObstacleSpawnPoint spawn = mObstacles.back();
 
 		std::unique_ptr<Obstacle> obstacle(new Obstacle(spawn.type, mTextures, mFonts));
-		obstacle->setScale(0.25f,0.25f);
+		obstacle->setScale(spawn.scaleX, spawn.scaleY);
 		obstacle->setPosition(spawn.x, spawn.y);
+		obstacle->setRotation(spawn.rotation);
 		//obstacle->setRotation(180.f);
 
 		mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(obstacle));
