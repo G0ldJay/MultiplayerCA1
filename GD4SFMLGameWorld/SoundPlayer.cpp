@@ -27,6 +27,8 @@ SoundPlayer::SoundPlayer()
 	mSoundsBuffer.load(SoundEffectID::TankGatling, "Media/Sound/TankGatling.wav");
 	mSoundsBuffer.load(SoundEffectID::TankCannon1, "Media/Sound/TankCannon1.wav");
 	mSoundsBuffer.load(SoundEffectID::TankCannon2, "Media/Sound/TankCannon2.wav");
+	mSoundsBuffer.load(SoundEffectID::TankDestroyed, "Media/Sound/TankDestroyed.wav");
+	mSoundsBuffer.load(SoundEffectID::TankHitBullet, "Media/Sound/ProjectileImpactTank.wav");
 
 	sf::Listener::setDirection(0.f, 0.f, -1.f);
 }

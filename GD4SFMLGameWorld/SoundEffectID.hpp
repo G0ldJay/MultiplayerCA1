@@ -9,6 +9,8 @@ enum class SoundEffectID
 	TankCannon1,
 	TankCannon2,
 	TankGatling,
+	TankHitBullet,
+	TankDestroyed,
 	LaunchMissile,
 	CollectPickup,
 	Button

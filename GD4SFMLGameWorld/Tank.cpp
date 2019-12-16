@@ -146,14 +146,14 @@ void Tank::updateCurrent(sf::Time dt, CommandQueue& commands)
 	// Entity has been destroyed: Possibly drop pickup, mark for removal
 	if (isDestroyed())
 	{
-		checkPickupDrop(commands);
+		//checkPickupDrop(commands);
 		mExplosion.update(dt);
 		//mIsMarkedForRemoval = true;
 		//Play explosion sound
 		if (!mPlayedExplosionSound)
 		{
-			SoundEffectID soundEffect = (randomInt(2) == 0) ? SoundEffectID::Explosion1 : SoundEffectID::Explosion2;
-			playerLocalSound(commands, soundEffect);
+			//SoundEffectID soundEffect = (randomInt(2) == 0) ? SoundEffectID::Explosion1 : SoundEffectID::Explosion2;
+			playerLocalSound(commands, SoundEffectID::TankDestroyed);
 
 			mPlayedExplosionSound = true;
 		}

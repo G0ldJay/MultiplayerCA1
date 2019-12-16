@@ -191,6 +191,7 @@ void World::handleCollisions()
 			auto& projectile = static_cast<Projectile&>(*pair.first);
 			auto& enemy = static_cast<Tank&>(*pair.second);
 			projectile.destroy();
+			enemy.playerLocalSound(mCommandQueue, SoundEffectID::TankHitBullet); //Plays impact sound - Jason Lynch
 			enemy.damage(projectile.getDamage());
 		}
 
@@ -200,6 +201,7 @@ void World::handleCollisions()
 			auto& projectile = static_cast<Projectile&>(*pair.first);
 			auto& enemy = static_cast<Tank&>(*pair.second);
 			projectile.destroy();
+			enemy.playerLocalSound(mCommandQueue, SoundEffectID::TankHitBullet); //Plays impact sound - Jason Lynch
 			enemy.damage(projectile.getDamage());
 		}
 
@@ -235,7 +237,7 @@ void World::handleCollisions()
 			obstacle.destroy();
 		}
 
-		else if (matchesCategories(pair, CategoryID::AlliedProjectile, ObstacleID::Barrel)) {
+		else if (matchesCategories(pair, CategoryID::AlliedProjectile, ObstacleID::Barrel)) { //Detects collision with barrel obstacle - Jason Lynch
 			auto& projectile = static_cast<Projectile&>(*pair.first);
 			auto& obstacle = static_cast<Obstacle&>(*pair.second);
 
@@ -244,7 +246,7 @@ void World::handleCollisions()
 			obstacle.damage(projectile.getDamage());
 		}
 
-		else if (matchesCategories(pair, CategoryID::PlayerTank, ObstacleID::Wall)) {
+		else if (matchesCategories(pair, CategoryID::PlayerTank, ObstacleID::Wall)) { //BROKEN : DOESNT PICK UP WALL - Jason Lynch
 			auto& player = static_cast<Tank&>(*pair.first);
 			auto& obstacle = static_cast<Obstacle&>(*pair.second);
 
@@ -433,7 +435,7 @@ void World::addEnemies()
 	});
 }
 
-void World::addObstacles()
+void World::addObstacles() //Set up obstacles - Jason Lynch
 {
 	addObstacle(ObstacleID::Barrel, mSpawnPosition.x+100, mSpawnPosition.y+100, 0.f, 0.25f, 0.25f);
 
@@ -448,13 +450,13 @@ void World::addObstacles()
 	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 260, mSpawnPosition.y-170, 0.0f, .4f, .4f);
 }
 
-void World::addObstacle(ObstacleID type, float posX, float posY, float rotation, float scaleX, float scaleY)
+void World::addObstacle(ObstacleID type, float posX, float posY, float rotation, float scaleX, float scaleY) //Add obstacles to Vector of ObstacleSpawnPoint structs - Jason Lynch
 {
 	ObstacleSpawnPoint spawn(type, posX, posY, rotation, scaleX, scaleY);
 	mObstacles.push_back(spawn);
 }
 
-void World::spawnObstacles()
+void World::spawnObstacles() //Spawn obstacles, set scale, rotation, and position - Jason Lynch
 {
 	// Spawn all enemies entering the view area (including distance) this frame
 	while (!mObstacles.empty())
@@ -474,20 +476,20 @@ void World::spawnObstacles()
 	}
 }
 
-void World::addPickups()
+void World::addPickups() //Set up pickups - Jason Lynch
 {
 	addPickup(TankPickupID::HeavyGun, 120, 110 );
 	addPickup(TankPickupID::GatlingGun, 400, 110);
 	addPickup(TankPickupID::TeslaGun, 800, 110);
 }
 
-void World::addPickup(TankPickupID type, float posX, float posY)
+void World::addPickup(TankPickupID type, float posX, float posY)//Add Tank Pickups to Vector of PickupSpawnPoint structs - Jason Lynch
 {
 	PickupSpawnPoint spawn(type, posX, posY);
 	mPickups.push_back(spawn);
 }
 
-void World::spawnPickups()
+void World::spawnPickups()//Spawn Tank pickups, set scale, rotation, and position - Jason Lynch
 {
 	// Spawn all enemies entering the view area (including distance) this frame
 	while (!mPickups.empty())
