@@ -132,6 +132,8 @@ void World::loadTextures()
 	mTextures.load(TextureID::TeslaBullet, "Media/Textures/LightningBall.png");
 
 	mTextures.load(TextureID::HeavyGunPickup, "Media/Textures/Arena/Props/Dot_A.png");
+	mTextures.load(TextureID::GatlingGunPickup, "Media/Textures/Arena/Props/Dot_B.png");
+	mTextures.load(TextureID::TeslaGunPickup, "Media/Textures/Arena/Props/Artifact.png");
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID type2)
@@ -203,6 +205,17 @@ void World::handleCollisions()
 
 		//Collision for player 1 with Tank pick up - Jason Lynch
 		else if (matchesCategories(pair, CategoryID::PlayerTank, CategoryID::Pickup))
+		{
+			auto& player = static_cast<Tank&>(*pair.first);
+			auto& pickup = static_cast<TankPickups&>(*pair.second);
+
+			// Apply pickup effect to player, destroy projectile
+			pickup.apply(player);
+			player.playerLocalSound(mCommandQueue, SoundEffectID::CollectPickup);
+			pickup.destroy();
+		}
+
+		else if (matchesCategories(pair, CategoryID::PlayerTwoTank, CategoryID::Pickup))
 		{
 			auto& player = static_cast<Tank&>(*pair.first);
 			auto& pickup = static_cast<TankPickups&>(*pair.second);
@@ -320,10 +333,10 @@ void World::buildScene()
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player));
 
 	// Add player two Tank
-	std::unique_ptr<Tank> player2(new Tank(CategoryID::PlayerTwoTank,TankID::RedLMG1, mTextures, mFonts));
+	std::unique_ptr<Tank> player2(new Tank(CategoryID::PlayerTwoTank,TankID::RedLMG1, mTextures, mFonts)); //Added player two - Jason Lynch
 	mPlayerTwoTank = player2.get();
-	mPlayerTwoTank->setScale(.5f, .5f);
-	mPlayerTwoTank->setPosition(mSpawnPositionPlayerTwo);
+	mPlayerTwoTank->setScale(.5f, .5f); //Scaled down player - Jason Lynch
+	mPlayerTwoTank->setPosition(mSpawnPositionPlayerTwo); //Set up player 2 spawn - Jason Lynch
 	mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(player2));
 
 	//addEnemies();
@@ -464,6 +477,8 @@ void World::spawnObstacles()
 void World::addPickups()
 {
 	addPickup(TankPickupID::HeavyGun, 120, 110 );
+	addPickup(TankPickupID::GatlingGun, 400, 110);
+	addPickup(TankPickupID::TeslaGun, 800, 110);
 }
 
 void World::addPickup(TankPickupID type, float posX, float posY)

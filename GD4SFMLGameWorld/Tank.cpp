@@ -17,6 +17,7 @@
 #include "TankID.hpp"
 
 #include <cmath>
+#include<iostream>
 
 namespace
 {
@@ -36,9 +37,9 @@ namespace
 //	return TextureID::Eagle;
 //}
 
-Tank::Tank(CategoryID entity,TankID type, const TextureHolder& textures, const FontHolder& fonts)
+Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const FontHolder& fonts)
 	: Entity(Table[static_cast<int>(type)].hitpoints)
-	,mEntity(entity)
+	, mEntity(entity)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)
 	, mTextures(textures)
@@ -102,7 +103,7 @@ Tank::Tank(CategoryID entity,TankID type, const TextureHolder& textures, const F
 	}
 
 	/*if (getCategory() == (static_cast<int>(CategoryID::PlayerTwoTank)))*/
-	if(mEntity == CategoryID::PlayerTwoTank)
+	if (mEntity == CategoryID::PlayerTwoTank)
 	{
 		//std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
 		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 2", sf::Color::Red));
@@ -191,21 +192,21 @@ bool Tank::isMarkedForRemoval() const
 
 bool Tank::isAllied() const
 {
-	switch (mType) 
+	switch (mType)
 	{
-		case TankID::GreenLMG1:
-		case TankID::GreenLMG2:
-		case TankID::GreenLMG3:
-		case TankID::GreenHMG1:
-		case TankID::GreenHMG2:
-		case TankID::GreenHMG3:
-		case TankID::GreenGatling1:
-		case TankID::GreenGatling2:
-		case TankID::GreenGatling3:
-		case TankID::GreenTesla1:
-		case TankID::GreenTesla2:
-		case TankID::GreenTesla3:
-			return true;
+	case TankID::GreenLMG1:
+	case TankID::GreenLMG2:
+	case TankID::GreenLMG3:
+	case TankID::GreenHMG1:
+	case TankID::GreenHMG2:
+	case TankID::GreenHMG3:
+	case TankID::GreenGatling1:
+	case TankID::GreenGatling2:
+	case TankID::GreenGatling3:
+	case TankID::GreenTesla1:
+	case TankID::GreenTesla2:
+	case TankID::GreenTesla3:
+		return true;
 	}
 	return false;
 	//return mType == TankID::GreenLMG1;
@@ -249,7 +250,7 @@ ProjectileID Tank::getProjectile() const
 	default:
 		return ProjectileID::None;
 	}
-		
+
 	/*if (mType == TankID::GreenLMG1 || mType == TankID::LMG2 || mType == TankID::LMG3)
 		return ProjectileID::LMGBullet;
 	else if (mType == TankID::HMG1 || mType == TankID::HMG2 || mType == TankID::HMG3)
@@ -278,12 +279,58 @@ void Tank::increaseSpread()
 		++mSpreadLevel;
 }
 
-void Tank::setTankTexture(unsigned int val) {
-	if (val == 1) {
-		TankID change = TankID::GreenGatling2;
-		mSprite.setTexture(mTextures.get(Table[static_cast<int>(change)].texture), false);
-		mSprite.setTextureRect(Table[static_cast<int>(change)].textureRect);
-		++mSpreadLevel;
+void Tank::setTankTexture(unsigned int val) { //Allows change of tank texture (e.g pickups) - Jason Lynch
+	if (val == 1) //Checks for type of tank to change to - Jason Lynch
+	{
+		int tank = getCategory();
+		switch (tank) //2 id player 1, 8 is player 2 - Jason Lynch
+		{
+		case 2:
+			//Assigns new texture to player one tank - Jason Lynch
+			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::GreenHMG1)].texture), false);
+			mSprite.setTextureRect(Table[static_cast<int>(TankID::GreenHMG1)].textureRect);
+			break;
+		case 8:
+			//Assigns new texture to player two tank - Jason Lynch
+			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::RedHMG1)].texture), false);
+			mSprite.setTextureRect(Table[static_cast<int>(TankID::RedHMG1)].textureRect);
+			break;
+		}
+	}
+	else if (val == 2) //Checks for type of tank to change to - Jason Lynch
+	{
+		int tank = getCategory();
+		switch (tank)
+		{
+		case 2:
+			//Assigns new texture to player one tank - Jason Lynch
+			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::GreenGatling2)].texture), false);
+			mSprite.setTextureRect(Table[static_cast<int>(TankID::GreenGatling2)].textureRect);
+			break;
+		case 8:
+			//Assigns new texture to player two tank - Jason Lynch
+			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::RedGatling2)].texture), false);
+			mSprite.setTextureRect(Table[static_cast<int>(TankID::RedGatling2)].textureRect);
+			break;
+		}
+		increaseFireRate();
+	}
+	else if (val == 3) //Checks for type of tank to change to - Jason Lynch
+	{
+		int tank = getCategory();
+		switch (tank)
+		{
+		case 2:
+			//Assigns new texture to player one tank - Jason Lynch
+			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::GreenTesla2)].texture), false);
+			mSprite.setTextureRect(Table[static_cast<int>(TankID::GreenTesla2)].textureRect);
+			break;
+		case 8:
+			//Assigns new texture to player two tank - Jason Lynch
+			mSprite.setTexture(mTextures.get(Table[static_cast<int>(TankID::RedTesla3)].texture), false);
+			mSprite.setTextureRect(Table[static_cast<int>(TankID::RedTesla3)].textureRect);
+			break;
+		}
 	}
 }
 
@@ -300,9 +347,9 @@ void Tank::playerLocalSound(CommandQueue& commands, SoundEffectID effect)
 	command.category = static_cast<int>(CategoryID::SoundEffect);
 	command.action = derivedAction<SoundNode>(
 		[effect, worldPosition](SoundNode& node, sf::Time)
-	{
-		node.playSound(effect, worldPosition);
-	});
+		{
+			node.playSound(effect, worldPosition);
+		});
 	commands.push(command);
 }
 

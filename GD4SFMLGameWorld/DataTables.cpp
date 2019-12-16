@@ -170,7 +170,7 @@ std::vector<TankData> initializeTankData()
 	//Gatling Tank - Double GatlinRed
 	data[static_cast<int>(TankID::RedGatling2)].hitpoints = 150;
 	data[static_cast<int>(TankID::RedGatling2)].speed = 200.f;
-	data[static_cast<int>(TankID::RedGatling2)].fireInterval = sf::seconds(0.4f);
+	data[static_cast<int>(TankID::RedGatling2)].fireInterval = sf::seconds(0.6f);
 	data[static_cast<int>(TankID::RedGatling2)].textureRect = sf::IntRect(665, 128, 95, 112);
 	data[static_cast<int>(TankID::RedGatling2)].texture = TextureID::Tanks;
 	data[static_cast<int>(TankID::RedGatling2)].bulletType = ProjectileID::RedGatlingBullet;
@@ -307,6 +307,12 @@ std::vector<TankPickupData> initializeTankPickupData() //Tank pickups data. Hold
 
 	data[static_cast<int>(TankPickupID::HeavyGun)].texture = TextureID::HeavyGunPickup; //Set HeavyGun Pickup to assosiated texture - Jason Lynch
 	data[static_cast<int>(TankPickupID::HeavyGun)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 1); //Bind texture changing function to the action associated with pickup - Jason Lynch
+
+	data[static_cast<int>(TankPickupID::GatlingGun)].texture = TextureID::GatlingGunPickup; //Set HeavyGun Pickup to assosiated texture - Jason Lynch
+	data[static_cast<int>(TankPickupID::GatlingGun)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 2); //Bind texture changing function to the action associated with pickup - Jason Lynch
+
+	data[static_cast<int>(TankPickupID::TeslaGun)].texture = TextureID::TeslaGunPickup; //Set HeavyGun Pickup to assosiated texture - Jason Lynch
+	data[static_cast<int>(TankPickupID::TeslaGun)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 3); //Bind texture changing function to the action associated with pickup - Jason Lynch
 
 	return data;
 }
