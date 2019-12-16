@@ -1,3 +1,4 @@
+//Dylan Reilly D00194504
 #include "Animation.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
