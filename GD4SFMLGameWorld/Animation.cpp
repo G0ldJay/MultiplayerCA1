@@ -98,7 +98,7 @@ sf::FloatRect Animation::getGlobalBounds() const
 
 void Animation::update(sf::Time dt)
 {
-	sf::Time timePerFrame = mDuration / static_cast<float>(mNumFrames);
+	sf::Time timePerFrame = mDuration / static_cast<float>(mNumFrames * 2);
 	mElapsedTime += dt;
 
 	sf::Vector2i textureBounds(mSprite.getTexture()->getSize());
@@ -119,6 +119,13 @@ void Animation::update(sf::Time dt)
 			// Move it down one line
 			textureRect.left = 0;
 			textureRect.top += textureRect.height;
+		}
+
+		if (textureRect.top + textureRect.height > textureBounds.y)
+		{
+			//Resets animation to start after it finishes - Dylan Reilly
+			textureRect.top = 0;
+			textureRect.left = 0;
 		}
 
 		// And progress to next frame

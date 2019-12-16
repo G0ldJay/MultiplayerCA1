@@ -127,7 +127,7 @@ void World::loadTextures()
 	mTextures.load(TextureID::LmgBullet, "Media/Textures/Bullet.png");
 	mTextures.load(TextureID::HmgBullet, "Media/Textures/HeavyBullet.png");
 	mTextures.load(TextureID::GatlingBullet, "Media/Textures/Bullet.png");
-	mTextures.load(TextureID::TeslaBullet, "Media/Textures/LightningBall.png");
+	mTextures.load(TextureID::TeslaBullet, "Media/Textures/LightningBallScaled.png");
 
 	mTextures.load(TextureID::HeavyGunPickup, "Media/Textures/Arena/Props/Dot_A.png");
 	mTextures.load(TextureID::GatlingGunPickup, "Media/Textures/Arena/Props/Dot_B.png");

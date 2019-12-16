@@ -4,6 +4,7 @@
 #include "ResourceIdentifiers.hpp"
 #include "ProjectileID.hpp"
 #include "CommandQueue.hpp"
+#include "Animation.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -31,4 +32,5 @@ private:
 	ProjectileID			mType;
 	sf::Sprite				mSprite;
 	sf::Vector2f			mTargetDirection;
+	Animation				mFiringAnimation;
 };

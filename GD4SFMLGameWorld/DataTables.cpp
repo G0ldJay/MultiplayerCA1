@@ -234,7 +234,7 @@ std::vector<ProjectileData> initializeProjectileData()
 
 	data[static_cast<int>(ProjectileID::GreenTeslaBullet)].damage = 12;
 	data[static_cast<int>(ProjectileID::GreenTeslaBullet)].speed = 200.f;
-	data[static_cast<int>(ProjectileID::GreenTeslaBullet)].texture = TextureID::Entities;
+	data[static_cast<int>(ProjectileID::GreenTeslaBullet)].texture = TextureID::TeslaBullet;
 	data[static_cast<int>(ProjectileID::GreenTeslaBullet)].textureRect = sf::IntRect(160, 54, 15, 32);
 
 	//Red bullets
@@ -255,7 +255,7 @@ std::vector<ProjectileData> initializeProjectileData()
 										
 	data[static_cast<int>(ProjectileID::RedTeslaBullet)].damage = 12;
 	data[static_cast<int>(ProjectileID::RedTeslaBullet)].speed = 200.f;
-	data[static_cast<int>(ProjectileID::RedTeslaBullet)].texture = TextureID::Entities;
+	data[static_cast<int>(ProjectileID::RedTeslaBullet)].texture = TextureID::TeslaBullet;
 	data[static_cast<int>(ProjectileID::RedTeslaBullet)].textureRect = sf::IntRect(160, 54, 15, 32);
 
 	return data;

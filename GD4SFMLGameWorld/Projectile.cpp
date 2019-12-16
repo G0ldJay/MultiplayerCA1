@@ -23,8 +23,15 @@ Projectile::Projectile(ProjectileID type, const TextureHolder& textures)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)
 	, mTargetDirection()
+	, mFiringAnimation(textures.get(TextureID::TeslaBullet))
 {
+	//Initializes animation for tesla bullet - Dylan Reilly
+	mFiringAnimation.setFrameSize(sf::Vector2i(128, 128));
+	mFiringAnimation.setNumFrames(12);
+	mFiringAnimation.setDuration(sf::seconds(2));
+
 	centreOrigin(mSprite);
+	centreOrigin(mFiringAnimation);
 
 	//Add particle system for system
 	if (mType == ProjectileID::GreenHMGBullet || mType == ProjectileID::RedHMGBullet)
@@ -40,7 +47,6 @@ Projectile::Projectile(ProjectileID type, const TextureHolder& textures)
 		smoke->setPosition(0.f, getBoundingRect().height / 2.f);
 		attachChild(std::move(smoke));
 	}
-
 }
 
 void Projectile::guideTowards(sf::Vector2f position)
@@ -67,16 +73,28 @@ void Projectile::updateCurrent(sf::Time dt, CommandQueue& commands)
 		setRotation(toDegree(angle) + 90.f);
 		setVelocity(newVelocity);
 	}
-
+	//Updates the firing animation if it shoots a tesla bullet - Dylan Reilly
+	if (mType == ProjectileID::GreenTeslaBullet || mType == ProjectileID::RedTeslaBullet)
+	{
+		mFiringAnimation.update(dt);
+	}
 	Entity::updateCurrent(dt, commands);
 }
 
 void Projectile::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(mSprite, states);
+	//Draws tesla animation if it shoots a tesla bullet, elses draws plain sprite
+	if(mType == ProjectileID::GreenTeslaBullet || mType == ProjectileID::RedTeslaBullet)
+	{
+		target.draw(mFiringAnimation, states);
+	}
+	else
+	{
+		target.draw(mSprite, states);
+	}
 }
 
-//Returns whether a projectile is allied or enemy(green or red) based on bullet type - Dyllan Reilly
+//Returns whether a projectile is allied or enemy(green or red) based on bullet type - Dylan Reilly
 unsigned int Projectile::getCategory() const
 {
 	if (mType == ProjectileID::RedLMGBullet || mType == ProjectileID::RedHMGBullet || mType == ProjectileID::RedGatlingBullet || mType == ProjectileID::RedTeslaBullet)
