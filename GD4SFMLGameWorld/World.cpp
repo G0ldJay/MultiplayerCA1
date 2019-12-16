@@ -131,7 +131,12 @@ void World::loadTextures()
 	mTextures.load(TextureID::HeavyGunPickup, "Media/Textures/Arena/Props/Dot_A.png");
 	mTextures.load(TextureID::GatlingGunPickup, "Media/Textures/Arena/Props/Dot_B.png");
 	mTextures.load(TextureID::TeslaGunPickup, "Media/Textures/Arena/Props/Artifact.png");
+<<<<<<< HEAD
 	mTextures.load(TextureID::Nuke, "Media/Textures/NukeBomb.png");
+=======
+	mTextures.load(TextureID::Health, "Media/Textures/Health.png");
+	mTextures.load(TextureID::Speed, "Media/Textures/Speed.png");
+>>>>>>> 78ecaa67d548e980ccee726740a16efb56804c2c
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID type2)
@@ -369,7 +374,7 @@ void World::adaptPlayerTwoVelocity()
 
 void World::addObstacles() //Set up obstacles - Jason Lynch
 {
-	addObstacle(ObstacleID::Barrel, mSpawnPosition.x+100, mSpawnPosition.y+100, 0.f, 0.25f, 0.25f);
+	addObstacle(ObstacleID::Barrel, mSpawnPosition.x + 100, mSpawnPosition.y+100, 0.f, 0.25f, 0.25f);
 
 	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 190, mSpawnPosition.y + 100, 90.0f, .4f,.4f);
 	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 190, mSpawnPosition.y , 90.0f, .4f, .4f);
@@ -414,7 +419,15 @@ void World::addPickups() //Set up pickups - Jason Lynch
 	addPickup(TankPickupID::HeavyGun, 100, 100 );
 	addPickup(TankPickupID::GatlingGun, 912, 650);
 	addPickup(TankPickupID::TeslaGun, 512, 380);
+<<<<<<< HEAD
 	//addPickup(TankPickupID::Nuke, 512, 400);
+=======
+	addPickup(TankPickupID::Health, 512, 650);
+	addPickup(TankPickupID::Health, 512, 100);
+	addPickup(TankPickupID::Speed, 100, 650);
+	addPickup(TankPickupID::Speed, 912, 100);
+	
+>>>>>>> 78ecaa67d548e980ccee726740a16efb56804c2c
 }
 
 void World::addPickup(TankPickupID type, float posX, float posY)//Add Tank Pickups to Vector of PickupSpawnPoint structs - Jason Lynch
@@ -425,7 +438,7 @@ void World::addPickup(TankPickupID type, float posX, float posY)//Add Tank Picku
 
 void World::spawnPickups()//Spawn Tank pickups, set scale, rotation, and position - Jason Lynch
 {
-	// Spawn all enemies entering the view area (including distance) this frame
+	// Spawn all pickups - Jason Lynch
 	while (!mPickups.empty())
 	{
 		PickupSpawnPoint spawn = mPickups.back();
@@ -433,7 +446,6 @@ void World::spawnPickups()//Spawn Tank pickups, set scale, rotation, and positio
 		std::unique_ptr<TankPickups> pickup(new TankPickups(spawn.type, mTextures));
 		pickup->setScale(0.3f, 0.3f);
 		pickup->setPosition(spawn.x, spawn.y);
-		//obstacle->setRotation(180.f);
 
 		mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(pickup));
 

@@ -241,7 +241,7 @@ ProjectileID Tank::getProjectile() const
 }
 
 
-float Tank::getMaxSpeed() const
+float Tank::getMaxSpeed()
 {
 	return Table[static_cast<int>(mType)].speed;
 }
