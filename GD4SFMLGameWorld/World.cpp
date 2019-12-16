@@ -131,8 +131,8 @@ void World::loadTextures()
 	mTextures.load(TextureID::GatlingGunPickup, "Media/Textures/Arena/Props/Dot_B.png");
 	mTextures.load(TextureID::TeslaGunPickup, "Media/Textures/Arena/Props/Artifact.png");
 	mTextures.load(TextureID::Nuke, "Media/Textures/NukeBomb.png");
-	/*mTextures.load(TextureID::Health, "Media/Textures/Health.png");
-	mTextures.load(TextureID::Speed, "Media/Textures/Speed.png");*/
+	mTextures.load(TextureID::Repair, "Media/Textures/Health.png");
+	mTextures.load(TextureID::FireRate, "Media/Textures/Speed.png");
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID type2)
@@ -416,10 +416,10 @@ void World::addPickups() //Set up pickups - Jason Lynch
 	addPickup(TankPickupID::GatlingGun, 912, 650);
 	addPickup(TankPickupID::TeslaGun, 512, 380);
 	//addPickup(TankPickupID::Nuke, 512, 400);
-	/*addPickup(TankPickupID::Health, 512, 650);
-	addPickup(TankPickupID::Health, 512, 100);
-	addPickup(TankPickupID::Speed, 100, 650);
-	addPickup(TankPickupID::Speed, 912, 100);*/
+	addPickup(TankPickupID::Repair, 512, 650);
+	addPickup(TankPickupID::Repair, 512, 100);
+	addPickup(TankPickupID::FireRate, 100, 650);
+	addPickup(TankPickupID::FireRate, 912, 100);
 }
 
 void World::addPickup(TankPickupID type, float posX, float posY)//Add Tank Pickups to Vector of PickupSpawnPoint structs - Jason Lynch
