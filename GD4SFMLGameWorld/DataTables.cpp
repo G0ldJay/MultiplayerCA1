@@ -219,7 +219,7 @@ std::vector<ProjectileData> initializeProjectileData()
 	//Green Bullets
 	data[static_cast<int>(ProjectileID::GreenLMGBullet)].damage = 5;
 	data[static_cast<int>(ProjectileID::GreenLMGBullet)].speed = 300.f;
-	data[static_cast<int>(ProjectileID::GreenLMGBullet)].texture = TextureID::Tanks;
+	data[static_cast<int>(ProjectileID::GreenLMGBullet)].texture = TextureID::Entities;
 	data[static_cast<int>(ProjectileID::GreenLMGBullet)].textureRect = sf::IntRect(175, 64, 3, 14);
 
 	data[static_cast<int>(ProjectileID::GreenHMGBullet)].damage = 8;
@@ -240,7 +240,7 @@ std::vector<ProjectileData> initializeProjectileData()
 	//Red bullets
 	data[static_cast<int>(ProjectileID::RedLMGBullet)].damage = 5;
 	data[static_cast<int>(ProjectileID::RedLMGBullet)].speed = 300.f;
-	data[static_cast<int>(ProjectileID::RedLMGBullet)].texture = TextureID::Tanks;
+	data[static_cast<int>(ProjectileID::RedLMGBullet)].texture = TextureID::Entities;
 	data[static_cast<int>(ProjectileID::RedLMGBullet)].textureRect = sf::IntRect(175, 64, 3, 14);
 										
 	data[static_cast<int>(ProjectileID::RedHMGBullet)].damage = 8;
