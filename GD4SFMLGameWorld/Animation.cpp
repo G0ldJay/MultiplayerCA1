@@ -98,6 +98,7 @@ sf::FloatRect Animation::getGlobalBounds() const
 
 void Animation::update(sf::Time dt)
 {
+	//Set the length of the animation to be twice as long so it doesnt despawn before hitting a target - Dylan Reilly
 	sf::Time timePerFrame = mDuration / static_cast<float>(mNumFrames * 2);
 	mElapsedTime += dt;
 
