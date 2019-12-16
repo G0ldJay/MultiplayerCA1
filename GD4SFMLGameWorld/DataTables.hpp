@@ -23,7 +23,7 @@ struct Direction
 	float distance;
 };
 
-struct TankData
+struct TankData 
 {
 	int hitpoints;
 	float speed;
@@ -41,11 +41,11 @@ struct ProjectileData
 	sf::IntRect textureRect;
 };
 
-struct ObstacleData
+struct ObstacleData //Struct for obstacles in world - Jason Lynch
 {
-	int hitpoints;
-	int damage;
-	TextureID texture;
+	int hitpoints; //Hitpoints of obstacle - Jason Lynch
+	int damage; //Damage done to player colliding with obstacle - Jason Lynch
+	TextureID texture; //Texture of Obstacle - Jason Lynch
 	//sf::IntRect textureRect;
 };
 
@@ -56,10 +56,10 @@ struct PickupData
 	sf::IntRect textureRect;
 };
 
-struct TankPickupData
+struct TankPickupData //Pickups for tanks (texture changing ones so far) - Jason Lynch
 {
-	std::function<void(Tank&)> action;
-	TextureID texture;
+	std::function<void(Tank&)> action; //Function to call - Jason Lynch 
+	TextureID texture; ///Texture of pickup - Jason Lynch
 	//sf::IntRect textureRect;
 };
 
@@ -72,7 +72,7 @@ struct ParticleData
 std::vector<TankData> initializeTankData();
 std::vector<ProjectileData> initializeProjectileData();
 std::vector<PickupData> initializePickupData();
-std::vector<TankPickupData> initializeTankPickupData();
+std::vector<TankPickupData> initializeTankPickupData(); 
 std::vector<ParticleData> initializeParticleData();
 std::vector<ObstacleData> initializeObstacleData();
 

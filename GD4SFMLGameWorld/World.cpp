@@ -120,8 +120,8 @@ void World::loadTextures()
 	mTextures.load(TextureID::Tanks, "Media/Textures/TankSpriteSheet.png");
 	mTextures.load(TextureID::Entities, "Media/Textures/Entities.png");
 	mTextures.load(TextureID::Barrel, "Media/Textures/Arena/Props/Barell_01.png");
-	mTextures.load(TextureID::Wall, "Media/Textures/Arena/Blocks/Block_C_02.png");
-	mTextures.load(TextureID::DestructableWall, "Media/Textures/Arena/Blocks/Block_B_02.png");
+	mTextures.load(TextureID::Wall, "Media/Textures/Arena/Blocks/Block_B_01.png");
+	mTextures.load(TextureID::DestructableWall, "Media/Textures/Arena/Blocks/Block_B_01.png");
 	mTextures.load(TextureID::Jungle, "Media/Textures/Gamebackground.png");
 	mTextures.load(TextureID::Explosion, "Media/Textures/Explosion.png");
 	mTextures.load(TextureID::Particle, "Media/Textures/Particle.png");
@@ -445,7 +445,7 @@ void World::spawnObstacles()
 
 void World::addPickups()
 {
-	addPickup(TankPickupID::HeavyGun, mSpawnPosition.x +150, mSpawnPosition.y );
+	addPickup(TankPickupID::HeavyGun, 120, 110 );
 }
 
 void World::addPickup(TankPickupID type, float posX, float posY)
@@ -462,7 +462,7 @@ void World::spawnPickups()
 		PickupSpawnPoint spawn = mPickups.back();
 
 		std::unique_ptr<TankPickups> pickup(new TankPickups(spawn.type, mTextures));
-		pickup->setScale(0.1f, .1f);
+		pickup->setScale(0.3f, 0.3f);
 		pickup->setPosition(spawn.x, spawn.y);
 		//obstacle->setRotation(180.f);
 

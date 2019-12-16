@@ -259,28 +259,29 @@ std::vector<ProjectileData> initializeProjectileData()
 	return data;
 }
 
-std::vector<ObstacleData> initializeObstacleData()
+std::vector<ObstacleData> initializeObstacleData() //Obstacle data. Holds possibly shifting values associated with barrels, walls, etc - Jason Lynch
 {
-	std::vector<ObstacleData> data(static_cast<int>(ObstacleID::TypeCount));
+	std::vector<ObstacleData> data(static_cast<int>(ObstacleID::TypeCount)); //Get number of different types - Jason Lynch
 
-	data[static_cast<int>(ObstacleID::Wall)].damage = 2;
-	data[static_cast<int>(ObstacleID::Wall)].hitpoints = 10;
-	data[static_cast<int>(ObstacleID::Wall)].texture = TextureID::Wall;
+	data[static_cast<int>(ObstacleID::Wall)].damage = 2; //Damage done to player on collision - Jason Lynch
+	data[static_cast<int>(ObstacleID::Wall)].hitpoints = 100; //Hitpoints of wall - Jason Lynch
+	data[static_cast<int>(ObstacleID::Wall)].texture = TextureID::Wall; //Texture for wall - Jason Lynch
 
-	data[static_cast<int>(ObstacleID::Barrel)].damage = 40;
-	data[static_cast<int>(ObstacleID::Barrel)].hitpoints = 10;
-	data[static_cast<int>(ObstacleID::Barrel)].texture = TextureID::Barrel;
+	data[static_cast<int>(ObstacleID::Barrel)].damage = 40; //Damage done to player on collision - Jason Lynch
+	data[static_cast<int>(ObstacleID::Barrel)].hitpoints = 10; //Hitpoints of barrel - Jason Lynch
+	data[static_cast<int>(ObstacleID::Barrel)].texture = TextureID::Barrel; //Texture for barrel - Jason Lynch
 
-	data[static_cast<int>(ObstacleID::DestructableWall)].damage = 2;
-	data[static_cast<int>(ObstacleID::DestructableWall)].hitpoints = 20;
-	data[static_cast<int>(ObstacleID::DestructableWall)].texture = TextureID::DestructableWall;
+	data[static_cast<int>(ObstacleID::DestructableWall)].damage = 2; //Damage done to player on collision - Jason Lynch
+	data[static_cast<int>(ObstacleID::DestructableWall)].hitpoints = 50; //Hitpoints of destructable wall - Jason Lynch
+	data[static_cast<int>(ObstacleID::DestructableWall)].texture = TextureID::DestructableWall; //Texture for destructable wall - Jason Lynch
 
 	return data;
 }
 
-std::vector<PickupData> initializePickupData()
+std::vector<PickupData> initializePickupData() 
 {
 	std::vector<PickupData> data(static_cast<int>(PickupID::TypeCount));
+
 	data[static_cast<int>(PickupID::HealthRefill)].texture = TextureID::Entities;
 	data[static_cast<int>(PickupID::HealthRefill)].textureRect = sf::IntRect(0, 64, 40, 40);
 	data[static_cast<int>(PickupID::HealthRefill)].action = [](Tank& a) {a.repair(25); };
@@ -300,11 +301,12 @@ std::vector<PickupData> initializePickupData()
 	return data;
 }
 
-std::vector<TankPickupData> initializeTankPickupData()
+std::vector<TankPickupData> initializeTankPickupData() //Tank pickups data. Holds possibly shifting values associated with power ups - Jason Lynch
 {
-	std::vector<TankPickupData> data(static_cast<int>(PickupID::TypeCount));
-	data[static_cast<int>(TankPickupID::HeavyGun)].texture = TextureID::HeavyGunPickup;
-	data[static_cast<int>(TankPickupID::HeavyGun)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 1);
+	std::vector<TankPickupData> data(static_cast<int>(TankPickupID::TypeCount)); //Get number of different types - Jason Lynch
+
+	data[static_cast<int>(TankPickupID::HeavyGun)].texture = TextureID::HeavyGunPickup; //Set HeavyGun Pickup to assosiated texture - Jason Lynch
+	data[static_cast<int>(TankPickupID::HeavyGun)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 1); //Bind texture changing function to the action associated with pickup - Jason Lynch
 
 	return data;
 }

@@ -1,6 +1,7 @@
 #pragma once
 enum class ProjectileID
 {
+	None,
 	AlliedBullet,
 	EnemyBullet,
 	Missile,

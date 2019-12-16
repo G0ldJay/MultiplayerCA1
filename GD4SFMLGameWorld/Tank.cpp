@@ -86,30 +86,30 @@ Tank::Tank(CategoryID entity,TankID type, const TextureHolder& textures, const F
 		createPickup(node, textures);
 	};
 
-	std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
+	std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, "", sf::Color::White));
 	mHealthDisplay = healthDisplay.get();
 	attachChild(std::move(healthDisplay));
 
 	if (mEntity == CategoryID::PlayerTank)
 	{
-		std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
-		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 1"));
-		missileDisplay->setPosition(0, 70);
+		//std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
+		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 1", sf::Color::Green));
+		//missileDisplay->setPosition(0, 70);
 		playerDisplay->setPosition(0, 90);
-		mMissileDisplay = missileDisplay.get();
-		attachChild(std::move(missileDisplay));
+		//mMissileDisplay = missileDisplay.get();
+		//attachChild(std::move(missileDisplay));
 		attachChild(std::move(playerDisplay));
 	}
 
 	/*if (getCategory() == (static_cast<int>(CategoryID::PlayerTwoTank)))*/
 	if(mEntity == CategoryID::PlayerTwoTank)
 	{
-		std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
-		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 2"));
-		missileDisplay->setPosition(0, 70);
+		//std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
+		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 2", sf::Color::Red));
+		//missileDisplay->setPosition(0, 70);
 		playerDisplay->setPosition(0, 90);
-		mMissileDisplay = missileDisplay.get();
-		attachChild(std::move(missileDisplay));
+		//mMissileDisplay = missileDisplay.get();
+		//attachChild(std::move(missileDisplay));
 		attachChild(std::move(playerDisplay));
 	}
 
@@ -246,6 +246,8 @@ ProjectileID Tank::getProjectile() const
 	case TankID::RedTesla2:
 	case TankID::RedTesla3:
 		return ProjectileID::RedTeslaBullet;
+	default:
+		return ProjectileID::None;
 	}
 		
 	/*if (mType == TankID::GreenLMG1 || mType == TankID::LMG2 || mType == TankID::LMG3)
@@ -366,8 +368,8 @@ void Tank::createBullets(SceneNode& node, const TextureHolder& textures) const
 		break;
 
 	case 2:
-		createProjectile(node, type, -0.01, 0.01f, textures);
-		createProjectile(node, type, +0.01, 0.01, textures);
+		createProjectile(node, type, -0.01f, 0.01f, textures);
+		createProjectile(node, type, +0.01f, 0.01f, textures);
 		break;
 
 	case 3:

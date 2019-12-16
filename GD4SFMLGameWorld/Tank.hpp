@@ -22,7 +22,7 @@ public:
 	ProjectileID getProjectile() const;
 	void increaseFireRate();
 	void increaseSpread();
-	void setTankTexture(unsigned int val);
+	void setTankTexture(unsigned int val); //Will allow texture swap for picking up weapon power ups - Jason Lynch
 	void collectMissiles(unsigned int count);
 
 	void playerLocalSound(CommandQueue& command, SoundEffectID effect);
@@ -48,7 +48,7 @@ private:
 	Animation mExplosion;
 	TextNode* mHealthDisplay;
 	TextNode* mMissileDisplay;
-	const TextureHolder& mTextures;
+	const TextureHolder& mTextures; //Hold texture for tank changes - Jason Lynch
 
 	bool mIsFiring;
 	bool mIsLaunchingMissile;
