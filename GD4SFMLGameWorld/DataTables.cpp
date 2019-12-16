@@ -316,6 +316,13 @@ std::vector<TankPickupData> initializeTankPickupData() //Tank pickups data. Hold
 	data[static_cast<int>(TankPickupID::TeslaGun)].texture = TextureID::TeslaGunPickup; //Set HeavyGun Pickup to assosiated texture - Jason Lynch
 	data[static_cast<int>(TankPickupID::TeslaGun)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 3); //Bind texture changing function to the action associated with pickup - Jason Lynch
 
+	data[static_cast<int>(TankPickupID::Health)].texture = TextureID::Health;
+	data[static_cast<int>(TankPickupID::Health)].action = [](Tank& a) {a.repair(25); };
+
+	data[static_cast<int>(TankPickupID::Speed)].texture = TextureID::Speed;
+	data[static_cast<int>(TankPickupID::Speed)].action = [](Tank& a) {a.increaseFireRate(); };
+
+
 	return data;
 }
 

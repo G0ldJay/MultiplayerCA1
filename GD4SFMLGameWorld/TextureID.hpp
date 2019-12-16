@@ -18,5 +18,7 @@ enum class TextureID
 	Barrel,
 	Wall,
 	DestructableWall,
+	Health,
+	Speed,
 	FinishLine
 };

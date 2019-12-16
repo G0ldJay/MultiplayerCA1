@@ -15,7 +15,7 @@ public:
 	virtual sf::FloatRect getBoundingRect() const;
 	virtual bool isMarkedForRemoval() const;
 
-	float getMaxSpeed() const;
+	float getMaxSpeed();
 	void fire();
 	void launchMissile();
 	bool isAllied() const;
