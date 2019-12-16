@@ -59,7 +59,7 @@ Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const 
 	mFireCommand.category = static_cast<int>(CategoryID::SceneAirLayer);
 	mFireCommand.action = [this, &textures](SceneNode& node, sf::Time)
 	{
-		createBullets(node, textures);
+			createBullets(node, textures);
 	};
 
 	mMissileCommand.category = static_cast<int>(CategoryID::SceneAirLayer);

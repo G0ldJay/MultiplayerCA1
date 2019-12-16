@@ -6,6 +6,10 @@ Entity::Entity(int hitpoints)
 	: mVelocity(), mHitpoints(hitpoints)
 {}
 
+Entity::Entity(int hitpoints, CategoryID category)
+	:SceneNode(category), mVelocity(), mHitpoints(hitpoints)
+{}
+
 void Entity::setVelocity(sf::Vector2f velocity)
 {
 	mVelocity = velocity;

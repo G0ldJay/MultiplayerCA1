@@ -1,7 +1,6 @@
 #include "World.hpp"
 #include "ParticleID.hpp"
 #include "ParticleNode.hpp"
-#include "Obstacle.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -228,16 +227,16 @@ void World::handleCollisions()
 			pickup.destroy();
 		}
 
-		else if (matchesCategories(pair, CategoryID::PlayerTank, ObstacleID::Barrel)) {
+		else if (matchesCategories(pair, CategoryID::PlayerTank, CategoryID::Collidable)) {
 			auto& player = static_cast<Tank&>(*pair.first);
-			auto& obstacle = static_cast<Obstacle&>(*pair.second);
+			auto& obstacle = static_cast<ObstacleTest&>(*pair.second);
 
 			// Collision: Player damage = enemy's remaining HP
 			player.damage(obstacle.getDamage());
 			obstacle.destroy();
 		}
 
-		else if (matchesCategories(pair, CategoryID::AlliedProjectile, ObstacleID::Barrel)) { //Detects collision with barrel obstacle - Jason Lynch
+		else if (matchesCategories(pair, CategoryID::AlliedProjectile, CategoryID::Collidable)) { //Detects collision with barrel obstacle - Jason Lynch
 			auto& projectile = static_cast<Projectile&>(*pair.first);
 			auto& obstacle = static_cast<Obstacle&>(*pair.second);
 
@@ -372,6 +371,7 @@ void World::adaptPlayerTwoVelocity()
 void World::addObstacles() //Set up obstacles - Jason Lynch
 {
 	addObstacle(ObstacleID::Barrel, mSpawnPosition.x + 100, mSpawnPosition.y+100, 0.f, 0.25f, 0.25f);
+	addObstacle(ObstacleID::Barrel, mSpawnPosition.x + 250, mSpawnPosition.y + 100, 0.f, 0.25f, 0.25f);
 
 	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 190, mSpawnPosition.y + 100, 90.0f, .4f,.4f);
 	addObstacle(ObstacleID::Wall, mSpawnPosition.x + 190, mSpawnPosition.y , 90.0f, .4f, .4f);
@@ -397,9 +397,8 @@ void World::spawnObstacles() //Spawn obstacles, set scale, rotation, and positio
 	{
 		ObstacleSpawnPoint spawn = mObstacles.back();
 
-		std::unique_ptr<Obstacle> obstacle(new Obstacle(spawn.type, mTextures, mFonts));
+		std::unique_ptr<ObstacleTest> obstacle(new ObstacleTest(spawn.type, mTextures, mFonts));
 		obstacle->setScale(spawn.scaleX, spawn.scaleY);
-		obstacle->getCategory();
 		obstacle->setPosition(spawn.x, spawn.y);
 		obstacle->setRotation(spawn.rotation);
 		//obstacle->setRotation(180.f);
