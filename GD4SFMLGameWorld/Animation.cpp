@@ -126,6 +126,8 @@ void Animation::update(sf::Time dt)
 			//Resets animation to start after it finishes - Dylan Reilly
 			textureRect.top = 0;
 			textureRect.left = 0;
+			//Loops animation - Dylan Reilly
+			mCurrentFrame = 0;
 		}
 
 		// And progress to next frame
