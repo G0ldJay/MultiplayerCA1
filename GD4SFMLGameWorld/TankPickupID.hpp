@@ -4,5 +4,6 @@ enum class TankPickupID
 	HeavyGun,
 	GatlingGun,
 	TeslaGun,
+	Nuke,
 	TypeCount
 };

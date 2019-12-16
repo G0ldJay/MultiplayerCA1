@@ -13,6 +13,7 @@ enum class TextureID
 	HeavyGunPickup,
 	GatlingGunPickup,
 	TeslaGunPickup,
+	Nuke,
 	Particle,
 	Tanks,
 	Barrel,

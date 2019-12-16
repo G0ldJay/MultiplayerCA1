@@ -10,6 +10,7 @@ enum class SoundEffectID
 	TankCannon2,
 	TankGatling,
 	TankHitBullet,
+	TeslaBullet,
 	TankDestroyed,
 	LaunchMissile,
 	CollectPickup,

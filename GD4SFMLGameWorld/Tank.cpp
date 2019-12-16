@@ -406,7 +406,7 @@ void Tank::CorrectFiringSound(CommandQueue& commands) { //Determines firing soun
 	}
 	else if (id == ProjectileID::GreenTeslaBullet || id == ProjectileID::RedTeslaBullet)//If tank type is Tesla - Jason lynch 
 	{
-
+		playerLocalSound(commands, SoundEffectID::TeslaBullet);
 	}
 }
 

@@ -131,6 +131,7 @@ void World::loadTextures()
 	mTextures.load(TextureID::HeavyGunPickup, "Media/Textures/Arena/Props/Dot_A.png");
 	mTextures.load(TextureID::GatlingGunPickup, "Media/Textures/Arena/Props/Dot_B.png");
 	mTextures.load(TextureID::TeslaGunPickup, "Media/Textures/Arena/Props/Artifact.png");
+	mTextures.load(TextureID::Nuke, "Media/Textures/NukeBomb.png");
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID type2)
@@ -413,6 +414,7 @@ void World::addPickups() //Set up pickups - Jason Lynch
 	addPickup(TankPickupID::HeavyGun, 100, 100 );
 	addPickup(TankPickupID::GatlingGun, 912, 650);
 	addPickup(TankPickupID::TeslaGun, 512, 380);
+	//addPickup(TankPickupID::Nuke, 512, 400);
 }
 
 void World::addPickup(TankPickupID type, float posX, float posY)//Add Tank Pickups to Vector of PickupSpawnPoint structs - Jason Lynch

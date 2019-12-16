@@ -100,8 +100,13 @@ void Obstacle::playerLocalSound(CommandQueue& commands, SoundEffectID effect) //
 
 void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const //Draws sprite or explosion if it is destroyed - Jason Lynch 
 {
-	if (isDestroyed() && mShowExplosion)
+	std::cout << isDestroyed() << ", mShowExplosion: " << mShowExplosion << std::endl;
+	if (isDestroyed() && mShowExplosion) {
+		std::cout << "Draw explosion" << std::endl;
 		target.draw(mExplosion, states);
+	}
+
+		
 	else
 		target.draw(mSprite, states);
 }
