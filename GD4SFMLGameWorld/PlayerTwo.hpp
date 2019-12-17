@@ -29,5 +29,6 @@ private:
 private:
 	std::map<sf::Keyboard::Key, ActionID> mKeyBinding;
 	std::map<ActionID, Command> mActionBinding;
+	std::map<int, ActionID> mControllerBinding;
 	MissionStatusID mCurrentMissionStatus;
 };

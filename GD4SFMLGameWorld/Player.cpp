@@ -35,6 +35,12 @@ Player::Player() : mCurrentMissionStatus(MissionStatusID::MissionRunning)
 	mKeyBinding[sf::Keyboard::Space] = ActionID::Fire;
 	mKeyBinding[sf::Keyboard::M] = ActionID::LaunchMissile;
 
+	mControllerBinding[1] = ActionID::MoveDown;
+	mControllerBinding[3] = ActionID::MoveUp;
+	mControllerBinding[0] = ActionID::TurnLeft;
+	mControllerBinding[2] = ActionID::TurnRight;
+	mControllerBinding[5] = ActionID::Fire;
+
 	// Set initial action bindings
 	initializeActions();
 
@@ -65,6 +71,12 @@ void Player::handleRealtimeInput(CommandQueue& commands)
 		// If key is pressed, lookup action and trigger corresponding command
 		if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second))
 		{
+			commands.push(mActionBinding[pair.second]);
+		}
+	}
+
+	for (auto pair : mControllerBinding) {
+		if (sf::Joystick::isButtonPressed(0, pair.first) && isRealtimeAction(pair.second)) {
 			commands.push(mActionBinding[pair.second]);
 		}
 	}
@@ -113,7 +125,7 @@ void Player::initializeActions()
 	mActionBinding[ActionID::TurnLeft].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.rotate(-5.f); });
 	mActionBinding[ActionID::TurnRight].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.rotate(5.f); });
 	//Moves tank fowards/backwards based on its direction
-	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * -sin(toRadian( a.getRotation() )), 1.5f * cos(toRadian( a.getRotation() ))); });
+	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * -sin(toRadian(a.getRotation())), 1.5f * cos(toRadian(a.getRotation()))); });
 	mActionBinding[ActionID::MoveDown].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * sin(toRadian(a.getRotation())), 1.5f * -cos(toRadian(a.getRotation()))); });
 	mActionBinding[ActionID::Fire].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.fire(); });
 	mActionBinding[ActionID::LaunchMissile].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.launchMissile(); });

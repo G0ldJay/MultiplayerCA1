@@ -9,7 +9,7 @@ TitleState::TitleState(StateStack& stack, Context context)
 {
 	mBackgroundSprite.setTexture(context.textures->get(TextureID::TitleScreen));
 	mText.setFont(context.fonts->get(FontID::Main));
-	mText.setString("Press any key start");
+	mText.setString("Press any key/button start");
 	centreOrigin(mText);
 	mText.setPosition(context.window->getView().getSize() / 2.f);
 }
@@ -41,6 +41,11 @@ bool TitleState::handleEvent(const sf::Event& event)
 	//If key pressed, trigger the next state
 	if (event.type == sf::Event::KeyPressed)
 	{
+		requestStackPop();
+		requestStackPush(StateID::Menu);
+	}
+
+	if (sf::Joystick::isButtonPressed(0, 9)) {
 		requestStackPop();
 		requestStackPush(StateID::Menu);
 	}

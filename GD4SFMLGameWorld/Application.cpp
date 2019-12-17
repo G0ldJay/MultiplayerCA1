@@ -40,21 +40,7 @@ void Application::run()
 {
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	//Check if controller is connected
-	if (sf::Joystick::isConnected(0))
-	{
-		std::cout << "Joystick Connected" << std::endl;
-		std::cout << sf::Joystick::ButtonCount << std::endl;
-		if (sf::Joystick::isButtonPressed(0, 1))
-		{
-			std::cout << "Button Pressed" << std::endl;
-		}
-	}
-	else
-	{
-		std::cout << "No joystick connected" << std::endl;
-	}
-	//
+
 	while (mWindow.isOpen())
 	{
 		sf::Time elapsedTime = clock.restart();

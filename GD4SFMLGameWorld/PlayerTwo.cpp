@@ -33,6 +33,12 @@ PlayerTwo::PlayerTwo():mCurrentMissionStatus(MissionStatusID::MissionRunning)
 	mKeyBinding[sf::Keyboard::Slash] = ActionID::Fire;
 	mKeyBinding[sf::Keyboard::Comma] = ActionID::LaunchMissile;
 
+	mControllerBinding[1] = ActionID::MoveDown;
+	mControllerBinding[3] = ActionID::MoveUp;
+	mControllerBinding[0] = ActionID::TurnLeft;
+	mControllerBinding[2] = ActionID::TurnRight;
+	mControllerBinding[5] = ActionID::Fire;
+
 	// Set initial action bindings
 	initializeActions();
 
@@ -63,6 +69,12 @@ void PlayerTwo::handleRealtimeInput(CommandQueue& commands)
 		// If key is pressed, lookup action and trigger corresponding command
 		if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second))
 		{
+			commands.push(mActionBinding[pair.second]);
+		}
+	}
+
+	for (auto pair : mControllerBinding) {
+		if (sf::Joystick::isButtonPressed(1, pair.first) && isRealtimeAction(pair.second)) {
 			commands.push(mActionBinding[pair.second]);
 		}
 	}
