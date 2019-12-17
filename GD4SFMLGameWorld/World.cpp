@@ -1,4 +1,5 @@
-//Dylan Reilly D00194504
+//Dylan Reilly D00194504 
+//Jason Lynch D00137655
 #include "World.hpp"
 #include "ParticleID.hpp"
 #include "ParticleNode.hpp"
@@ -7,7 +8,7 @@
 
 
 
-World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sounds)
+World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sounds)//Modified by both of us to fit game needs - Jason Lynch, Dylan Reilly
 	: mTarget(outputTarget)
 	, mSceneTexture()
 	, mCamera(outputTarget.getDefaultView())
@@ -115,6 +116,7 @@ void World::updateSounds()
 
 void World::loadTextures()
 {
+	//Both added some new textures - Jason Lynch, Dylan Reilly
 	mTextures.load(TextureID::Tanks, "Media/Textures/TankSpriteSheet.png");
 	mTextures.load(TextureID::Entities, "Media/Textures/Entities.png");
 	mTextures.load(TextureID::Barrel, "Media/Textures/Barell_01.png");
@@ -179,6 +181,7 @@ bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, ObstacleID 
 	}
 }
 
+//Both modified as collision was needed - Jason Lynch, Dylan Reilly
 void World::handleCollisions()
 {
 	std::set<SceneNode::Pair> collisionPairs;
@@ -271,7 +274,7 @@ void World::handleCollisions()
 
 		else if (matchesCategories(pair, CategoryID::AlliedProjectile, CategoryID::Collidable)) { //Detects collision with barrel obstacle - Jason Lynch
 			auto& projectile = static_cast<Projectile&>(*pair.first);
-			auto& obstacle = static_cast<Obstacle&>(*pair.second);
+			auto& obstacle = static_cast<ObstacleTest&>(*pair.second);
 
 			// Collision: Player damage = enemy's remaining HP
 			projectile.destroy();
@@ -280,7 +283,7 @@ void World::handleCollisions()
 
 		else if (matchesCategories(pair, CategoryID::EnemyProjectile, CategoryID::Collidable)) { //Detects collision with barrel obstacle - Jason Lynch
 			auto& projectile = static_cast<Projectile&>(*pair.first);
-			auto& obstacle = static_cast<Obstacle&>(*pair.second);
+			auto& obstacle = static_cast<ObstacleTest&>(*pair.second);
 
 			// Collision: Player damage = enemy's remaining HP
 			projectile.destroy();
@@ -349,6 +352,7 @@ void World::buildScene()
 	addPickups();
 }
 
+//Destroys whoever doesnt grab the nuke - Jason Lynch 
 void World::KillEmAll(Tank& player) {
 	if (player.getCategory() == static_cast<int>(CategoryID::PlayerTank)) {
 		mPlayerTwoTank->destroy();
@@ -413,20 +417,14 @@ void World::adaptPlayerTwoVelocity()
 
 void World::addObstacles() //Set up obstacles - Jason Lynch
 {
-	addObstacle(ObstacleID::Wall, 100, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-
-	addObstacle(ObstacleID::Wall, 100, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-
-	addObstacle(ObstacleID::Wall, 930, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-
-	addObstacle(ObstacleID::Wall, 930, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-
 	playerOneBase();
 	playerTwoBase();
 	teslaobstacles();
 	NukeObstacles();
+	borderObstacles();
 }
 
+//Popultaes world with obstacles - Jason Lynch 
 void World::NukeObstacles() {
 	//DA BOMB
 	addObstacle(ObstacleID::Nuke, 500, 290, 0.f, 0.05f, 0.05f, TextureID::NukeExplosion, sf::Vector2i(323, 182), 9, 2, sf::Vector2f(100.f, 100.f));
@@ -448,6 +446,7 @@ void World::NukeObstacles() {
 	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 260, mObstacleSpawnPosition.y, 0.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 }
 
+//Popultaes world with obstacles - Jason Lynch 
 void World::playerOneBase() {
 	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 50, mObstacleSpawnPosition.y + 100, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 50, mObstacleSpawnPosition.y, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
@@ -460,6 +459,7 @@ void World::playerOneBase() {
 	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + -70, mObstacleSpawnPosition.y - 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 }
 
+//Popultaes world with obstacles - Jason Lynch 
 void World::playerTwoBase() {
 	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 460, mObstacleSpawnPosition.y + 100, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 460, mObstacleSpawnPosition.y, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
@@ -472,19 +472,46 @@ void World::playerTwoBase() {
 	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 580, mObstacleSpawnPosition.y - 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 }
 
+//Popultaes world with obstacles - Jason Lynch 
 void World::teslaobstacles() {
 	addObstacle(ObstacleID::Wall, 460, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 	addObstacle(ObstacleID::Wall, 510, 680, 0.f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 	addObstacle(ObstacleID::Wall, 560, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 }
 
+//Popultaes world with obstacles - Jason Lynch 
+void World::borderObstacles() {
+	addObstacle(ObstacleID::Wall, 100, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+
+	addObstacle(ObstacleID::Wall, 300, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 420, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+
+	addObstacle(ObstacleID::Wall, 600, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 720, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+
+	addObstacle(ObstacleID::Wall, 100, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+
+	addObstacle(ObstacleID::Wall, 250, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 370, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+
+	addObstacle(ObstacleID::Wall, 930, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 930, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+
+	addObstacle(ObstacleID::Wall, 780, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 660, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+
+
+}
+
+//Sets up obstacles - Jason Lynch 
 void World::addObstacle(ObstacleID type, float posX, float posY, float rotation, float scaleX, float scaleY, TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrames, int seconds, sf::Vector2f scale) //Add obstacles to Vector of ObstacleSpawnPoint structs - Jason Lynch
 {
 	ObstacleSpawnPoint spawn(type, posX, posY, rotation, scaleX, scaleY, deathAnimation, frameSize, numberOfFrames, seconds, scale);
 	mObstacles.push_back(spawn);
 }
 
-void World::spawnObstacles() //Spawn obstacles, set scale, rotation, and position - Jason Lynch
+//Spawn obstacles, set scale, rotation, and position - Jason Lynch
+void World::spawnObstacles() 
 {
 	// Spawn all enemies entering the view area (including distance) this frame
 	while (!mObstacles.empty())
@@ -500,32 +527,36 @@ void World::spawnObstacles() //Spawn obstacles, set scale, rotation, and positio
 		if(obstacle->getType() == static_cast<int>(ObstacleID::Nuke))
 			mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(obstacle));
 		else
-			mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(obstacle));
+			mSceneLayers[static_cast<int>(LayerID::LowerAir)]->attachChild(std::move(obstacle));
 
 		// Enemy is spawned, remove from the list to spawn
 		mObstacles.pop_back();
 	}
 }
 
-void World::addPickups() //Set up pickups - Jason Lynch
+//Populates world with pickups - Jason Lynch
+void World::addPickups() 
 {
-	addPickup(TankPickupID::HeavyGun, 40, 40, 0.f, .3f, .3f);
+	addPickup(TankPickupID::HeavyGun, 40, 30, 0.f, .3f, .3f);
 	addPickup(TankPickupID::GatlingGun, 40, 740, 0.f, .3f, .3f);
 	addPickup(TankPickupID::HeavyGun, 980, 740, 0.f, .3f, .3f);
+	addPickup(TankPickupID::HeavyGun, 980, 30, 0.f, .3f, .3f);
 	addPickup(TankPickupID::TeslaGun, 512, 740, 0.f, .3f, .3f);
 	//addPickup(TankPickupID::Nuke, 512, 300, 90.f, .05f, .05f);
-	addPickup(TankPickupID::Repair, 512, 650, 0.f, .2f, .2f);
-	addPickup(TankPickupID::Repair, 512, 100, 0.f, .2f, .2f);
-	addPickup(TankPickupID::FireRate, 100, 650, 0.f, .2f, .2f);
-	addPickup(TankPickupID::FireRate, 912, 100, 0.f, .2f, .2f);
+	addPickup(TankPickupID::Repair, 720, 740, 0.f, .2f, .2f);
+	addPickup(TankPickupID::Repair, 360, 30, 0.f, .2f, .2f);
+	addPickup(TankPickupID::FireRate, 310, 740, 0.f, .2f, .2f);
+	addPickup(TankPickupID::FireRate, 660, 30, 0.f, .2f, .2f);
 }
 
+//Sets up Pickups, set scale, rotation, and position - Jason Lynch
 void World::addPickup(TankPickupID type, float posX, float posY, float rotation, float scaleX, float scaleY)//Add Tank Pickups to Vector of PickupSpawnPoint structs - Jason Lynch
 {
 	PickupSpawnPoint spawn(type, posX, posY, rotation, scaleX, scaleY);
 	mPickups.push_back(spawn);
 }
 
+//Spawn pickups, set scale, rotation, and position - Jason Lynch
 void World::spawnPickups()//Spawn Tank pickups, set scale, rotation, and position - Jason Lynch
 {
 	// Spawn all pickups - Jason Lynch

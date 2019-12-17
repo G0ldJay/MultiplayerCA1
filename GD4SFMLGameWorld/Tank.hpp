@@ -1,3 +1,4 @@
+//Jason Lynch - D00137655
 //Dylan Reilly D00194504
 #pragma once
 #include "Entity.hpp"
@@ -8,7 +9,7 @@
 #include "Projectile.hpp"
 #include "Animation.hpp"
 
-class Tank : public Entity
+class Tank : public Entity //Modified from the aircraft class to deal with tank players - Dylan Reilly 
 {
 public:
 	Tank(CategoryID entity,TankID type, const TextureHolder& textures, const FontHolder& fonts);
@@ -19,8 +20,8 @@ public:
 	float getMaxSpeed();
 	void fire();
 	void launchMissile();
-	bool isAllied() const;
-	ProjectileID getProjectile() const;
+	bool isAllied() const; //Modified to determin if player one or not - Dylan Reilly
+	ProjectileID getProjectile() const; //Modified to return what type of projectile we should fire based off of tank type - Jason Lynch
 	void increaseFireRate();
 	void increaseSpread();
 	void setTankTexture(unsigned int val); //Will allow texture swap for picking up weapon power ups - Jason Lynch

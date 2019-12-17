@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "Container.hpp"
 
 #include <SFML/Window/Event.hpp>
@@ -25,6 +27,7 @@ bool GUI::Container::isSelectable() const
 	return false;
 }
 
+//Modified to hading controller - Jason Lynch 
 void GUI::Container::handleEvent(const sf::Event& event)
 {
 	//If we have a selected child then give it the events
@@ -32,7 +35,7 @@ void GUI::Container::handleEvent(const sf::Event& event)
 	{
 		mChildren[mSelectedChild]->handleEvent(event);
 	}
-	else if (event.type == sf::Event::KeyReleased || event.type == sf::Event::JoystickButtonPressed)
+	else if (event.type == sf::Event::KeyReleased || event.type == sf::Event::JoystickButtonPressed) 
 	{
 		if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up || event.joystickButton.button == 4)
 		{

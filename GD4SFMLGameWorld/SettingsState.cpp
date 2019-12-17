@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "SettingsState.hpp"
 #include "ResourceHolder.hpp"
 #include "Utility.hpp"
@@ -6,7 +8,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
 
-SettingsState::SettingsState(StateStack& stack, Context context)
+SettingsState::SettingsState(StateStack& stack, Context context) //Modified by me to be a sub menu for player input selection - Jason Lynch 
 	: State(stack, context)
 	, mGUIContainer()
 {

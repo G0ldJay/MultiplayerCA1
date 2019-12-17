@@ -1,6 +1,7 @@
+//Jason Lynch - D00137655
 //Dylan Reilly D00194504
 #pragma once
-enum class TankID
+enum class TankID //Created to hold tank types - Dylan Reilly
 {
 	GreenLMG1,
 	GreenLMG2,

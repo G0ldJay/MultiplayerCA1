@@ -1,6 +1,8 @@
+//Dylan Reilly D00194504 
+//Jason Lynch D00137655
 #include "TankSelectionState.hpp"
 
-TankSelectionState::TankSelectionState(StateStack& stack, Context context) :State(stack, context), mGUIContainer()
+TankSelectionState::TankSelectionState(StateStack& stack, Context context) :State(stack, context), mGUIContainer()//Unused. Meant to allow player to select tank before game starts. May use in future - Jason Lynch
 {
 	sf::Texture& texture = context.textures->get(TextureID::TitleScreen);
 	mBackgroundSprite.setTexture(texture);

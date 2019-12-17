@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "PlayerTwo.hpp"
 #include "CommandQueue.hpp"
 #include "Tank.hpp"
@@ -23,6 +25,7 @@ struct TankMover
 	sf::Vector2f velocity;
 };
 
+//Created by me to control player 2 - Jason Lynch 
 PlayerTwo::PlayerTwo():mCurrentMissionStatus(MissionStatusID::MissionRunning)
 {
 	// Set initial key bindings
@@ -33,6 +36,7 @@ PlayerTwo::PlayerTwo():mCurrentMissionStatus(MissionStatusID::MissionRunning)
 	mKeyBinding[sf::Keyboard::Slash] = ActionID::Fire;
 	mKeyBinding[sf::Keyboard::Comma] = ActionID::LaunchMissile;
 
+	//Added controller support - Jason Lynch 
 	mControllerBinding[1] = ActionID::MoveDown;
 	mControllerBinding[3] = ActionID::MoveUp;
 	mControllerBinding[0] = ActionID::TurnLeft;
@@ -61,6 +65,7 @@ void PlayerTwo::handleEvent(const sf::Event& event, CommandQueue& commands)
 	}
 }
 
+//Modified to check if controller buttons are pressed too - Jason Lynch 
 void PlayerTwo::handleRealtimeInput(CommandQueue& commands)
 {
 	// Traverse all assigned keys and check if they are pressed
@@ -95,6 +100,7 @@ void PlayerTwo::assignKey(ActionID action, sf::Keyboard::Key key)
 	mKeyBinding[key] = action;
 }
 
+//Assigns action to button on controller - Jason Lynch 
 void PlayerTwo::assignJoystickButton(ActionID action, int buttonNumber)
 {
 	// Remove all keys that already map to action
@@ -121,6 +127,7 @@ sf::Keyboard::Key PlayerTwo::getAssignedKey(ActionID action) const
 	return sf::Keyboard::Unknown;
 }
 
+//Returns button assigned to action - Jason Lynch 
 int PlayerTwo::getAssignedJoypadButton(ActionID action) const
 {
 	for (auto pair : mControllerBinding) {

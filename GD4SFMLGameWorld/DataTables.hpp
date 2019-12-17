@@ -1,3 +1,4 @@
+//Jason Lynch - D00137655
 //Dylan Reilly D00194504
 #pragma once
 
@@ -24,7 +25,7 @@ struct Direction
 	float distance;
 };
 
-struct TankData 
+struct TankData //Modified aircraft data for tank - Dylan Reilly
 {
 	int hitpoints;
 	float speed;

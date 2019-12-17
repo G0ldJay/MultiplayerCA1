@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #pragma once
 #include "State.hpp"
 #include "Container.hpp"
@@ -12,7 +14,7 @@
 
 #include <array>
 
-class TankSelectionState : public State
+class TankSelectionState : public State //Created by me for tank selection before game start - Jason Lynch (Unused, may use in future)
 {
 public:
 	TankSelectionState(StateStack& stack, Context context);

@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "ObstacleTest.hpp"
 #include "ResourceHolder.hpp"
 #include "DataTables.hpp"
@@ -15,11 +17,12 @@
 
 #include <cmath>
 
-namespace
+namespace //Gets data from tables - Jason Lynch
 {
 	const std::vector<ObstacleData> Table = initializeObstacleData();
 }
 
+//Created by me to handle obstacles, since they come in all forms and sizes a lot of variables needed to be passed in - Jason Lynch 
 ObstacleTest::ObstacleTest(ObstacleID type, const TextureHolder& textures, const FontHolder& fonts, const TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrames, int seconds, sf::Vector2f scale)
 	: Entity(Table[static_cast<int>(type)].hitpoints, CategoryID::Collidable)
 	, mType(type)
@@ -30,6 +33,7 @@ ObstacleTest::ObstacleTest(ObstacleID type, const TextureHolder& textures, const
 	, mIsMarkedForRemoval(false)
 	, mHealthDisplay(nullptr)
 {
+	//Set up animation with custom paramaters 
 	mExplosion.setFrameSize(frameSize);
 	mExplosion.setNumFrames(numberOfFrames);
 	mExplosion.setScale(scale);
@@ -38,7 +42,7 @@ ObstacleTest::ObstacleTest(ObstacleID type, const TextureHolder& textures, const
 	centreOrigin(mSprite);
 	centreOrigin(mExplosion);
 
-	std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, "", sf::Color::Black));
+	std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, "", sf::Color::Black)); //Health bar 
 	mHealthDisplay = healthDisplay.get();
 	mHealthDisplay->setScale(1.5f, 1.5f);
 	attachChild(std::move(healthDisplay));
@@ -46,16 +50,16 @@ ObstacleTest::ObstacleTest(ObstacleID type, const TextureHolder& textures, const
 	updateTexts();
 }
 
-unsigned int ObstacleTest::getCategory() const
+unsigned int ObstacleTest::getCategory() const //Returns collidable as category - Jason Lynch
 {
 		return static_cast<int>(CategoryID::Collidable);
 }
 
-unsigned int ObstacleTest::getType() const {
+unsigned int ObstacleTest::getType() const { //Returns the type e.g barrel - Jason Lynch 
 	return static_cast<int>(mType);
 }
 
-sf::FloatRect ObstacleTest::getBoundingRect() const
+sf::FloatRect ObstacleTest::getBoundingRect() const //Returns bounding rectangle for collision - Jason Lynch 
 {
 	return getWorldTransform().transformRect(mSprite.getGlobalBounds());
 }
@@ -117,7 +121,7 @@ void ObstacleTest::updateCurrent(sf::Time dt, CommandQueue& commands)
 	updateTexts();
 }
 
-void ObstacleTest::updateTexts()
+void ObstacleTest::updateTexts() //Updates health display - Jason Lynch 
 {
 	mHealthDisplay->setString(toString(getHitpoints()) + " HP");
 	mHealthDisplay->setPosition(0.f, 0.f);

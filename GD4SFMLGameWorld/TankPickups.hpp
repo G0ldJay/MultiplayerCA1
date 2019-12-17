@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #pragma once
 #include "Entity.hpp"
 #include "Command.hpp"
@@ -9,7 +11,7 @@
 
 class Tank;
 
-class TankPickups : public Entity
+class TankPickups : public Entity //Created by me to spawn pickups for tanks. Based off of old pickup class - Jason Lynch
 {
 public:
 	TankPickups(TankPickupID type, const TextureHolder& textures);

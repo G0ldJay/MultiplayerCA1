@@ -27,7 +27,7 @@ namespace
 	const std::vector<TankData> Table = initializeTankData();
 }
 
-Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const FontHolder& fonts)
+Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const FontHolder& fonts)//Created by modifying aircraft.cpp for our needs - Dylan Reilly
 	: Entity(Table[static_cast<int>(type)].hitpoints)
 	, mEntity(entity)
 	, mType(type)
@@ -62,7 +62,7 @@ Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const 
 	mFireCommand.category = static_cast<int>(CategoryID::SceneAirLayer);
 	mFireCommand.action = [this, &textures](SceneNode& node, sf::Time)
 	{
-			createBullets(node, textures);
+		createBullets(node, textures);
 	};
 
 	mMissileCommand.category = static_cast<int>(CategoryID::SceneAirLayer);
@@ -113,14 +113,14 @@ Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const 
 	std::unique_ptr<EmitterNode> smokeRight(new EmitterNode(ParticleID::Smoke));
 	smokeRight->setPosition(40.f, getBoundingRect().height / 2.f);
 	attachChild(std::move(smokeRight));
-	
+
 	//Properllant when firing - Dylan Reilly -NOT WORKING
-	if (mIsFiring)
+	/*if (mIsFiring)
 	{
 		std::unique_ptr<EmitterNode> tankShot(new EmitterNode(ParticleID::Propellant));
 		tankShot->setPosition(0.f, getBoundingRect().height / 2.f);
 		attachChild(std::move(tankShot));
-	}
+	}*/
 	updateTexts();
 }
 
@@ -150,7 +150,6 @@ void Tank::updateCurrent(sf::Time dt, CommandQueue& commands)
 		}
 		return;
 	}
-
 	// Check if bullets or missiles are fired
 	checkProjectileLaunch(dt, commands);
 
@@ -344,8 +343,10 @@ void Tank::playerLocalSound(CommandQueue& commands, SoundEffectID effect)
 void Tank::fire()
 {
 	// Only ships with fire interval != 0 are able to fire
-	if (Table[static_cast<int>(mType)].fireInterval != sf::Time::Zero)
+	if (Table[static_cast<int>(mType)].fireInterval != sf::Time::Zero) {
 		mIsFiring = true;
+	}
+
 }
 
 void Tank::launchMissile()
@@ -450,7 +451,14 @@ void Tank::createProjectile(SceneNode& node, ProjectileID type, float xOffset, f
 	projectile->setPosition(getWorldPosition() + offset);
 	projectile->setVelocity(velocity);
 	projectile->setRotation(Tank::getRotation() + 180.f);
-	node.attachChild(std::move(projectile));
+	if (type == ProjectileID::GreenTeslaBullet || type == ProjectileID::RedTeslaBullet)
+		node.attachChild(std::move(projectile));
+	else {
+		std::unique_ptr<EmitterNode> tankShot(new EmitterNode(ParticleID::Propellant)); //Fixed your propelant Dylan - Jason Lynch 
+		tankShot->setPosition(0.f, getBoundingRect().height / 2.f);
+		projectile->attachChild(std::move(tankShot));
+		node.attachChild(std::move(projectile));
+	}
 }
 
 void Tank::createPickup(SceneNode& node, const TextureHolder& textures) const

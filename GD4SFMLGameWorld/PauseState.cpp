@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "PauseState.hpp"
 #include "ResourceHolder.hpp"
 #include "Utility.hpp"
@@ -6,7 +8,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/View.hpp>
 
-PauseState::PauseState(StateStack& stack, Context context)
+PauseState::PauseState(StateStack& stack, Context context)//Modified a method for controller input - Jason Lynch 
 	:State(stack, context)
 	, mBackgroundSprite()
 	, mPausedText()
@@ -22,7 +24,7 @@ PauseState::PauseState(StateStack& stack, Context context)
 	mPausedText.setPosition(0.5f * viewSize.x, 0.4f * viewSize.y);
 
 	mInstructionText.setFont(font);
-	mInstructionText.setString("Press Backspace to return to the main menu");
+	mInstructionText.setString("Press Backspace/share button to return to the main menu");
 	centreOrigin(mInstructionText);
 	mInstructionText.setPosition(0.5f * viewSize.x, 0.6f * viewSize.y);
 	getContext().music->setPaused(true);
@@ -55,6 +57,7 @@ bool PauseState::update(sf::Time dt)
 	return false;
 }
 
+//Modified to handle controller input - Jason Lynch 
 bool PauseState::handleEvent(const sf::Event& event)
 {
 	if (event.type != sf::Event::KeyPressed)
@@ -63,12 +66,12 @@ bool PauseState::handleEvent(const sf::Event& event)
 	}
 
 	//If escape return to the game
-	if (event.key.code == sf::Keyboard::Escape)
+	if ((event.key.code == sf::Keyboard::Escape) || (event.joystickButton.button == 9))
 	{
 		requestStackPop();
 	}
 
-	if (event.key.code == sf::Keyboard::BackSpace)
+	if ((event.key.code == sf::Keyboard::BackSpace) || (event.joystickButton.button == 8))
 	{
 		requestStackClear();
 		requestStackPush(StateID::Menu);

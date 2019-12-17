@@ -1,3 +1,4 @@
+//Jason Lynch - D00137655
 //Dylan Reilly D00194504
 #include "Projectile.hpp"
 #include "DataTables.hpp"
@@ -19,7 +20,7 @@ namespace
 	const std::vector<ProjectileData> Table = initializeProjectileData();
 }
 
-Projectile::Projectile(ProjectileID type, const TextureHolder& textures)
+Projectile::Projectile(ProjectileID type, const TextureHolder& textures) //Modified to change based on type of buller fired - Dylan Reilly
 	: Entity(1)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)

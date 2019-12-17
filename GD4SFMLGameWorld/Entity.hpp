@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "SceneNode.hpp"
@@ -7,7 +9,7 @@ class Entity : public SceneNode
 {
 public:
 	Entity(int hitpoints);
-	Entity(int hitpoints, CategoryID category);
+	Entity(int hitpoints, CategoryID category); //Overloaded Enity to pass down category to sceneNode - Jason Lynch
 	void setVelocity(sf::Vector2f velocity);
 	void setVelocity(float vx, float vy);
 	void accelerate(sf::Vector2f velocity);

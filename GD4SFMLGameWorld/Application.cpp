@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include <iostream>
 #include "Application.hpp"
 #include "Utility.hpp"
@@ -29,11 +31,11 @@ Application::Application()
 {
 	mWindow.setKeyRepeatEnabled(false);
 
-	mFonts.load(FontID::Main, "Media/EvilEmpire.otf");
+	mFonts.load(FontID::Main, "Media/EvilEmpire.otf");//Added font - Jason Lynch 
 	mTextures.load(TextureID::TitleScreen, "Media/Textures/Title.png");
-	mTextures.load(TextureID::HowToPlay, "Media/Textures/HowToPlay.png");
-	mTextures.load(TextureID::PlayerOneInputSetupBackground, "Media/Textures/PlayerOneControlSetupBackground.png");
-	mTextures.load(TextureID::PlayerTwoInputSetupBackground, "Media/Textures/PlayerTwoControlSetupBackground.png");
+	mTextures.load(TextureID::HowToPlay, "Media/Textures/HowToPlay.png");//Added background - Jason Lynch 
+	mTextures.load(TextureID::PlayerOneInputSetupBackground, "Media/Textures/PlayerOneControlSetupBackground.png");//Added background - Jason Lynch 
+	mTextures.load(TextureID::PlayerTwoInputSetupBackground, "Media/Textures/PlayerTwoControlSetupBackground.png");//Added background - Jason Lynch 
 	mTextures.load(TextureID::Buttons, "Media/Textures/Buttons.png");
 	mStatisticText.setFont(mFonts.get(FontID::Main));
 	mStatisticText.setPosition(5.f, 5.f);
@@ -97,6 +99,7 @@ void Application::draw()
 	mWindow.display();
 }
 
+//Stopped statistic display
 void Application::updateStatistics(sf::Time dt)
 {
 	/*mStatisticsUpdateTime += dt;
@@ -118,10 +121,10 @@ void Application::registerStates()
 	mStateStack.registerState<MenuState>(StateID::Menu);
 	mStateStack.registerState<GameState>(StateID::Game);
 	mStateStack.registerState<PauseState>(StateID::Pause);
-	mStateStack.registerState<HowToPlayState>(StateID::HowToPlay);
-	mStateStack.registerState<SettingsState>(StateID::Settings);
-	mStateStack.registerState<PlayerOneInputSettingsState>(StateID::PLayerOneControllerSettings);
-	mStateStack.registerState<PlayerTwoInputSettingsState>(StateID::PlayerTwoControllerSettings);
+	mStateStack.registerState<HowToPlayState>(StateID::HowToPlay); //Added state - Jason Lynch 
+	mStateStack.registerState<SettingsState>(StateID::Settings);//Modified state - Jason Lynch 
+	mStateStack.registerState<PlayerOneInputSettingsState>(StateID::PLayerOneControllerSettings);//Added state - Jason Lynch 
+	mStateStack.registerState<PlayerTwoInputSettingsState>(StateID::PlayerTwoControllerSettings);//Added state - Jason Lynch 
 	mStateStack.registerState<GameOverState>(StateID::GameOver);
-	mStateStack.registerState<TankSelectionState>(StateID::TankSelection);
+	mStateStack.registerState<TankSelectionState>(StateID::TankSelection);//Added state - Jason Lynch (Unused)
 }

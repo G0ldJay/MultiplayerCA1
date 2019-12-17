@@ -1,3 +1,4 @@
+//Jason Lynch - D00137655
 //Dylan Reilly D00194504
 #include "Player.hpp"
 #include "CommandQueue.hpp"
@@ -36,6 +37,7 @@ Player::Player() : mCurrentMissionStatus(MissionStatusID::MissionRunning)
 	mKeyBinding[sf::Keyboard::Space] = ActionID::Fire;
 	mKeyBinding[sf::Keyboard::M] = ActionID::LaunchMissile;
 
+	//Added controller support - Jason Lynch 
 	mControllerBinding[1] = ActionID::MoveDown;
 	mControllerBinding[3] = ActionID::MoveUp;
 	mControllerBinding[0] = ActionID::TurnLeft;
@@ -64,6 +66,7 @@ void Player::handleEvent(const sf::Event& event, CommandQueue& commands)
 	}
 }
 
+//Modified to check if controller buttons are pressed too - Jason Lynch 
 void Player::handleRealtimeInput(CommandQueue& commands)
 {
 	// Traverse all assigned keys and check if they are pressed
@@ -98,6 +101,7 @@ void Player::assignKey(ActionID action, sf::Keyboard::Key key)
 	mKeyBinding[key] = action;
 }
 
+//Assigns action to button on controller - Jason Lynch 
 void Player::assignJoystickButton(ActionID action, int buttonNumber)
 {
 	// Remove all keys that already map to action
@@ -124,6 +128,7 @@ sf::Keyboard::Key Player::getAssignedKey(ActionID action) const
 	return sf::Keyboard::Unknown;
 }
 
+//Returns button assigned to action - Jason Lynch 
 int Player::getAssignedJoypadButton(ActionID action) const 
 {
 	for (auto pair : mControllerBinding) {

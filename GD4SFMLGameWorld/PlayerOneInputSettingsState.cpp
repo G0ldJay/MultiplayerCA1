@@ -1,8 +1,10 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "PlayerOneInputSettingsState.hpp"
 #include<iostream>
 #include"Utility.hpp"
 
-PlayerOneInputSettingsState::PlayerOneInputSettingsState(StateStack& stack, Context context)
+PlayerOneInputSettingsState::PlayerOneInputSettingsState(StateStack& stack, Context context)//Created by me to handle player one input setup for keyboard and controller - Jason Lynch
 	:State(stack, context)
 	, mGUIContainer()
 {
@@ -15,7 +17,7 @@ PlayerOneInputSettingsState::PlayerOneInputSettingsState(StateStack& stack, Cont
 	addButtonLabel(ActionID::Fire, 500.f, "Fire", context);
 	addButtonLabel(ActionID::LaunchMissile, 550.f, "Missile", context);
 
-
+	//Adds buttons for controller - Jason Lynch 
 	addButtonLabelController(ActionID::TurnLeft, 300.f, "Move Left", context);
 	addButtonLabelController(ActionID::TurnRight, 350.f, "Move Right", context);
 	addButtonLabelController(ActionID::MoveUp, 400.f, "Move Up", context);
@@ -47,6 +49,7 @@ bool PlayerOneInputSettingsState::update(sf::Time dt)
 	return true;
 }
 
+//Modified to allow controller inoput to be assigned - Jason Lynch 
 bool PlayerOneInputSettingsState::handleEvent(const sf::Event& event)
 {
 	bool isKeyBinding = false;
@@ -99,6 +102,7 @@ void PlayerOneInputSettingsState::updateLabels()
 	}
 }
 
+//Updates labels associated with button actions - Jason Lynch 
 void PlayerOneInputSettingsState::updateControllerLabels()
 {
 	Player& player = *getContext().player;
@@ -123,6 +127,7 @@ void PlayerOneInputSettingsState::addButtonLabel(ActionID action, float y, const
 	mGUIContainer.pack(mBindingLabels[static_cast<int>(action)]);
 }
 
+//Adds buttons and labels for controller to GUI - Jason Lynch 
 void PlayerOneInputSettingsState::addButtonLabelController(ActionID action, float y, const std::string& text, Context context)
 {
 	mBindingButtonsController[static_cast<int>(action)] = std::make_shared<GUI::Button>(context);
@@ -137,7 +142,8 @@ void PlayerOneInputSettingsState::addButtonLabelController(ActionID action, floa
 	mGUIContainer.pack(mBindingLabelsController[static_cast<int>(action)]);
 }
 
-const char* PlayerOneInputSettingsState::getKeyName(const sf::Keyboard::Key key) {
+//Returns the name of a key associated with the enum - Jason Lynch (Sourced code)
+const char* PlayerOneInputSettingsState::getKeyName(const sf::Keyboard::Key key) { 
 	switch (key) {
 	default:
 	case sf::Keyboard::Unknown:
@@ -347,6 +353,7 @@ const char* PlayerOneInputSettingsState::getKeyName(const sf::Keyboard::Key key)
 	}
 }
 
+//Returns the name of a button associated with the int - Jason Lynch 
 const char* PlayerOneInputSettingsState::getJoyStickButtonNamePS4(const int buttonVal) {
 	switch (buttonVal) {
 	case 0:

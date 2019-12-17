@@ -1,3 +1,4 @@
+//Jason Lynch - D00137655
 //Dylan Reilly D00194504
 #pragma once
 
@@ -15,7 +16,6 @@
 #include "BloomEffect.hpp"
 #include "SoundNode.hpp"
 #include "SoundPlayer.hpp"
-#include "Obstacle.hpp"
 #include "CollisionID.hpp"
 #include "ObstacleTest.hpp"
 
@@ -33,7 +33,7 @@ namespace sf
 }
 
 
-class World : private sf::NonCopyable
+class World : private sf::NonCopyable //Modified by both of us - Dylan Reilly, Jason Lynch
 {
 public:
 	explicit World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sounds);
@@ -53,20 +53,21 @@ private:
 	void adaptPlayerVelocity();
 	void adaptPlayerTwoVelocity();
 	void handleCollisions();
-	void KillEmAll(Tank& player);
+	void KillEmAll(Tank& player); //Added by me for DA BOMB!!! - Jason Lynch 
 
 	void spawnEnemies();
 	void addEnemies();
-	void addObstacles();
-	void addPickups();
-	void playerOneBase();
-	void playerTwoBase();
-	void teslaobstacles();
-	void NukeObstacles();
-	void addPickup(TankPickupID type, float x, float y, float rotation, float scaleX, float scaleY);
-	void addObstacle(ObstacleID type, float posX, float posY, float rotation, float scaleX, float scaleY, TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrames, int seconds, sf::Vector2f scale);
-	void spawnObstacles();
-	void spawnPickups();
+	void addObstacles(); //Adds obstacles to scene - Jason Lynch
+	void addPickups(); //Adds pickups to scene - Jason Lynch 
+	void playerOneBase(); //Adds obstacles near player one to scene - Jason Lynch 
+	void playerTwoBase(); //Adds obstacles near player two to scene - Jason Lynch 
+	void teslaobstacles();//Adds obstacles near tesla pickup to scene - Jason Lynch 
+	void NukeObstacles();//Adds obstacles near nuke pickup to scene - Jason Lynch 
+	void borderObstacles();//Adds obstacles around edge of map near other pickups - Jason Lynch 
+	void addPickup(TankPickupID type, float x, float y, float rotation, float scaleX, float scaleY); //Info for creating a pickup - Jason Lynch 
+	void addObstacle(ObstacleID type, float posX, float posY, float rotation, float scaleX, float scaleY, TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrames, int seconds, sf::Vector2f scale); //Info for adding an obstacle - Jason Lynch
+	void spawnObstacles(); //Spawns obstacles into scene - Jason Lynch 
+	void spawnPickups(); //Spawns pickups into scene - Jason Lynch 
 	void addEnemy(TankID type, float relX, float relY);
 
 	sf::FloatRect getBattlefieldBounds() const;
@@ -90,7 +91,7 @@ private:
 		float y;
 	};
 
-	struct ObstacleSpawnPoint
+	struct ObstacleSpawnPoint //Spawn point for obstacles and all other needed info. Based off above struct - Jason Lynch 
 	{
 		ObstacleSpawnPoint(ObstacleID type, float x, float y, float rotation, float scaleX, float scaleY, TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrames, int seconds, sf::Vector2f scale)
 		: type(type)
@@ -120,7 +121,7 @@ private:
 		sf::Vector2f scale;
 	};
 
-	struct PickupSpawnPoint
+	struct PickupSpawnPoint //Pickup spawn point and relevant info. Based off above struct - Jason Lynch
 	{
 		PickupSpawnPoint(TankPickupID type, float x, float y, float rotation, float scaleX, float scaleY)
 			: type(type)
@@ -160,7 +161,7 @@ private:
 	Tank* mPlayerTank;
 	Tank* mPlayerTwoTank;
 
-	std::vector<ObstacleSpawnPoint> mObstacles;
+	std::vector<ObstacleSpawnPoint> mObstacles; //Holds obstacle spawn points - Jason Lynch
 	std::vector<PickupSpawnPoint> mPickups;
 	std::vector<SpawnPoint>	mEnemySpawnPoints;
 	std::vector<Tank*> mActiveEnemies;

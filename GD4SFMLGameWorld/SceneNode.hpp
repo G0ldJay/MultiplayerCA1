@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #pragma once
 #include "SFML/System/NonCopyable.hpp"
 #include "SFML/System/Time.hpp"

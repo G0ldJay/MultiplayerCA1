@@ -138,7 +138,6 @@
     <ClInclude Include="ActionID.hpp" />
     <ClInclude Include="CollisionID.hpp" />
     <ClInclude Include="HowToPlayState.hpp" />
-    <ClInclude Include="Obstacle.hpp" />
     <ClInclude Include="ObstacleID.hpp" />
     <ClInclude Include="ObstacleTest.hpp" />
     <ClInclude Include="PlayerOneInputSettingsState.hpp" />
@@ -204,7 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HowToPlayState.cpp" />
-    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ObstacleTest.cpp" />
     <ClCompile Include="PlayerOneInputSettingsState.cpp" />
     <ClCompile Include="PlayerTwo.cpp" />

@@ -186,9 +186,6 @@
     <ClInclude Include="TankSelectionState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Obstacle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ObstacleID.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -324,9 +321,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TankSelectionState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TankPickups.cpp">

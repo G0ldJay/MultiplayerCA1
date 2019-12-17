@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "MenuState.hpp"
 #include "ResourceHolder.hpp"
 #include "Utility.hpp"
@@ -6,7 +8,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
 
-MenuState::MenuState(StateStack& stack, Context context)
+MenuState::MenuState(StateStack& stack, Context context) //Modified by - Jason Lynch 
 	: State(stack, context)
 	, mGUIContainer()
 {
@@ -22,13 +24,13 @@ MenuState::MenuState(StateStack& stack, Context context)
 		requestStackPush(StateID::Game);
 	});
 
-	auto howToPlayButton = std::make_shared<GUI::Button>(context);
+	auto howToPlayButton = std::make_shared<GUI::Button>(context); //Added button to get to how to play state - Jason Lynch
 	howToPlayButton->setPosition(100, 300);
 	howToPlayButton->setText("How To Play");
 	howToPlayButton->setCallback([this]()
 	{
 			//Player select 
-		requestStackPush(StateID::HowToPlay);
+		requestStackPush(StateID::HowToPlay); //Push state
 	});
 
 	auto settingsButton = std::make_shared<GUI::Button>(context);

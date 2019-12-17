@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "GameState.hpp"
 
 GameState::GameState(StateStack& stack, Context context)
@@ -45,7 +47,7 @@ bool GameState::handleEvent(const sf::Event& event)
 	mPlayerTwo.handleEvent(event, commands);
 
 	//Pause if esc is pressed
-	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape || event.joystickButton.button == 9)
 	{
 		requestStackPush(StateID::Pause);
 	}

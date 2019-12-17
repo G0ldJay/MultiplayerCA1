@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "Entity.hpp"
 
 #include <cassert>
@@ -6,7 +8,7 @@ Entity::Entity(int hitpoints)
 	: mVelocity(), mHitpoints(hitpoints)
 {}
 
-Entity::Entity(int hitpoints, CategoryID category)
+Entity::Entity(int hitpoints, CategoryID category) //Overload to pass down category - Jason Lynch 
 	:SceneNode(category), mVelocity(), mHitpoints(hitpoints)
 {}
 

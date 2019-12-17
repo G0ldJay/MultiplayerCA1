@@ -1,3 +1,4 @@
+//Jason Lynch - D00137655
 //Dylan Reilly D00194504
 #include "DataTables.hpp"
 #include "Tank.hpp"
@@ -12,7 +13,7 @@
 
 std::vector<TankData> initializeTankData()
 {
-	//Added new data table entries for the different tanks, giving each tank different attributes
+	//Added new data table entries for the different tanks, giving each tank different attributes - Dylan Reilly
 	std::vector<TankData> data(static_cast<int>(TankID::TypeCount));
 	//Starter Tank - Light Machine Gun
 	data[static_cast<int>(TankID::GreenLMG1)].hitpoints = 50;
@@ -213,9 +214,8 @@ std::vector<TankData> initializeTankData()
 	return data;
 }
 
-std::vector<ProjectileData> initializeProjectileData()
+std::vector<ProjectileData> initializeProjectileData()//Data for different projectiles for different tanks - Dylan Reilly
 {
-	//Data for different projectiles for different tanks - Dylan Reilly
 	std::vector<ProjectileData> data(static_cast<int>(ProjectileID::TypeCount));
 	//Green Bullets
 	data[static_cast<int>(ProjectileID::GreenLMGBullet)].damage = 5;

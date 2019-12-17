@@ -1,10 +1,12 @@
+//Dylan Reilly D00194504 
+//Jason Lynch D00137655
 #include "TitleState.hpp"
 #include "ResourceHolder.hpp"
 #include "Utility.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-TitleState::TitleState(StateStack& stack, Context context) 
+TitleState::TitleState(StateStack& stack, Context context) //Modified for controller input - Jason Lynch 
 	:State(stack, context), mText(), mShowText(true), mTextEffectTime(sf::Time::Zero)
 {
 	mBackgroundSprite.setTexture(context.textures->get(TextureID::TitleScreen));
@@ -36,6 +38,7 @@ bool TitleState::update(sf::Time dt)
 	return true;
 }
 
+//Modified for controller input - Jason Lynch 
 bool TitleState::handleEvent(const sf::Event& event)
 {
 	//If key pressed, trigger the next state

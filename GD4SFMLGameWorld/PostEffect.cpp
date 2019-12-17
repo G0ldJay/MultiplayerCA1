@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "PostEffect.hpp"
 
 #include <SFML/Graphics/Shader.hpp>

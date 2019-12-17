@@ -1,6 +1,8 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "PlayerTwoInputSettings.hpp"
 
-PlayerTwoInputSettingsState::PlayerTwoInputSettingsState(StateStack& stack, Context context)
+PlayerTwoInputSettingsState::PlayerTwoInputSettingsState(StateStack& stack, Context context)//Created by me to handle player two input setup for keyboard and controller - Jason Lynch
 	:State(stack, context)
 	, mGUIContainer()
 {
@@ -13,6 +15,7 @@ PlayerTwoInputSettingsState::PlayerTwoInputSettingsState(StateStack& stack, Cont
 	addButtonLabel(ActionID::Fire, 500.f, "Fire", context);
 	addButtonLabel(ActionID::LaunchMissile, 550.f, "Missile", context);
 
+	//Adds buttons for controller - Jason Lynch 
 	addButtonLabelController(ActionID::TurnLeft, 300.f, "Move Left", context);
 	addButtonLabelController(ActionID::TurnRight, 350.f, "Move Right", context);
 	addButtonLabelController(ActionID::MoveUp, 400.f, "Move Up", context);
@@ -44,6 +47,7 @@ bool PlayerTwoInputSettingsState::update(sf::Time dt)
 	return true;
 }
 
+//Modified to allow controller inoput to be assigned - Jason Lynch 
 bool PlayerTwoInputSettingsState::handleEvent(const sf::Event& event)
 {
 	bool isKeyBinding = false;
@@ -96,6 +100,7 @@ void PlayerTwoInputSettingsState::updateLabels()
 	}
 }
 
+//Updates labels associated with button actions - Jason Lynch 
 void PlayerTwoInputSettingsState::updateControllerLabels()
 {
 	PlayerTwo& playerTwo = *getContext().playerTwo;
@@ -120,6 +125,7 @@ void PlayerTwoInputSettingsState::addButtonLabel(ActionID action, float y, const
 	mGUIContainer.pack(mBindingLabels[static_cast<int>(action)]);
 }
 
+//Adds buttons and labels for controller to GUI - Jason Lynch 
 void PlayerTwoInputSettingsState::addButtonLabelController(ActionID action, float y, const std::string& text, Context context)
 {
 	mBindingButtonsController[static_cast<int>(action)] = std::make_shared<GUI::Button>(context);
@@ -134,6 +140,7 @@ void PlayerTwoInputSettingsState::addButtonLabelController(ActionID action, floa
 	mGUIContainer.pack(mBindingLabelsController[static_cast<int>(action)]);
 }
 
+//Returns the name of a key associated with the enum - Jason Lynch (Sourced code)
 const char* PlayerTwoInputSettingsState::getKeyName(const sf::Keyboard::Key key) {
 	switch (key) {
 	default:
@@ -344,6 +351,7 @@ const char* PlayerTwoInputSettingsState::getKeyName(const sf::Keyboard::Key key)
 	}
 }
 
+//Returns the name of a button associated with the int - Jason Lynch 
 const char* PlayerTwoInputSettingsState::getJoyStickButtonNamePS4(const int buttonVal) {
 	switch (buttonVal) {
 	case 0:

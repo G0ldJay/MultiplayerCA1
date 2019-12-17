@@ -1,3 +1,5 @@
+//Jason Lynch - D00137655
+//Dylan Reilly D00194504
 #include "GameOverState.hpp"
 #include "Utility.hpp"
 #include "Player.hpp"
@@ -7,7 +9,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
 
-
+//Modified for player 1 win condition and player 2 win condition - Jason Lynch 
 GameOverState::GameOverState(StateStack& stack, Context context)
 	: State(stack, context)
 	, mGameOverText()

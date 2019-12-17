@@ -1,8 +1,10 @@
+//Dylan Reilly D00194504 
+//Jason Lynch D00137655
 #include "TextNode.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
-TextNode::TextNode(const FontHolder& fonts, const std::string& text, sf::Color colour)
+TextNode::TextNode(const FontHolder& fonts, const std::string& text, sf::Color colour) //Modified to take in font color - Jason Lynch 
 {
 	mText.setFont(fonts.get(FontID::Main));
 	mText.setCharacterSize(20);
