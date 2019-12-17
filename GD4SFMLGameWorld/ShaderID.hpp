@@ -8,4 +8,5 @@ enum class ShaderID
 	DownSamplePass,
 	GaussianBlurPass,
 	AddPass,
+	BrightnessPassHigh
 };

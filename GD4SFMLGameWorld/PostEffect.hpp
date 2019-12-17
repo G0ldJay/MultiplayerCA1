@@ -17,6 +17,7 @@ class PostEffect : sf::NonCopyable
 public:
 	virtual					~PostEffect();
 	virtual void			apply(const sf::RenderTexture& input, sf::RenderTarget& output) = 0;
+	virtual void			applyHigh(const sf::RenderTexture& input, sf::RenderTarget& output) = 0;
 
 	static bool				isSupported();
 

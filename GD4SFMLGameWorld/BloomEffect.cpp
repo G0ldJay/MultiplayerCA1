@@ -12,14 +12,30 @@ BloomEffect::BloomEffect()
 	mShaders.load(ShaderID::DownSamplePass, "Media/Shaders/Fullpass.vert", "Media/Shaders/DownSample.frag");
 	mShaders.load(ShaderID::GaussianBlurPass, "Media/Shaders/Fullpass.vert", "Media/Shaders/GuassianBlur.frag");
 	mShaders.load(ShaderID::AddPass, "Media/Shaders/Fullpass.vert", "Media/Shaders/Add.frag");
+	mShaders.load(ShaderID::BrightnessPassHigh, "Media/Shaders/Fullpass.vert", "Media/Shaders/BrightnessHigh.frag");
+	
 }
 
 void BloomEffect::apply(const sf::RenderTexture& input, sf::RenderTarget& output)
 {
 	prepareTextures(input.getSize());
-
 	filterBright(input, mBrightnessTexture);
+	downsample(mBrightnessTexture, mFirstPassTextures[0]);
+	blurMultipass(mFirstPassTextures);
 
+	downsample(mFirstPassTextures[0], mSecondPassTextures[0]);
+	blurMultipass(mSecondPassTextures);
+
+	add(mFirstPassTextures[0], mSecondPassTextures[0], mFirstPassTextures[1]);
+	mFirstPassTextures[1].display();
+	add(input, mFirstPassTextures[1], output);
+}
+
+//Dylan Reilly
+void BloomEffect::applyHigh(const sf::RenderTexture& input, sf::RenderTarget& output)
+{
+	prepareTextures(input.getSize());
+	filterBrightHigh(input, mBrightnessTexture);
 	downsample(mBrightnessTexture, mFirstPassTextures[0]);
 	blurMultipass(mFirstPassTextures);
 
@@ -53,6 +69,16 @@ void BloomEffect::prepareTextures(sf::Vector2u size)
 void BloomEffect::filterBright(const sf::RenderTexture& input, sf::RenderTexture& output)
 {
 	sf::Shader& brightness = mShaders.get(ShaderID::BrightnessPass);
+
+	brightness.setUniform("source", input.getTexture());
+	applyShader(brightness, output);
+	output.display();
+}
+
+//Applies a much brighter shader for the nuke explosion - Dylan Reilly
+void BloomEffect::filterBrightHigh(const sf::RenderTexture& input, sf::RenderTexture& output)
+{
+	sf::Shader& brightness = mShaders.get(ShaderID::BrightnessPassHigh);
 
 	brightness.setUniform("source", input.getTexture());
 	applyShader(brightness, output);

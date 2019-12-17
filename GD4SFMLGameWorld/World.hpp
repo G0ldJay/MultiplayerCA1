@@ -148,6 +148,7 @@ private:
 	TextureHolder mTextures;
 	FontHolder& mFonts;
 	SoundPlayer& mSounds;
+	bool mIsNukeTriggered;
 
 	SceneNode mSceneGraph;
 	std::array<SceneNode*, static_cast<int>(LayerID::LayerCount)> mSceneLayers;
@@ -160,6 +161,7 @@ private:
 	float mScrollSpeed;
 	Tank* mPlayerTank;
 	Tank* mPlayerTwoTank;
+	bool isNukeTriggered;
 
 	std::vector<ObstacleSpawnPoint> mObstacles; //Holds obstacle spawn points - Jason Lynch
 	std::vector<PickupSpawnPoint> mPickups;

@@ -29,6 +29,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mPickups()
 	, mEnemySpawnPoints()
 	, mActiveEnemies()
+	, mIsNukeTriggered(false)
 {
 	mSceneTexture.create(mTarget.getSize().x, mTarget.getSize().y);
 	loadTextures();
@@ -77,7 +78,15 @@ void World::draw()
 		mSceneTexture.setView(mCamera);
 		mSceneTexture.draw(mSceneGraph);
 		mSceneTexture.display();
-		mBloomEffect.apply(mSceneTexture, mTarget);
+		//Applies high brightness shader to the screen if nuke is triggered
+		if (mIsNukeTriggered)
+		{
+			mBloomEffect.applyHigh(mSceneTexture, mTarget);
+		}
+		else
+		{
+			mBloomEffect.apply(mSceneTexture, mTarget);
+		}
 	}
 	else
 	{
@@ -362,6 +371,7 @@ void World::buildScene()
 
 //Destroys whoever doesnt grab the nuke - Jason Lynch 
 void World::KillEmAll(Tank& player) {
+	mIsNukeTriggered = true;
 	if (player.getCategory() == static_cast<int>(CategoryID::PlayerTank)) {
 		mPlayerTwoTank->destroy();
 	}
@@ -487,23 +497,10 @@ void World::teslaobstacles() {
 void World::borderObstacles() {
 	addObstacle(ObstacleID::Wall, 120, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	/*addObstacle(ObstacleID::Wall, 300, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, 420, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));*/
-
-	//addObstacle(ObstacleID::Wall, 600, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	//addObstacle(ObstacleID::Wall, 720, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-
 	addObstacle(ObstacleID::Wall, 120, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-
-	//addObstacle(ObstacleID::Wall, 250, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	//addObstacle(ObstacleID::Wall, 370, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
 	addObstacle(ObstacleID::Wall, 920, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 	addObstacle(ObstacleID::Wall, 920, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-
-	//addObstacle(ObstacleID::Wall, 780, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	//addObstacle(ObstacleID::Wall, 660, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-
 
 }
 
