@@ -67,7 +67,6 @@ bool PlayerOneInputSettingsState::handleEvent(const sf::Event& event)
 		else if (mBindingButtonsController[action]->isActive())
 		{
 			isKeyBinding = true;
-			std::cout << toString(event.type) << std::endl;
 			if (event.type == sf::Event::JoystickButtonPressed)
 			{
 				getContext().player->assignJoystickButton(static_cast<ActionID>(action), event.joystickButton.button);
@@ -122,8 +121,6 @@ void PlayerOneInputSettingsState::addButtonLabel(ActionID action, float y, const
 
 	mGUIContainer.pack(mBindingButtons[static_cast<int>(action)]);
 	mGUIContainer.pack(mBindingLabels[static_cast<int>(action)]);
-
-
 }
 
 void PlayerOneInputSettingsState::addButtonLabelController(ActionID action, float y, const std::string& text, Context context)
@@ -138,8 +135,6 @@ void PlayerOneInputSettingsState::addButtonLabelController(ActionID action, floa
 
 	mGUIContainer.pack(mBindingButtonsController[static_cast<int>(action)]);
 	mGUIContainer.pack(mBindingLabelsController[static_cast<int>(action)]);
-
-
 }
 
 const char* PlayerOneInputSettingsState::getKeyName(const sf::Keyboard::Key key) {
