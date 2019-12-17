@@ -454,7 +454,7 @@ void Tank::createProjectile(SceneNode& node, ProjectileID type, float xOffset, f
 	if (type == ProjectileID::GreenTeslaBullet || type == ProjectileID::RedTeslaBullet)
 		node.attachChild(std::move(projectile));
 	else {
-		std::unique_ptr<EmitterNode> tankShot(new EmitterNode(ParticleID::Propellant)); //Fixed your propelant Dylan - Jason Lynch 
+		std::unique_ptr<EmitterNode> tankShot(new EmitterNode(ParticleID::BulletSmoke)); //Fixed your propelant Dylan - Jason Lynch 
 		tankShot->setPosition(0.f, getBoundingRect().height / 2.f);
 		projectile->attachChild(std::move(tankShot));
 		node.attachChild(std::move(projectile));
