@@ -61,6 +61,8 @@ private:
 	void addPickups();
 	void playerOneBase();
 	void playerTwoBase();
+	void teslaobstacles();
+	void NukeObstacles();
 	void addPickup(TankPickupID type, float x, float y, float rotation, float scaleX, float scaleY);
 	void addObstacle(ObstacleID type, float posX, float posY, float rotation, float scaleX, float scaleY, TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrames, int seconds, sf::Vector2f scale);
 	void spawnObstacles();
