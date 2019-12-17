@@ -8,6 +8,7 @@
 #include "SettingsState.hpp"
 #include "GameOverState.hpp"
 #include "TankSelectionState.hpp"
+#include "HowToPlayState.hpp"
 
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
 
@@ -28,6 +29,7 @@ Application::Application()
 
 	mFonts.load(FontID::Main, "Media/Sansation.ttf");
 	mTextures.load(TextureID::TitleScreen, "Media/Textures/Title.png");
+	mTextures.load(TextureID::HowToPlay, "Media/Textures/HowToPlay.png");
 	mTextures.load(TextureID::Buttons, "Media/Textures/Buttons.png");
 	mStatisticText.setFont(mFonts.get(FontID::Main));
 	mStatisticText.setPosition(5.f, 5.f);
@@ -112,6 +114,7 @@ void Application::registerStates()
 	mStateStack.registerState<MenuState>(StateID::Menu);
 	mStateStack.registerState<GameState>(StateID::Game);
 	mStateStack.registerState<PauseState>(StateID::Pause);
+	mStateStack.registerState<HowToPlayState>(StateID::HowToPlay);
 	mStateStack.registerState<SettingState>(StateID::Settings);
 	mStateStack.registerState<GameOverState>(StateID::GameOver);
 	mStateStack.registerState<TankSelectionState>(StateID::TankSelection);

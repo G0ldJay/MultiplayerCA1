@@ -201,10 +201,13 @@
     <ClInclude Include="TankPickupID.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerOneControllerSettings.hpp">
+    <ClInclude Include="ObstacleTest.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObstacleTest.hpp">
+    <ClInclude Include="PlayerOneInputSettingsState.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HowToPlayState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -327,6 +330,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObstacleTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerOneInputSettingsState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HowToPlayState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

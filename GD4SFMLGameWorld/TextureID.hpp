@@ -21,5 +21,6 @@ enum class TextureID
 	DestructableWall,
 	Repair,
 	FireRate,
-	FinishLine
+	FinishLine,
+	HowToPlay
 };

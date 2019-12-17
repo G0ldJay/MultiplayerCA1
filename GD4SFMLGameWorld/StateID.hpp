@@ -7,6 +7,8 @@ enum class StateID
 	TankSelection,
 	Game, 
 	Pause,
+	HowToPlay,
 	Settings,
+	PLayerOneControllerSettings,
 	GameOver
 };

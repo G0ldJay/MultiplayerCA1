@@ -12,10 +12,10 @@
 
 #include <array>
 
-class PlayerOneControllerSettingsState : public State
+class PlayerOneInputSettingsState : public State
 {
 public:
-	PlayerOneControllerSettingsState(StateStack& stack, Context context);
+	PlayerOneInputSettingsState(StateStack& stack, Context context);
 
 	virtual void draw();
 	virtual bool update(sf::Time dt);
