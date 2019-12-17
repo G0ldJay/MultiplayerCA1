@@ -267,7 +267,7 @@ std::vector<ObstacleData> initializeObstacleData() //Obstacle data. Holds possib
 	std::vector<ObstacleData> data(static_cast<int>(ObstacleID::TypeCount)); //Get number of different types - Jason Lynch
 
 	data[static_cast<int>(ObstacleID::Wall)].damage = 1; //Damage done to player on collision - Jason Lynch
-	data[static_cast<int>(ObstacleID::Wall)].hitpoints = 100; //Hitpoints of wall - Jason Lynch
+	data[static_cast<int>(ObstacleID::Wall)].hitpoints = 25; //Hitpoints of wall - Jason Lynch
 	data[static_cast<int>(ObstacleID::Wall)].texture = TextureID::Wall; //Texture for wall - Jason Lynch
 
 	data[static_cast<int>(ObstacleID::Barrel)].damage = 40; //Damage done to player on collision - Jason Lynch

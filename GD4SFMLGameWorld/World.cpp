@@ -5,6 +5,7 @@
 #include "ParticleNode.hpp"
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <iostream>
 
 
 
@@ -189,6 +190,13 @@ void World::handleCollisions()
 
 	for (SceneNode::Pair pair : collisionPairs)
 	{
+		if (matchesCategories(pair, CategoryID::Collidable, CategoryID::Collidable))
+		{
+			auto& projectile = static_cast<ObstacleTest&>(*pair.first);
+			auto& enemy = static_cast<ObstacleTest&>(*pair.second);
+			std::cout << toString(projectile.getType()) << std::endl;
+			std::cout << toString(enemy.getType()) << std::endl;
+		}
 		//Green tank shooting red tank - Dylan Reilly
 		if (matchesCategories(pair, CategoryID::AlliedProjectile, CategoryID::PlayerTwoTank))
 		{
@@ -429,76 +437,72 @@ void World::NukeObstacles() {
 	//DA BOMB
 	addObstacle(ObstacleID::Nuke, 500, 290, 0.f, 0.05f, 0.05f, TextureID::NukeExplosion, sf::Vector2i(323, 182), 9, 2, sf::Vector2f(100.f, 100.f));
 
-	addObstacle(ObstacleID::Barrel, mObstacleSpawnPosition.x + 100, mObstacleSpawnPosition.y + 100, 0.f, 0.25f, 0.25f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Barrel, mObstacleSpawnPosition.x + 250, mObstacleSpawnPosition.y + 100, 0.f, 0.25f, 0.25f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	//addObstacle(ObstacleID::Barrel, mObstacleSpawnPosition.x + 80, mObstacleSpawnPosition.y + 140, 0.f, 0.25f, 0.25f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	//addObstacle(ObstacleID::Barrel, mObstacleSpawnPosition.x + 290, mObstacleSpawnPosition.y + 140, 0.f, 0.25f, 0.25f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 170, mObstacleSpawnPosition.y + 100, 90.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 170, mObstacleSpawnPosition.y, 90.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 170, mObstacleSpawnPosition.y - 100, 90.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 160, mObstacleSpawnPosition.y + 140, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 160, mObstacleSpawnPosition.y +20, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 160, mObstacleSpawnPosition.y - 100, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 340, mObstacleSpawnPosition.y + 100, 90.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 340, mObstacleSpawnPosition.y, 90.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 340, mObstacleSpawnPosition.y - 100, 90.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 350, mObstacleSpawnPosition.y + 140, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 350, mObstacleSpawnPosition.y +20, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 350, mObstacleSpawnPosition.y - 100, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 205, mObstacleSpawnPosition.y - 176, 0.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 305, mObstacleSpawnPosition.y - 176, 0.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 185, mObstacleSpawnPosition.y - 200, 0.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 315, mObstacleSpawnPosition.y - 200, 0.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
 	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 260, mObstacleSpawnPosition.y, 0.0f, .4f, .4f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 }
 
 //Popultaes world with obstacles - Jason Lynch 
 void World::playerOneBase() {
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 50, mObstacleSpawnPosition.y + 100, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 50, mObstacleSpawnPosition.y, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 50, mObstacleSpawnPosition.y - 100, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 50, mObstacleSpawnPosition.y + 100, 90.0f, .3f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 50, mObstacleSpawnPosition.y, 90.0f, .3f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 50, mObstacleSpawnPosition.y - 100, 90.0f, .3f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 20, mObstacleSpawnPosition.y + 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + -80, mObstacleSpawnPosition.y + 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 20, mObstacleSpawnPosition.y + 180, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 20, mObstacleSpawnPosition.y - 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + -70, mObstacleSpawnPosition.y - 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 20, mObstacleSpawnPosition.y - 180, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));	
 }
 
 //Popultaes world with obstacles - Jason Lynch 
 void World::playerTwoBase() {
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 460, mObstacleSpawnPosition.y + 100, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 460, mObstacleSpawnPosition.y, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 460, mObstacleSpawnPosition.y - 100, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 460, mObstacleSpawnPosition.y + 100, 90.0f, .3f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 460, mObstacleSpawnPosition.y, 90.0f, .3f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 460, mObstacleSpawnPosition.y - 100, 90.0f, .3f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 500, mObstacleSpawnPosition.y + 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 580, mObstacleSpawnPosition.y + 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 500, mObstacleSpawnPosition.y - 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 580, mObstacleSpawnPosition.y - 160, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 500, mObstacleSpawnPosition.y + 180, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	
+	addObstacle(ObstacleID::Wall, mObstacleSpawnPosition.x + 500, mObstacleSpawnPosition.y - 180, 0, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 }
 
 //Popultaes world with obstacles - Jason Lynch 
 void World::teslaobstacles() {
 	addObstacle(ObstacleID::Wall, 460, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, 510, 680, 0.f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 510, 665, 0.f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 	addObstacle(ObstacleID::Wall, 560, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 }
 
 //Popultaes world with obstacles - Jason Lynch 
 void World::borderObstacles() {
-	addObstacle(ObstacleID::Wall, 100, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 120, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, 300, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, 420, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	/*addObstacle(ObstacleID::Wall, 300, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 420, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));*/
 
-	addObstacle(ObstacleID::Wall, 600, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, 720, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	//addObstacle(ObstacleID::Wall, 600, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	//addObstacle(ObstacleID::Wall, 720, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, 100, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 120, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, 250, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, 370, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	//addObstacle(ObstacleID::Wall, 250, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	//addObstacle(ObstacleID::Wall, 370, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, 930, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, 930, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 920, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	addObstacle(ObstacleID::Wall, 920, 10, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
-	addObstacle(ObstacleID::Wall, 780, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
-	addObstacle(ObstacleID::Wall, 660, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	//addObstacle(ObstacleID::Wall, 780, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
+	//addObstacle(ObstacleID::Wall, 660, 740, 90.0f, .4f, .2f, TextureID::Explosion, sf::Vector2i(256, 256), 16, 1, sf::Vector2f(1.f, 1.f));
 
 
 }

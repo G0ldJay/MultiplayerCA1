@@ -102,7 +102,7 @@ void Application::draw()
 //Stopped statistic display
 void Application::updateStatistics(sf::Time dt)
 {
-	/*mStatisticsUpdateTime += dt;
+	mStatisticsUpdateTime += dt;
 	mStatisticsNumFrames += 1;
 
 	if (mStatisticsUpdateTime >= sf::seconds(1.0f))
@@ -112,7 +112,7 @@ void Application::updateStatistics(sf::Time dt)
 
 		mStatisticsUpdateTime -= sf::seconds(1.0f);
 		mStatisticsNumFrames = 0;
-	}*/
+	}
 }
 
 void Application::registerStates()

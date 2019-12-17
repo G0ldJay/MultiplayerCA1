@@ -35,4 +35,6 @@ private:
 	bool mIsMarkedForRemoval;
 	bool mShowExplosion;
 	bool mPlayedExplosionSound;
+
+	int mCurrentHitpoints;
 };

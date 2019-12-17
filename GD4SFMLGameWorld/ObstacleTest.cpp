@@ -32,6 +32,7 @@ ObstacleTest::ObstacleTest(ObstacleID type, const TextureHolder& textures, const
 	, mPlayedExplosionSound(false)
 	, mIsMarkedForRemoval(false)
 	, mHealthDisplay(nullptr)
+	, mCurrentHitpoints(Table[static_cast<int>(type)].hitpoints)
 {
 	//Set up animation with custom paramaters 
 	mExplosion.setFrameSize(frameSize);
@@ -42,12 +43,12 @@ ObstacleTest::ObstacleTest(ObstacleID type, const TextureHolder& textures, const
 	centreOrigin(mSprite);
 	centreOrigin(mExplosion);
 
-	std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, "", sf::Color::Black)); //Health bar 
-	mHealthDisplay = healthDisplay.get();
-	mHealthDisplay->setScale(1.5f, 1.5f);
-	attachChild(std::move(healthDisplay));
+	//std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, "", sf::Color::Black)); //Health bar 
+	//mHealthDisplay = healthDisplay.get();
+	//mHealthDisplay->setScale(1.5f, 1.5f);
+	//attachChild(std::move(healthDisplay));
 
-	updateTexts();
+	//updateTexts();
 }
 
 unsigned int ObstacleTest::getCategory() const //Returns collidable as category - Jason Lynch
@@ -118,7 +119,7 @@ void ObstacleTest::updateCurrent(sf::Time dt, CommandQueue& commands)
 	Entity::updateCurrent(dt, commands);
 
 	// Update texts
-	updateTexts();
+	//updateTexts();
 }
 
 void ObstacleTest::updateTexts() //Updates health display - Jason Lynch 
