@@ -3,7 +3,7 @@
 //Entity/SceneNode category, used to dispatch commands
 enum class CategoryID
 {
-	//Updated enums for new tanks/projectiles - Dylan Reilly
+	//Updated enums for new tanks/projectiles
 	None = 0,
 	SceneAirLayer = 1 << 0,
 	PlayerTank = 1 << 1,

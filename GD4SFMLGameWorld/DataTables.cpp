@@ -1,3 +1,4 @@
+//Dylan Reilly D00194504
 #include "DataTables.hpp"
 #include "Tank.hpp"
 #include "Projectile.hpp"
@@ -318,6 +319,12 @@ std::vector<TankPickupData> initializeTankPickupData() //Tank pickups data. Hold
 
 	data[static_cast<int>(TankPickupID::Nuke)].texture = TextureID::Nuke; //Set HeavyGun Pickup to assosiated texture - Jason Lynch
 	data[static_cast<int>(TankPickupID::Nuke)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 3); //Bind texture changing function to the action associated with pickup - Jason Lynch
+
+	data[static_cast<int>(TankPickupID::Repair)].texture = TextureID::Repair;
+	data[static_cast<int>(TankPickupID::Repair)].action = [](Tank& a) {a.repair(25); };
+
+	data[static_cast<int>(TankPickupID::FireRate)].texture = TextureID::FireRate;
+	data[static_cast<int>(TankPickupID::FireRate)].action = std::bind(&Tank::increaseFireRate, std::placeholders::_1);
 
 	return data;
 }

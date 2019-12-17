@@ -1,3 +1,4 @@
+//Dylan Reilly D00194504
 #include "World.hpp"
 #include "ParticleID.hpp"
 #include "ParticleNode.hpp"
@@ -39,9 +40,8 @@ void World::update(sf::Time dt)
 	mPlayerTank->setVelocity(0.f, 0.f);
 	mPlayerTwoTank->setVelocity(0.f, 0.f);
 
-	// Setup commands to destroy entities, and guide missiles
+	// Setup commands to destroy entities
 	destroyEntitiesOutsideView();
-	guideMissiles();
 
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
 	while (!mCommandQueue.isEmpty())
@@ -131,8 +131,8 @@ void World::loadTextures()
 	mTextures.load(TextureID::GatlingGunPickup, "Media/Textures/Arena/Props/Dot_B.png");
 	mTextures.load(TextureID::TeslaGunPickup, "Media/Textures/Arena/Props/Artifact.png");
 	mTextures.load(TextureID::Nuke, "Media/Textures/NukeBomb.png");
-	/*mTextures.load(TextureID::Health, "Media/Textures/Health.png");
-	mTextures.load(TextureID::Speed, "Media/Textures/Speed.png");*/
+	mTextures.load(TextureID::Repair, "Media/Textures/Health.png");
+	mTextures.load(TextureID::FireRate, "Media/Textures/Speed.png");
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID type2)
@@ -416,10 +416,10 @@ void World::addPickups() //Set up pickups - Jason Lynch
 	addPickup(TankPickupID::GatlingGun, 912, 650);
 	addPickup(TankPickupID::TeslaGun, 512, 380);
 	//addPickup(TankPickupID::Nuke, 512, 400);
-	/*addPickup(TankPickupID::Health, 512, 650);
-	addPickup(TankPickupID::Health, 512, 100);
-	addPickup(TankPickupID::Speed, 100, 650);
-	addPickup(TankPickupID::Speed, 912, 100);*/
+	addPickup(TankPickupID::Repair, 512, 650);
+	addPickup(TankPickupID::Repair, 512, 100);
+	addPickup(TankPickupID::FireRate, 100, 650);
+	addPickup(TankPickupID::FireRate, 912, 100);
 }
 
 void World::addPickup(TankPickupID type, float posX, float posY)//Add Tank Pickups to Vector of PickupSpawnPoint structs - Jason Lynch
@@ -457,51 +457,6 @@ void World::destroyEntitiesOutsideView()
 	});
 
 	mCommandQueue.push(command);
-}
-
-void World::guideMissiles()
-{
-	// Setup command that stores all enemies in mActiveEnemies
-	Command enemyCollector;
-	enemyCollector.category = static_cast<int>(CategoryID::PlayerTwoTank);
-	enemyCollector.action = derivedAction<Tank>([this](Tank& enemy, sf::Time)
-	{
-		if (!enemy.isDestroyed())
-			mActiveEnemies.push_back(&enemy);
-	});
-
-	// Setup command that guides all missiles to the enemy which is currently closest to the player
-	Command missileGuider;
-	missileGuider.category = static_cast<int>(CategoryID::AlliedProjectile);
-	missileGuider.action = derivedAction<Projectile>([this](Projectile& missile, sf::Time)
-	{
-		// Ignore unguided bullets
-		if (!missile.isGuided())
-			return;
-
-		float minDistance = std::numeric_limits<float>::max();
-		Tank* closestEnemy = nullptr;
-
-		// Find closest enemy
-		for (Tank* enemy : mActiveEnemies)
-		{
-			float enemyDistance = distance(missile, *enemy);
-
-			if (enemyDistance < minDistance)
-			{
-				closestEnemy = enemy;
-				minDistance = enemyDistance;
-			}
-		}
-
-		if (closestEnemy)
-			missile.guideTowards(closestEnemy->getWorldPosition());
-	});
-
-	// Push commands, reset active enemies
-	mCommandQueue.push(enemyCollector);
-	mCommandQueue.push(missileGuider);
-	mActiveEnemies.clear();
 }
 
 sf::FloatRect World::getViewBounds() const

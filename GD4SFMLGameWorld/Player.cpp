@@ -1,3 +1,4 @@
+//Dylan Reilly D00194504
 #include "Player.hpp"
 #include "CommandQueue.hpp"
 #include "Tank.hpp"
@@ -128,7 +129,6 @@ void Player::initializeActions()
 	mActionBinding[ActionID::MoveUp].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * -sin(toRadian(a.getRotation())), 1.5f * cos(toRadian(a.getRotation()))); });
 	mActionBinding[ActionID::MoveDown].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.move(1.5f * sin(toRadian(a.getRotation())), 1.5f * -cos(toRadian(a.getRotation()))); });
 	mActionBinding[ActionID::Fire].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.fire(); });
-	mActionBinding[ActionID::LaunchMissile].action = derivedAction<Tank>([](Tank& a, sf::Time) { a.launchMissile(); });
 }
 
 bool Player::isRealtimeAction(ActionID action)
