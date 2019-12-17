@@ -4,7 +4,7 @@ PlayerTwoInputSettingsState::PlayerTwoInputSettingsState(StateStack& stack, Cont
 	:State(stack, context)
 	, mGUIContainer()
 {
-	mBackgroundSprite.setTexture(context.textures->get(TextureID::TitleScreen));
+	mBackgroundSprite.setTexture(context.textures->get(TextureID::PlayerTwoInputSetupBackground));
 	//Build key bindings and button labels
 	addButtonLabel(ActionID::TurnLeft, 300.f, "Move Left", context);
 	addButtonLabel(ActionID::TurnRight, 350.f, "Move Right", context);

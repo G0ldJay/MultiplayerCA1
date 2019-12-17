@@ -1,10 +1,12 @@
 #include "PlayerOneInputSettingsState.hpp"
+#include<iostream>
+#include"Utility.hpp"
 
 PlayerOneInputSettingsState::PlayerOneInputSettingsState(StateStack& stack, Context context)
 	:State(stack, context)
 	, mGUIContainer()
 {
-	mBackgroundSprite.setTexture(context.textures->get(TextureID::TitleScreen));
+	mBackgroundSprite.setTexture(context.textures->get(TextureID::PlayerOneInputSetupBackground));
 	//Build key bindings and button labels
 	addButtonLabel(ActionID::TurnLeft, 300.f, "Move Left", context);
 	addButtonLabel(ActionID::TurnRight, 350.f, "Move Right", context);
@@ -13,10 +15,19 @@ PlayerOneInputSettingsState::PlayerOneInputSettingsState(StateStack& stack, Cont
 	addButtonLabel(ActionID::Fire, 500.f, "Fire", context);
 	addButtonLabel(ActionID::LaunchMissile, 550.f, "Missile", context);
 
+
+	addButtonLabelController(ActionID::TurnLeft, 300.f, "Move Left", context);
+	addButtonLabelController(ActionID::TurnRight, 350.f, "Move Right", context);
+	addButtonLabelController(ActionID::MoveUp, 400.f, "Move Up", context);
+	addButtonLabelController(ActionID::MoveDown, 450.f, "Move Down", context);
+	addButtonLabelController(ActionID::Fire, 500.f, "Fire", context);
+	addButtonLabelController(ActionID::LaunchMissile, 550.f, "Missile", context);
+
 	updateLabels();
+	updateControllerLabels();
 
 	auto backButton = std::make_shared<GUI::Button>(context);
-	backButton->setPosition(80.f, 620.f);
+	backButton->setPosition(320.f, 620.f);
 	backButton->setText("Back");
 	backButton->setCallback(std::bind(&PlayerOneInputSettingsState::requestStackPop, this));
 
@@ -53,12 +64,24 @@ bool PlayerOneInputSettingsState::handleEvent(const sf::Event& event)
 			}
 			break;
 		}
+		else if (mBindingButtonsController[action]->isActive())
+		{
+			isKeyBinding = true;
+			std::cout << toString(event.type) << std::endl;
+			if (event.type == sf::Event::JoystickButtonPressed)
+			{
+				getContext().player->assignJoystickButton(static_cast<ActionID>(action), event.joystickButton.button);
+				mBindingButtonsController[action]->deactivate();
+			}
+			break;
+		}
 	}
 
 	//If the keybindings have been updated we need to update the labels
 	if (isKeyBinding)
 	{
 		updateLabels();
+		updateControllerLabels();
 	}
 	else
 	{
@@ -77,18 +100,44 @@ void PlayerOneInputSettingsState::updateLabels()
 	}
 }
 
+void PlayerOneInputSettingsState::updateControllerLabels()
+{
+	Player& player = *getContext().player;
+	for (std::size_t i = 0; i < static_cast<int>(ActionID::ActionCount); ++i)
+	{
+		int buttonNumber = player.getAssignedJoypadButton(static_cast<ActionID>(i));
+		mBindingLabelsController[i]->setText(toString(getJoyStickButtonNamePS4(buttonNumber)));
+	}
+}
+
 void PlayerOneInputSettingsState::addButtonLabel(ActionID action, float y, const std::string& text, Context context)
 {
 	mBindingButtons[static_cast<int>(action)] = std::make_shared<GUI::Button>(context);
-	mBindingButtons[static_cast<int>(action)]->setPosition(80.f, y);
+	mBindingButtons[static_cast<int>(action)]->setPosition(210.f, y);
 	mBindingButtons[static_cast<int>(action)]->setText(text);
 	mBindingButtons[static_cast<int>(action)]->setToggle(true);
 
 	mBindingLabels[static_cast<int>(action)] = std::make_shared<GUI::Label>("", *context.fonts);
-	mBindingLabels[static_cast<int>(action)]->setPosition(300.f, y + 15.f);
+	mBindingLabels[static_cast<int>(action)]->setPosition(430.f, y + 15.f);
 
 	mGUIContainer.pack(mBindingButtons[static_cast<int>(action)]);
 	mGUIContainer.pack(mBindingLabels[static_cast<int>(action)]);
+
+
+}
+
+void PlayerOneInputSettingsState::addButtonLabelController(ActionID action, float y, const std::string& text, Context context)
+{
+	mBindingButtonsController[static_cast<int>(action)] = std::make_shared<GUI::Button>(context);
+	mBindingButtonsController[static_cast<int>(action)]->setPosition(630.f, y);
+	mBindingButtonsController[static_cast<int>(action)]->setText(text);
+	mBindingButtonsController[static_cast<int>(action)]->setToggle(true);
+
+	mBindingLabelsController[static_cast<int>(action)] = std::make_shared<GUI::Label>("", *context.fonts);
+	mBindingLabelsController[static_cast<int>(action)]->setPosition(850.f, y + 15.f);
+
+	mGUIContainer.pack(mBindingButtonsController[static_cast<int>(action)]);
+	mGUIContainer.pack(mBindingLabelsController[static_cast<int>(action)]);
 
 
 }
@@ -300,5 +349,40 @@ const char* PlayerOneInputSettingsState::getKeyName(const sf::Keyboard::Key key)
 		return "F15";
 	case sf::Keyboard::Pause:
 		return "Pause";
+	}
+}
+
+const char* PlayerOneInputSettingsState::getJoyStickButtonNamePS4(const int buttonVal) {
+	switch (buttonVal) {
+	case 0:
+		return "Square";
+	case 1:
+		return "X";
+	case 2:
+		return "O";
+	case 3:
+		return "Triangle";
+	case 4:
+		return "L1";
+	case 5:
+		return "R1";
+	case 6:
+		return "L2";
+	case 7:
+		return "R2";
+	case 8:
+		return "Share Btn";
+	case 9:
+		return "Options Btn";
+	case 10:
+		return "R Stick Click";
+	case 11:
+		return "L Stick Click";
+	case 12:
+		return "Home Btn";
+	case 13:
+		return "Touch Pad";
+	default:
+		return "Unknown";
 	}
 }

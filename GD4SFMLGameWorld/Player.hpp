@@ -17,7 +17,9 @@ public:
 	void handleRealtimeInput(CommandQueue& commands);
 
 	void assignKey(ActionID action, sf::Keyboard::Key key);
+	void assignJoystickButton(ActionID action, int buttonNumber);
 	sf::Keyboard::Key getAssignedKey(ActionID action) const;
+	int getAssignedJoypadButton(ActionID action) const;
 
 	void setMissionStatus(MissionStatusID status);
 	MissionStatusID getMissionStatus() const;

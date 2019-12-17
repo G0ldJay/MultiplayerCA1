@@ -32,6 +32,8 @@ Application::Application()
 	mFonts.load(FontID::Main, "Media/EvilEmpire.otf");
 	mTextures.load(TextureID::TitleScreen, "Media/Textures/Title.png");
 	mTextures.load(TextureID::HowToPlay, "Media/Textures/HowToPlay.png");
+	mTextures.load(TextureID::PlayerOneInputSetupBackground, "Media/Textures/PlayerOneControlSetupBackground.png");
+	mTextures.load(TextureID::PlayerTwoInputSetupBackground, "Media/Textures/PlayerTwoControlSetupBackground.png");
 	mTextures.load(TextureID::Buttons, "Media/Textures/Buttons.png");
 	mStatisticText.setFont(mFonts.get(FontID::Main));
 	mStatisticText.setPosition(5.f, 5.f);

@@ -22,5 +22,7 @@ enum class TextureID
 	Repair,
 	FireRate,
 	FinishLine,
-	HowToPlay
+	HowToPlay,
+	PlayerOneInputSetupBackground,
+	PlayerTwoInputSetupBackground
 };

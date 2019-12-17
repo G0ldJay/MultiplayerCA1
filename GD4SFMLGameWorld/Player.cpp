@@ -98,6 +98,21 @@ void Player::assignKey(ActionID action, sf::Keyboard::Key key)
 	mKeyBinding[key] = action;
 }
 
+void Player::assignJoystickButton(ActionID action, int buttonNumber)
+{
+	// Remove all keys that already map to action
+	for (auto itr = mControllerBinding.begin(); itr != mControllerBinding.end(); )
+	{
+		if (itr->second == action)
+			mControllerBinding.erase(itr++);
+		else
+			++itr;
+	}
+
+	// Insert new binding
+	mControllerBinding[buttonNumber] = action;
+}
+
 sf::Keyboard::Key Player::getAssignedKey(ActionID action) const
 {
 	for (auto pair : mKeyBinding)
@@ -107,6 +122,17 @@ sf::Keyboard::Key Player::getAssignedKey(ActionID action) const
 	}
 
 	return sf::Keyboard::Unknown;
+}
+
+int Player::getAssignedJoypadButton(ActionID action) const 
+{
+	for (auto pair : mControllerBinding) {
+		if (pair.second == action) {
+			return pair.first;
+		}
+	}
+
+	return -1;
 }
 
 void Player::setMissionStatus(MissionStatusID status)
