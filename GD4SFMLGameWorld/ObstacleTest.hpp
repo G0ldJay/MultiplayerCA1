@@ -10,8 +10,9 @@
 class ObstacleTest : public Entity
 {
 public:
-	ObstacleTest(ObstacleID type, const TextureHolder& textures, const FontHolder& fonts);
+	ObstacleTest(ObstacleID type, const TextureHolder& textures, const FontHolder& fonts, const TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrmaes, int seconds, sf::Vector2f scale);
 	virtual unsigned int getCategory() const;
+	virtual unsigned int getType() const;
 	virtual sf::FloatRect getBoundingRect() const;
 	virtual bool isMarkedForRemoval() const;
 	virtual unsigned int getDamage() const;

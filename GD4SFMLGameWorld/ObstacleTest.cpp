@@ -20,19 +20,20 @@ namespace
 	const std::vector<ObstacleData> Table = initializeObstacleData();
 }
 
-ObstacleTest::ObstacleTest(ObstacleID type, const TextureHolder& textures, const FontHolder& fonts)
+ObstacleTest::ObstacleTest(ObstacleID type, const TextureHolder& textures, const FontHolder& fonts, const TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrames, int seconds, sf::Vector2f scale)
 	: Entity(Table[static_cast<int>(type)].hitpoints, CategoryID::Collidable)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture)/*, Table[static_cast<int>(type)].textureRect*/)
-	, mExplosion(textures.get(TextureID::Explosion))
+	, mExplosion(textures.get(deathAnimation))
 	, mShowExplosion(true)
 	, mPlayedExplosionSound(false)
 	, mIsMarkedForRemoval(false)
 	, mHealthDisplay(nullptr)
 {
-	mExplosion.setFrameSize(sf::Vector2i(256, 256));
-	mExplosion.setNumFrames(16);
-	mExplosion.setDuration(sf::seconds(1));
+	mExplosion.setFrameSize(frameSize);
+	mExplosion.setNumFrames(numberOfFrames);
+	mExplosion.setScale(scale);
+	mExplosion.setDuration(sf::seconds(seconds));
 
 	centreOrigin(mSprite);
 	centreOrigin(mExplosion);
@@ -48,6 +49,10 @@ ObstacleTest::ObstacleTest(ObstacleID type, const TextureHolder& textures, const
 unsigned int ObstacleTest::getCategory() const
 {
 		return static_cast<int>(CategoryID::Collidable);
+}
+
+unsigned int ObstacleTest::getType() const {
+	return static_cast<int>(mType);
 }
 
 sf::FloatRect ObstacleTest::getBoundingRect() const

@@ -24,7 +24,7 @@ PlayerTwoInputSettingsState::PlayerTwoInputSettingsState(StateStack& stack, Cont
 	updateControllerLabels();
 
 	auto backButton = std::make_shared<GUI::Button>(context);
-	backButton->setPosition(320.f, 620.f);
+	backButton->setPosition(426.f, 620.f);
 	backButton->setText("Back");
 	backButton->setCallback(std::bind(&PlayerTwoInputSettingsState::requestStackPop, this));
 

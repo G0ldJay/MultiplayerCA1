@@ -53,13 +53,16 @@ private:
 	void adaptPlayerVelocity();
 	void adaptPlayerTwoVelocity();
 	void handleCollisions();
+	void KillEmAll(Tank& player);
 
 	void spawnEnemies();
 	void addEnemies();
 	void addObstacles();
 	void addPickups();
-	void addPickup(TankPickupID type, float posX, float posY);
-	void addObstacle(ObstacleID type , float posX, float posY, float rotation, float scaleX, float scaleY);
+	void playerOneBase();
+	void playerTwoBase();
+	void addPickup(TankPickupID type, float x, float y, float rotation, float scaleX, float scaleY);
+	void addObstacle(ObstacleID type, float posX, float posY, float rotation, float scaleX, float scaleY, TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrames, int seconds, sf::Vector2f scale);
 	void spawnObstacles();
 	void spawnPickups();
 	void addEnemy(TankID type, float relX, float relY);
@@ -87,13 +90,18 @@ private:
 
 	struct ObstacleSpawnPoint
 	{
-		ObstacleSpawnPoint(ObstacleID type, float x, float y, float rotation, float scaleX, float scaleY)
-			: type(type)
+		ObstacleSpawnPoint(ObstacleID type, float x, float y, float rotation, float scaleX, float scaleY, TextureID deathAnimation, sf::Vector2i frameSize, int numberOfFrames, int seconds, sf::Vector2f scale)
+		: type(type)
 			, x(x)
 			, y(y)
 			, rotation(rotation)
 			, scaleX(scaleX)
 			, scaleY(scaleY)
+			, deathAnimation(deathAnimation)
+			, frameSize(frameSize)
+			, numberOfFrames(numberOfFrames)
+			, seconds(seconds)
+			, scale(scale)
 		{
 		}
 
@@ -103,20 +111,31 @@ private:
 		float rotation;
 		float scaleX;
 		float scaleY;
+		TextureID deathAnimation;
+		sf::Vector2i frameSize;
+		int numberOfFrames;
+		int seconds;
+		sf::Vector2f scale;
 	};
 
 	struct PickupSpawnPoint
 	{
-		PickupSpawnPoint(TankPickupID type, float x, float y)
+		PickupSpawnPoint(TankPickupID type, float x, float y, float rotation, float scaleX, float scaleY)
 			: type(type)
 			, x(x)
 			, y(y)
+			, rotation(rotation)
+			, scaleX(scaleX)
+			, scaleY(scaleY)
 		{
 		}
 
 		TankPickupID type;
 		float x;
 		float y;
+		float rotation;
+		float scaleX;
+		float scaleY;
 	};
 
 private:
@@ -133,6 +152,7 @@ private:
 
 	sf::FloatRect mWorldBounds;
 	sf::Vector2f mSpawnPosition;
+	sf::Vector2f mObstacleSpawnPosition;
 	sf::Vector2f mSpawnPositionPlayerTwo;
 	float mScrollSpeed;
 	Tank* mPlayerTank;

@@ -266,7 +266,7 @@ std::vector<ObstacleData> initializeObstacleData() //Obstacle data. Holds possib
 {
 	std::vector<ObstacleData> data(static_cast<int>(ObstacleID::TypeCount)); //Get number of different types - Jason Lynch
 
-	data[static_cast<int>(ObstacleID::Wall)].damage = 2; //Damage done to player on collision - Jason Lynch
+	data[static_cast<int>(ObstacleID::Wall)].damage = 1; //Damage done to player on collision - Jason Lynch
 	data[static_cast<int>(ObstacleID::Wall)].hitpoints = 100; //Hitpoints of wall - Jason Lynch
 	data[static_cast<int>(ObstacleID::Wall)].texture = TextureID::Wall; //Texture for wall - Jason Lynch
 
@@ -277,6 +277,10 @@ std::vector<ObstacleData> initializeObstacleData() //Obstacle data. Holds possib
 	data[static_cast<int>(ObstacleID::DestructableWall)].damage = 2; //Damage done to player on collision - Jason Lynch
 	data[static_cast<int>(ObstacleID::DestructableWall)].hitpoints = 50; //Hitpoints of destructable wall - Jason Lynch
 	data[static_cast<int>(ObstacleID::DestructableWall)].texture = TextureID::DestructableWall; //Texture for destructable wall - Jason Lynch
+
+	data[static_cast<int>(ObstacleID::Nuke)].damage = 1; //Damage done to player on collision - Jason Lynch
+	data[static_cast<int>(ObstacleID::Nuke)].hitpoints = 150; //Hitpoints of destructable wall - Jason Lynch
+	data[static_cast<int>(ObstacleID::Nuke)].texture = TextureID::Nuke; //Texture for destructable wall - Jason Lynch
 
 	return data;
 }
@@ -317,8 +321,8 @@ std::vector<TankPickupData> initializeTankPickupData() //Tank pickups data. Hold
 	data[static_cast<int>(TankPickupID::TeslaGun)].texture = TextureID::TeslaGunPickup; //Set HeavyGun Pickup to assosiated texture - Jason Lynch
 	data[static_cast<int>(TankPickupID::TeslaGun)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 3); //Bind texture changing function to the action associated with pickup - Jason Lynch
 
-	data[static_cast<int>(TankPickupID::Nuke)].texture = TextureID::Nuke; //Set HeavyGun Pickup to assosiated texture - Jason Lynch
-	data[static_cast<int>(TankPickupID::Nuke)].action = std::bind(&Tank::setTankTexture, std::placeholders::_1, 3); //Bind texture changing function to the action associated with pickup - Jason Lynch
+	//data[static_cast<int>(TankPickupID::Nuke)].texture = TextureID::Nuke; //Set HeavyGun Pickup to assosiated texture - Jason Lynch
+	//data[static_cast<int>(TankPickupID::Nuke)].action = std::bind(&World::setTankTexture, std::placeholders::_1, 3); //Bind texture changing function to the action associated with pickup - Jason Lynch
 
 	data[static_cast<int>(TankPickupID::Repair)].texture = TextureID::Repair;
 	data[static_cast<int>(TankPickupID::Repair)].action = [](Tank& a) {a.repair(25); };
