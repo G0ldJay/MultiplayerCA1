@@ -10,5 +10,6 @@ enum class StateID
 	HowToPlay,
 	Settings,
 	PLayerOneControllerSettings,
+	PlayerTwoControllerSettings,
 	GameOver
 };

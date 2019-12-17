@@ -1,4 +1,6 @@
-//Dylan Reilly D00194504
+//Dylan Reilly D00194504 
+//Jason Lynch D00137655
+//Dylan created I modified as needed 
 #include "Tank.hpp"
 #include "ResourceHolder.hpp"
 #include "DataTables.hpp"
@@ -30,7 +32,7 @@ Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const 
 	, mEntity(entity)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)
-	, mTextures(textures)
+	, mTextures(textures) //Needed to change tank texture on powerup pickup - Jason Lynch
 	, mExplosion(textures.get(TextureID::Explosion))
 	, mFireCommand()
 	, mMissileCommand()
@@ -75,14 +77,14 @@ Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const 
 		createPickup(node, textures);
 	};
 
-	std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, "", sf::Color::White));
+	std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, "", sf::Color::Cyan));
 	mHealthDisplay = healthDisplay.get();
 	attachChild(std::move(healthDisplay));
 
 	if (mEntity == CategoryID::PlayerTank)
 	{
 		//std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
-		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 1", sf::Color::Green));
+		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 1", sf::Color::Green)); //Show player one beside Player tank - Jason Lynch
 		//missileDisplay->setPosition(0, 70);
 		playerDisplay->setPosition(0, 90);
 		//mMissileDisplay = missileDisplay.get();
@@ -94,7 +96,7 @@ Tank::Tank(CategoryID entity, TankID type, const TextureHolder& textures, const 
 	if (mEntity == CategoryID::PlayerTwoTank)
 	{
 		//std::unique_ptr<TextNode> missileDisplay(new TextNode(fonts, ""));
-		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 2", sf::Color::Red));
+		std::unique_ptr<TextNode> playerDisplay(new TextNode(fonts, "Player 2", sf::Color::Red)); //Show Player 2 beside Player 2 Tank - Jason Lynch
 		//missileDisplay->setPosition(0, 70);
 		playerDisplay->setPosition(0, 90);
 		//mMissileDisplay = missileDisplay.get();

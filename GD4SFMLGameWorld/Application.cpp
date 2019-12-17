@@ -9,6 +9,8 @@
 #include "GameOverState.hpp"
 #include "TankSelectionState.hpp"
 #include "HowToPlayState.hpp"
+#include "PlayerOneInputSettingsState.hpp"
+#include "PlayerTwoInputSettings.hpp"
 
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
 
@@ -27,7 +29,7 @@ Application::Application()
 {
 	mWindow.setKeyRepeatEnabled(false);
 
-	mFonts.load(FontID::Main, "Media/Sansation.ttf");
+	mFonts.load(FontID::Main, "Media/EvilEmpire.otf");
 	mTextures.load(TextureID::TitleScreen, "Media/Textures/Title.png");
 	mTextures.load(TextureID::HowToPlay, "Media/Textures/HowToPlay.png");
 	mTextures.load(TextureID::Buttons, "Media/Textures/Buttons.png");
@@ -115,7 +117,9 @@ void Application::registerStates()
 	mStateStack.registerState<GameState>(StateID::Game);
 	mStateStack.registerState<PauseState>(StateID::Pause);
 	mStateStack.registerState<HowToPlayState>(StateID::HowToPlay);
-	mStateStack.registerState<SettingState>(StateID::Settings);
+	mStateStack.registerState<SettingsState>(StateID::Settings);
+	mStateStack.registerState<PlayerOneInputSettingsState>(StateID::PLayerOneControllerSettings);
+	mStateStack.registerState<PlayerTwoInputSettingsState>(StateID::PlayerTwoControllerSettings);
 	mStateStack.registerState<GameOverState>(StateID::GameOver);
 	mStateStack.registerState<TankSelectionState>(StateID::TankSelection);
 }
